@@ -1,1 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;  namespace CTD.Core.Entities { [Table("TBLTAHSILATTURLERI")] public class TahsilatTurleri : BaseEntity { public string TAHSILATTURU { get; set; }  } } 
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CTD.Core.Entities
+{
+    [Table("TBLTAHSILATTURLERI")]
+    public class TahsilatTurleri : BaseEntity
+    {
+        public string TAHSILATTURU { get; set; }
+    }
+}

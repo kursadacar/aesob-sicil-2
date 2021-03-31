@@ -26,10 +26,10 @@
     var u = function(t, n) { o = e.extend(true, {}, o, n) },
         a = function(t) {
             if (!t) {
-                e('[data-growl="container"]').find('[data-growl="dismiss"]').trigger("click")
+                e('[data-growl="container"]').find('[data-growl="dismiss"]').trigger("click");
             } else {
                 e('[data-growl="container"][data-growl-position="' + t + '"]').find('[data-growl="dismiss"]')
-                    .trigger("click")
+                    .trigger("click");
             }
         },
         f = function(t, n, r) {
@@ -45,17 +45,17 @@
             this.settings = e.extend(true, {}, o, r);
             plugin = this;
             l(r, this.settings, plugin);
-            this.$template = $template
+            this.$template = $template;
         },
         l = function(e, t, n) {
             var r = { settings: t, element: t.element, template: t.template };
             if (typeof t.offset == "number") {
-                t.offset = { x: t.offset, y: t.offset }
+                t.offset = { x: t.offset, y: t.offset };
             }
             $template = c(r);
             h($template, r.settings);
             p($template, r.settings);
-            d($template, r.settings, n)
+            d($template, r.settings, n);
         },
         c = function(t) {
             var n = e(t.settings.template);
@@ -65,28 +65,28 @@
             n.removeClass("alert-dismissable");
             if (t.settings.allow_dismiss) {
                 n.addClass("alert-dismissable");
-                n.find('[data-growl="dismiss"]').css("display", "block")
+                n.find('[data-growl="dismiss"]').css("display", "block");
             }
-            return n
+            return n;
         },
         h = function(e, t) {
             e.find('[data-growl="dismiss"]').css({ "z-index": t.z_index - 1 >= 1 ? t.z_index - 1 : 1 });
             if (t.content.icon) {
                 if (t.icon_type.toLowerCase() == "class") {
-                    e.find('[data-growl="icon"]').addClass(t.content.icon)
+                    e.find('[data-growl="icon"]').addClass(t.content.icon);
                 } else {
                     if (e.find('[data-growl="icon"]').is("img")) {
-                        e.find('[data-growl="icon"]').attr("src", t.content.icon)
+                        e.find('[data-growl="icon"]').attr("src", t.content.icon);
                     } else {
-                        e.find('[data-growl="icon"]').append('<img src="' + t.content.icon + '" />')
+                        e.find('[data-growl="icon"]').append('<img src="' + t.content.icon + '" />');
                     }
                 }
             }
             if (t.content.title) {
-                e.find('[data-growl="title"]').html(t.content.title)
+                e.find('[data-growl="title"]').html(t.content.title);
             }
             if (t.content.message) {
-                e.find('[data-growl="message"]').html(t.content.message)
+                e.find('[data-growl="message"]').html(t.content.message);
             }
             if (t.content.url) {
                 e.find('[data-growl="url"]').attr("href", t.content.url).attr("target", t.url_target);
@@ -97,7 +97,7 @@
                     width: "100%",
                     height: "100%",
                     "z-index": t.z_index - 2 >= 1 ? t.z_index - 2 : 1
-                })
+                });
             }
         },
         p = function(t, n) {
@@ -110,12 +110,12 @@
                 },
                 s = false;
             e('[data-growl-position="' + n.placement.from + "-" + n.placement.align + '"]').each(function() {
-                return r = Math.max(r, parseInt(e(this).css(n.placement.from)) + e(this).outerHeight() + n.spacing)
+                return r = Math.max(r, parseInt(e(this).css(n.placement.from)) + e(this).outerHeight() + n.spacing);
             });
             i[n.placement.from] = r + "px";
             t.css(i);
             if (n.onShow) {
-                n.onShow(event)
+                n.onShow(event);
             }
             e(n.element).append(t);
             switch (n.placement.align) {
@@ -127,24 +127,24 @@
                 break;
             case "right":
                 t.css("right", n.offset.x + "px");
-                break
+                break;
             }
             t.addClass("growl-animated");
             t.one("webkitAnimationStart oanimationstart MSAnimationStart animationstart", function(e) { s = true });
             t.one("webkitAnimationEnd oanimationend MSAnimationEnd animationend",
                 function(e) {
                     if (n.onShown) {
-                        n.onShown(e)
+                        n.onShown(e);
                     }
                 });
             setTimeout(function() {
                     if (!s) {
                         if (n.onShown) {
-                            n.onShown(event)
+                            n.onShown(event);
                         }
                     }
                 },
-                600)
+                600);
         },
         d = function(e, t, n) {
             e.addClass(t.animate.enter);
@@ -156,14 +156,14 @@
                 var r = setInterval(function() {
                         var i = parseInt(e.data("growl-delay")) - t.timer;
                         if (!e.hasClass("hovering") && t.mouse_over == "pause" || t.mouse_over != "pause") {
-                            e.data("growl-delay", i)
+                            e.data("growl-delay", i);
                         }
                         if (i <= 0) {
                             clearInterval(r);
-                            n.close()
+                            n.close();
                         }
                     },
-                    t.timer)
+                    t.timer);
             }
         };
     f.prototype = {
@@ -172,12 +172,12 @@
             case "icon":
                 if (this.settings.icon_type.toLowerCase() == "class") {
                     this.$template.find('[data-growl="icon"]').removeClass(this.settings.content.icon);
-                    this.$template.find('[data-growl="icon"]').addClass(t)
+                    this.$template.find('[data-growl="icon"]').addClass(t);
                 } else {
                     if (this.$template.find('[data-growl="icon"]').is("img")) {
-                        this.$template.find('[data-growl="icon"]')
+                        this.$template.find('[data-growl="icon"]');
                     } else {
-                        this.$template.find('[data-growl="icon"]').find("img").attr().attr("src", t)
+                        this.$template.find('[data-growl="icon"]').find("img").attr().attr("src", t);
                     }
                 }
                 break;
@@ -189,14 +189,14 @@
                 this.$template.addClass("alert-" + t);
                 break;
             default:
-                this.$template.find('[data-growl="' + e + '"]').html(t)
+                this.$template.find('[data-growl="' + e + '"]').html(t);
             }
-            return this
+            return this;
         },
         close: function() {
             var t = this.$template, n = this.settings, r = t.css(n.placement.from), i = false;
             if (n.onHide) {
-                n.onHide(event)
+                n.onHide(event);
             }
             t.addClass(this.settings.animate.exit);
             t.nextAll('[data-growl-position="' +
@@ -205,37 +205,37 @@
                 this.settings.placement.align +
                 '"]').each(function() {
                 e(this).css(n.placement.from, r);
-                r = parseInt(r) + n.spacing + e(this).outerHeight()
+                r = parseInt(r) + n.spacing + e(this).outerHeight();
             });
             t.one("webkitAnimationStart oanimationstart MSAnimationStart animationstart", function(e) { i = true });
             t.one("webkitAnimationEnd oanimationend MSAnimationEnd animationend",
                 function(t) {
                     e(this).remove();
                     if (n.onHidden) {
-                        n.onHidden(t)
+                        n.onHidden(t);
                     }
                 });
             setTimeout(function() {
                     if (!i) {
                         t.remove();
                         if (n.onHidden) {
-                            n.onHidden(event)
+                            n.onHidden(event);
                         }
                     }
                 },
                 100);
-            return this
+            return this;
         }
     };
     e.growl = function(e, t) {
         if (e == false && t.command == "closeAll") {
             a(t.position);
-            return false
+            return false;
         } else if (e == false) {
             u(this, t);
-            return false
+            return false;
         }
         var n = new f(this, e, t);
-        return n
-    }
+        return n;
+    };
 })(jQuery, window, document)

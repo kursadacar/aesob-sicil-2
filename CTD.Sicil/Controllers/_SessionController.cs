@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace CTD.Sicil.Controllers
 {
-    internal class _SessionControlAttribute : ActionFilterAttribute
+    internal class SessionControlAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -13,7 +13,7 @@ namespace CTD.Sicil.Controllers
         }
     }
 
-    public class _SessionController : Controller
+    public class SessionController : Controller
     {
         public ActionResult Index()
         {

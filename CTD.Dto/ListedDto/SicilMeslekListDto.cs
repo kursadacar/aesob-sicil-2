@@ -1,1 +1,10 @@
-﻿using CTD.Core.Entities; using System.Collections.Generic;  namespace CTD.Dto.ListedDto { public class SicilMeslekListDto { public List<SicilMeslek> SicilMesleks { get; set; } } } 
+﻿using System.Collections.Generic;
+using CTD.Core.Entities;
+
+namespace CTD.Dto.ListedDto
+{
+    public class SicilMeslekListDto
+    {
+        public List<SicilMeslek> SicilMesleks { get; set; }
+    }
+}

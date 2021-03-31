@@ -1,234 +1,118 @@
 ﻿@model CTD.Dto.SingleDto.EgitimKatilimDto
 
- @{ ViewBag.Title = "Eğitim ve Katılım Payı Tahsilatı"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-brown"> <h2>EĞİTİM ve KATILIM PAYI TAHSİLATI</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-3"> <div class="form-group"> <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi" onchange="$('[data-attribute=\'TahsilatTuru\']').select2('open')" /> </div> </div> <div class="col-md-6"> <div class="form-group"> <label>TAHSİLAT TÜRÜ</label> <input class="form-control" id="TahsilatTuru" data-attribute="TahsilatTuru" onchange="$('[data-attribute=\'txtTutar\']').focus();" /> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>TUTAR</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar" /> </div> </div> </div> </div> <div class="col-md-1 p-t-20"> <button id="btnEkle" class="btn btn-success w100" title="Tahsilat Ekle"><i class="fa fa-plus"></i> EKLE</button> <input id="hdMakbuzDokumId" type="hidden" /> </div> <div class="clearfix"></div> <div class="col-md-1 col-xs-3"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-4"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-5"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" /> </div> </div> </div> </div> <div class="col-md-7"> <div class="form-group"> <label>AÇIKLAMA</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtAciklama" data-attribute="txtAciklama" maxlength="80" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div id="divListe"> @Html.Action("_EgitimKatilimDokum", "Makbuz") </div> <div id="btndiv" class="col-md-2 p-t-20"> <button id="btnKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button> </div> <div class="clearfix"></div> <div id="divPrintMakbuz" class="col-md-12"> @Html.Action("_PrintEKMakbuz", "Makbuz") </div> </div> </div> </div> </div> </div> </div>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@{
+    ViewBag.Title = "Eğitim ve Katılım Payı Tahsilatı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Scripts/select2/select2.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card esbis m-t-15">
+            <div class="header bg-brown">
+                <h2>EĞİTİM ve KATILIM PAYI TAHSİLATI</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 20px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi" onchange="$('[data-attribute=\'TahsilatTuru\']').select2('open')"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>TAHSİLAT TÜRÜ</label> <input class="form-control" id="TahsilatTuru" data-attribute="TahsilatTuru" onchange="$('[data-attribute=\'txtTutar\']').focus();"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>TUTAR</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 p-t-20">
+                            <button id="btnEkle" class="btn btn-success w100" title="Tahsilat Ekle"><i class="fa fa-plus"></i> EKLE</button> <input id="hdMakbuzDokumId" type="hidden"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-1 col-xs-3">
+                            <div class="form-group">
+                                <label>SERİ NO</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-4">
+                            <div class="form-group">
+                                <label>MAKBUZ NO</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-5">
+                            <div class="form-group">
+                                <label>MAKBUZ TARİHİ</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>AÇIKLAMA</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="txtAciklama" data-attribute="txtAciklama" maxlength="80" onkeyup="BuyukHarf(this)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="divListe"> @Html.Action("_EgitimKatilimDokum", "Makbuz") </div>
+                        <div id="btndiv" class="col-md-2 p-t-20">
+                            <button id="btnKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="divPrintMakbuz" class="col-md-12"> @Html.Action("_PrintEKMakbuz", "Makbuz") </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
-<script src="/Scripts/select2/select2.min.js"></script>
+    <script src="/Scripts/select2/select2.min.js"></script>
     <script>
         $("#btndiv").hide();
         $("[data-attribute='txtMakbuzTarihi']").val(bugun());
-        $.ErcanAyhan.Server.PostAsync("", "/Makbuz/EgitimKatilimSabitleri", function (e) {
-            $("[data-attribute='TahsilatTuru']").select2({
-                placeholder: 'Tahsilat türü seçiniz',
-                type: "GET",
-                data: e.TahsilatIslemleri,
+        $.ErcanAyhan.Server.PostAsync("",
+            "/Makbuz/EgitimKatilimSabitleri",
+            function(e) {
+                $("[data-attribute='TahsilatTuru']").select2({
+                    placeholder: 'Tahsilat türü seçiniz',
+                    type: "GET",
+                    data: e.TahsilatIslemleri,
+                });
+                $("[data-attribute='MeslekOdasi']").select2({
+                    placeholder: 'Meslek odası seçiniz',
+                    type: "GET",
+                    data: e.MeslekOdalari,
+                });
             });
-            $("[data-attribute='MeslekOdasi']").select2({
-                placeholder: 'Meslek odası seçiniz',
-                type: "GET",
-                data: e.MeslekOdalari,
-            });
-        })
-        $("#btnEkle").click(function () {
+        $("#btnEkle").click(function() {
             //Parametreler....
             var tahsilatturu = $("[data-attribute='TahsilatTuru']").select2('data');
             var aciklama = tahsilatturu.text;
@@ -246,19 +130,18 @@
             var makbuzdokumid = $("#hdMakbuzDokumId").val();
             if (aciklama == 0 || evraktutari == "") {
                 swal("Alanları boş geçmeyiniz!", "Tahsilat Türü ve Fiyatını girmelisiniz.", "info");
-            }
-            else {
+            } else {
                 if (makbuzdokumid != "") {
                     $.ajax({
                         url: "/Makbuz/MakbuzDetayLogKaydet",
                         datatype: "json",
                         data: { MakbuzDokumId: makbuzdokumid, Kod: kod, Aciklama: aciklama, Tutar: evraktutari, TahakkukTarihi: tarih },
-                        success: function (sonuc) {
+                        success: function(sonuc) {
                             $.ajax({
                                 url: "/Makbuz/_EgitimKatilimDokum",
                                 datatype: "Json",
                                 data: { makbuzdokumid: makbuzdokumid },
-                                success: function (e) {
+                                success: function(e) {
                                     $("#btndiv").show();
                                     $("#divListe").html(e);
                                     $("[data-attribute='TahsilatTuru']").select2("val", "");
@@ -267,24 +150,23 @@
                             });
                         }
                     });
-                }
-                else {
+                } else {
                     $.ajax({
                         url: "/Makbuz/MakbuzDokumLogKaydet2",
                         datatype: "json",
                         data: { Oda: odano, AdiSoyadi: oda_adi, SeriNo: serino, MakbuzNo: makbuzno, MakbuzTarihi: $("#txtMakbuzTarihi").val() },
-                        success: function (result) {
+                        success: function(result) {
                             $("#hdMakbuzDokumId").val(result);
                             $.ajax({
                                 url: "/Makbuz/MakbuzDetayLogKaydet",
                                 data: { MakbuzDokumId: result, Kod: kod, Aciklama: aciklama, Tutar: evraktutari, TahakkukTarihi: tarih },
                                 datatype: "json",
-                                success: function () {
+                                success: function() {
                                     $.ajax({
                                         url: "/Makbuz/_EgitimKatilimDokum",
                                         datatype: "Json",
                                         data: { makbuzdokumid: result, oda: odano },
-                                        success: function (data) {
+                                        success: function(data) {
                                             $("#btndiv").show();
                                             $("#divListe").html(data);
                                             $("[data-attribute='TahsilatTuru']").select2("val", "");
@@ -298,50 +180,52 @@
                 }
             }
         });
+
         function MakbuzDetayLogSil(id) {
             swal({
-                title: "Tahsilat Kalemi Silinsin mi?",
-                text: "Tahsilatı yapılacak olan evrak kalemi siliniyor. Onaylıyor musunuz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet, silinsin!",
-                closeOnConfirm: false
-            },
-            function () {
-                var makbuzdokumid = $("#hdMakbuzDokumId").val();
-                $.ajax({
-                    url: "/Makbuz/MakbuzDetayLogSil",
-                    data: { id: id },
-                    datatype: "json",
-                    success: function (result) {
-                        $.ajax({
-                            url: "/Makbuz/_EgitimKatilimDokum",
-                            datatype: "Json",
-                            data: { makbuzdokumid: makbuzdokumid },
-                            success: function (data) {
-                                $("#divListe").html(data);
-                                swal("Kayıt Silindi!", "Tahsilatı yapılacak olan tahsilat kalemi silindi.", "success");
-                            }
-                        });
-                    }
+                    title: "Tahsilat Kalemi Silinsin mi?",
+                    text: "Tahsilatı yapılacak olan evrak kalemi siliniyor. Onaylıyor musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet, silinsin!",
+                    closeOnConfirm: false
+                },
+                function() {
+                    var makbuzdokumid = $("#hdMakbuzDokumId").val();
+                    $.ajax({
+                        url: "/Makbuz/MakbuzDetayLogSil",
+                        data: { id: id },
+                        datatype: "json",
+                        success: function(result) {
+                            $.ajax({
+                                url: "/Makbuz/_EgitimKatilimDokum",
+                                datatype: "Json",
+                                data: { makbuzdokumid: makbuzdokumid },
+                                success: function(data) {
+                                    $("#divListe").html(data);
+                                    swal("Kayıt Silindi!", "Tahsilatı yapılacak olan tahsilat kalemi silindi.", "success");
+                                }
+                            });
+                        }
+                    });
                 });
-            });
         }
-        $("#btnKaydet").click(function () {
+
+        $("#btnKaydet").click(function() {
             swal({
-                title: "Makbuz Kaydedilecek.",
-                text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet, Onaylıyorum!",
-                cancelButtonColor: "#DD6B55",
-                cancelButtonText: "Hayır, iptal edilsin!",
-                closeOnConfirm: true,
-                closeOnCancel: false
-            },
-                function (isConfirm) {
+                    title: "Makbuz Kaydedilecek.",
+                    text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet, Onaylıyorum!",
+                    cancelButtonColor: "#DD6B55",
+                    cancelButtonText: "Hayır, iptal edilsin!",
+                    closeOnConfirm: true,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
                     if (isConfirm) {
                         var makbuzdokumid = $("#hdMakbuzDokumId").val();
                         var serino = $("#txtSeriNo").val();
@@ -354,19 +238,18 @@
                         var oda = $("[data-attribute='MeslekOdasi']").val();
                         if (serino == "" || makbuzno == "" || makbuztarihi == "" || aciklama == "") {
                             swal("Alanları boş geçmeyiniz!", "Seri No, Makbuz No, Makbuz Tarihi ve Açıklama girmelisiniz.", "info");
-                        }
-                        else {
+                        } else {
                             $.ajax({
                                 url: "/Makbuz/MakbuzDokumLogGuncelle",
                                 data: { makbuzdokumid: makbuzdokumid, aciklama: aciklama, toplamtutar: toplamtutar, makbuztarihi: makbuztarihi },
                                 datatype: "json",
-                                success: function (result) {
+                                success: function(result) {
                                     var yenimakbuzdokumid = result;
                                     $.ajax({
                                         url: "/Makbuz/MakbuzDokumLogGuncelle2",
                                         data: { makbuzdokumid: makbuzdokumid, yenimakbuzdokumid: yenimakbuzdokumid },
                                         datatype: "json",
-                                        success: function (result) {
+                                        success: function(result) {
 
                                         }
                                     });
@@ -374,12 +257,12 @@
                                         url: "/Makbuz/_PrintEKMakbuz",
                                         datatype: "Json",
                                         data: { makbuzdokumid: result, oda: oda, aciklama: aciklama },
-                                        success: function (data) {
+                                        success: function(data) {
                                             $.ajax({
                                                 url: "/Makbuz/MakbuzSayac",
                                                 datatype: "Json",
                                                 data: { serino: $("#txtSeriNo").val(), makbuzno: $("#txtMakbuzNo").val() },
-                                                success: function () {
+                                                success: function() {
                                                     $("#divPrintMakbuz").html(data);
                                                     $("#btnKaydet").attr("disabled", "disabled");
                                                     $(".pasifle").removeAttr("onclick");
@@ -390,16 +273,17 @@
                                 }
                             });
                         }
-                    }
-                    else {
+                    } else {
                         swal("İptal Edildi!", "İsteğiniz üzerine işlem iptal edilmiştir :)", "error");
                     }
                 });
         });
+
         function PrintFunctionEK(div) {
             document.getElementById('printdivEK').style.display = "none";
             document.getElementById('btnTemizleEK').style.display = "inline";
             PopupEK($(printdivEK).html());
+
             function PopupEK(data) {
                 var printwindow = window.open('', 'printdivEK');
                 printwindow.document.write('<html><head><title></title>');
@@ -417,4 +301,3 @@
         }
     </script>
 }
-

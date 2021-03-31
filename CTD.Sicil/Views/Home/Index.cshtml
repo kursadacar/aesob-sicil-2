@@ -1,5 +1,44 @@
-﻿
-@{ ViewBag.Title = "Ana Sayfa"; } @if (Accesses.Hak != "muhasebe") { <div class="row"> <div class="col-md-3"> <div class="card m-t-15"> <div class="header bg-light-blue"> <h2>HIZLI ÜYE ARAMA</h2> </div> <div class="panel-body"> <div data-id="formSearch" data-model-url="/Home/HizliUyeArama" data-ajax-function="funcAramaResponse"> <div class="input-group"> <span class="input-group-addon"> <i class="fa fa-search"></i> </span> <div class="form-line"> <input type="text" class="form-control" name="arama" data-attribute="arama" placeholder="Arama kriteri" required autofocus> </div> </div> <div> <button id="btnArama" class="btn btn-block bg-pink waves-effect" type="button" onclick="formSendModel($('[data-id=\'formSearch\']')[0].dataset)">Arama</button> </div> <p class="p-t-10 p-l-10"> Ad Soyad, T.C. Kimlik No veya Esnaf Sicil No ile arama yapabilirsiniz. </p> </div> </div> </div> <div class="clearfix"></div> </div> <div class="col-md-9 m-t-15"> @Html.Partial("_HomeIslemAkisListesi", "Sicil") <div class="card arama"> <div class="header bg-light-green"> <h2>ARAMA SONUÇLARI</h2> </div> <div class="body m-l--15 m-r--15 m-b--20 m-t--15" style="padding-bottom: 0;"> <div id="grid"></div> </div> </div> </div> </div>}
+﻿@{ ViewBag.Title = "Ana Sayfa"; }
+@if (Accesses.Hak != "muhasebe")
+{
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card m-t-15">
+                <div class="header bg-light-blue">
+                    <h2>HIZLI ÜYE ARAMA</h2>
+                </div>
+                <div class="panel-body">
+                    <div data-id="formSearch" data-model-url="/Home/HizliUyeArama" data-ajax-function="funcAramaResponse">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                            </span>
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="arama" data-attribute="arama" placeholder="Arama kriteri" required autofocus>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="btnArama" class="btn btn-block bg-pink waves-effect" type="button" onclick="formSendModel($('[data-id=\'formSearch\']')[0].dataset)">Arama</button>
+                        </div>
+                        <p class="p-t-10 p-l-10"> Ad Soyad, T.C. Kimlik No veya Esnaf Sicil No ile arama yapabilirsiniz. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-9 m-t-15">
+            @Html.Partial("_HomeIslemAkisListesi", "Sicil")
+            <div class="card arama">
+                <div class="header bg-light-green">
+                    <h2>ARAMA SONUÇLARI</h2>
+                </div>
+                <div class="body m-l--15 m-r--15 m-b--20 m-t--15" style="padding-bottom: 0;">
+                    <div id="grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -187,81 +226,83 @@
         $(".arama").hide();
 
         $("body").on("keypress",
-            function (e) {
+            function(e) {
                 e.keyCode == 13 ? formSendModel($('[data-id=\'formSearch\']')[0].dataset) : 1 == 1;
             });
 
         function funcAramaResponse(e) {
-            $.each(e, function (key, value) {
-                if (value.Durum == "tekkayit") {
-                    var sicilno = value.SicilNo;
-                    var d = new Date(tarihformati(value.DogumTarihi));
-                    var dogumtarihi = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
-                    swal({
-                        title: sicilno + '\n' + value.AdSoyad,
-                        text: 'Baba Adı: ' +
-                            value.BabaAdi +
-                            '\n' +
-                            'Anne Adı: ' +
-                            value.AnneAdi +
-                            '\n' +
-                            'Doğum Tarihi: ' +
-                            dogumtarihi,
-                        type: "success",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Kayıta Git",
-                        cancelButtonColor: "#DD6B55",
-                        cancelButtonText: "İptal",
-                        closeOnConfirm: true,
-                        closeOnCancel: false
-                    },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                window.location.href = "/Sicil/SicilDetail/" + sicilno;
-                            } else {
-                                swal("Vazgeçildi!", "İsteğiniz üzerine işlemden vazgeçilmiştir :)", "error");
-                            }
+            $.each(e,
+                function(key, value) {
+                    if (value.Durum == "tekkayit") {
+                        var sicilno = value.SicilNo;
+                        var d = new Date(tarihformati(value.DogumTarihi));
+                        var dogumtarihi = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
+                        swal({
+                                title: sicilno + '\n' + value.AdSoyad,
+                                text: 'Baba Adı: ' +
+                                    value.BabaAdi +
+                                    '\n' +
+                                    'Anne Adı: ' +
+                                    value.AnneAdi +
+                                    '\n' +
+                                    'Doğum Tarihi: ' +
+                                    dogumtarihi,
+                                type: "success",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Kayıta Git",
+                                cancelButtonColor: "#DD6B55",
+                                cancelButtonText: "İptal",
+                                closeOnConfirm: true,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    window.location.href = "/Sicil/SicilDetail/" + sicilno;
+                                } else {
+                                    swal("Vazgeçildi!", "İsteğiniz üzerine işlemden vazgeçilmiştir :)", "error");
+                                }
+                            });
+                    } else if (value.Durum === "tckimliknoyagoreliste") {
+
+                        var dataSource = new kendo.data.DataSource({
+                            data: e,
+                            pageSize: 10
                         });
-                }
-                else if (value.Durum === "tckimliknoyagoreliste") {
 
-                    var dataSource = new kendo.data.DataSource({
-                        data: e,
-                        pageSize: 10
-                    });
+                        $("#grid").kendoGrid({
+                            dataSource: dataSource,
+                            selectable: "row",
+                            change: onChange,
 
-                    $("#grid").kendoGrid({
-                        dataSource: dataSource,
-                        selectable: "row",
-                        change: onChange,
+                            sortable: true,
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [10, 15, 20]
+                            },
+                            columns: [
+                                { field: "SicilNo", type: "number", title: "SİCİL NO", width: 80, attributes: { style: "text-align:center;" } },
+                                { field: "TcKimlikNo", type: "string", title: "TC KİMLİK", width: 100, attributes: { style: "text-align:center;" } },
+                                { field: "AdSoyad", type: "string", title: "ADI SOYADI" },
+                                { field: "BabaAdi", type: "string", title: "BABA ADI" },
+                                { field: "AnneAdi", type: "string", title: "ANNE ADI" },
+                                { field: "DogumTarihi", type: "string", title: "DOĞUM TARİHİ", width: 120, attributes: { style: "text-align:center;" } }
+                            ]
+                        });
 
-                        sortable: true,
-                        pageable: {
-                            refresh: true,
-                            pageSizes: [10, 15, 20]
-                        },
-                        columns: [
-                            { field: "SicilNo", type: "number", title: "SİCİL NO", width: 80, attributes: { style: "text-align:center;" } },
-                            { field: "TcKimlikNo", type: "string", title: "TC KİMLİK", width: 100, attributes: { style: "text-align:center;" } },
-                            { field: "AdSoyad", type: "string", title: "ADI SOYADI" },
-                            { field: "BabaAdi", type: "string", title: "BABA ADI" },
-                            { field: "AnneAdi", type: "string", title: "ANNE ADI" },
-                            { field: "DogumTarihi", type: "string", title: "DOĞUM TARİHİ", width: 120, attributes: { style: "text-align:center;" } }]
-                    });
-
-                    $(".arama").show();
-                } else if (value.Durum == "yok") {
-                    swal("Kayıt Bulunamadı!", "Belirttiğiniz kritere uygun kayıt bulunamamıştır. (:", "error");
-                }
-            });
+                        $(".arama").show();
+                    } else if (value.Durum == "yok") {
+                        swal("Kayıt Bulunamadı!", "Belirttiğiniz kritere uygun kayıt bulunamamıştır. (:", "error");
+                    }
+                });
         }
 
         function onChange(arg) {
-            var selected = $.map(this.select(), function (item) {
-                var id = $(item).find('td').first().text();
-                window.location.href = "/Sicil/SicilDetail/" + id;
-            });
+            var selected = $.map(this.select(),
+                function(item) {
+                    var id = $(item).find('td').first().text();
+                    window.location.href = "/Sicil/SicilDetail/" + id;
+                });
 
         }
 
@@ -273,4 +314,4 @@
             return 0;
         }
     </script>
-    }
+}

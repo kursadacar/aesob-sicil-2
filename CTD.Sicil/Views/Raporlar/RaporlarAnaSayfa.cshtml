@@ -1,1 +1,66 @@
-﻿ @{ ViewBag.Title = "Raporlar Ana Sayfa"; Layout = "~/Views/Shared/_Layout.cshtml"; } <div class="row"> <div class="col-lg-3"> <div class="widget style1 navy-bg" onclick="location.href='/Raporlar/AdreseGoreUyeler';" style="cursor:pointer;"> <div class="row"> <div class="col-xs-4"> <i class="fa fa-map-signs fa-5x"></i> </div> <div class="col-xs-8 text-right m-t-10"> <span style="font-size:16px;">Adrese Göre Üye Listesi Raporlama</span> </div> </div> </div> </div>  <div class="col-lg-3"> <div class="widget style1 lazur-bg" onclick="location.href='/Raporlar/OdalaraGoreUyeler';" style="cursor:pointer;"> <div class="row"> <div class="col-xs-4"> <i class="fa fa-bank fa-5x"></i> </div> <div class="col-xs-8 text-right m-t-10"> <span style="font-size:16px;">Odalara Göre Üye Listesi Raporlama</span> </div> </div> </div> </div>  <div class="col-lg-3"> <div class="widget style1 bg-blue-grey" onclick="location.href='/Raporlar/MesleklereGoreUyeler';" style="cursor:pointer;"> <div class="row"> <div class="col-xs-4"> <i class="fa fa-wrench fa-5x"></i> </div> <div class="col-xs-8 text-right"> <span style="font-size:16px;">Mesleklere Göre Üye Listesi Raporlama</span> </div> </div> </div> </div>  <div class="col-lg-3"> <div class="widget style1 yellow-bg" onclick="location.href='/Raporlar/AdreseGoreUyeler';" style="cursor:pointer;"> <div class="row"> <div class="col-xs-4"> <i class="fa fa-bank fa-5x"></i> </div> <div class="col-xs-8 text-right m-t-10"> <span style="font-size:16px;">Odalara Göre Üye Listesi Raporlama</span> </div> </div> </div> </div>  <div class="col-lg-3"> <div class="widget style1 bg-deep-purple" onclick="location.href='/Raporlar/IslemYapilanUyeler';" style="cursor:pointer;"> <div class="row"> <div class="col-xs-4"> <i class="fa fa-user-md fa-5x"></i> </div> <div class="col-xs-8 text-right m-t-10"> <span style="font-size:16px;">İşlem Yapılan Üye Listesi Raporlama</span> </div> </div> </div> </div>  </div>
+﻿@{
+    ViewBag.Title = "Raporlar Ana Sayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="widget style1 navy-bg" onclick="location.href = '/Raporlar/AdreseGoreUyeler';" style="cursor: pointer;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <i class="fa fa-map-signs fa-5x"></i>
+                </div>
+                <div class="col-xs-8 text-right m-t-10">
+                    <span style="font-size: 16px;">Adrese Göre Üye Listesi Raporlama</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 lazur-bg" onclick="location.href = '/Raporlar/OdalaraGoreUyeler';" style="cursor: pointer;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <i class="fa fa-bank fa-5x"></i>
+                </div>
+                <div class="col-xs-8 text-right m-t-10">
+                    <span style="font-size: 16px;">Odalara Göre Üye Listesi Raporlama</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 bg-blue-grey" onclick="location.href = '/Raporlar/MesleklereGoreUyeler';" style="cursor: pointer;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <i class="fa fa-wrench fa-5x"></i>
+                </div>
+                <div class="col-xs-8 text-right">
+                    <span style="font-size: 16px;">Mesleklere Göre Üye Listesi Raporlama</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 yellow-bg" onclick="location.href = '/Raporlar/AdreseGoreUyeler';" style="cursor: pointer;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <i class="fa fa-bank fa-5x"></i>
+                </div>
+                <div class="col-xs-8 text-right m-t-10">
+                    <span style="font-size: 16px;">Odalara Göre Üye Listesi Raporlama</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 bg-deep-purple" onclick="location.href = '/Raporlar/IslemYapilanUyeler';" style="cursor: pointer;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <i class="fa fa-user-md fa-5x"></i>
+                </div>
+                <div class="col-xs-8 text-right m-t-10">
+                    <span style="font-size: 16px;">İşlem Yapılan Üye Listesi Raporlama</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

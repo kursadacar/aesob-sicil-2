@@ -1,1 +1,63 @@
-﻿@{ Layout = "~/Views/Shared/_Login_Layout.cshtml"; ViewBag.BodyClassName = "login-page"; }  <style> .gray-bg, .bg-muted { background-color: #f3f3f4; }  .logo-name { color: #e6e6e6; font-size: 140px; font-weight: 800; letter-spacing: -10px; margin-bottom: 0; }  h3, h4, h5 { margin-top: 5px; font-weight: 600; } </style>  <body class="gray-bg">  <div class="middle-box text-center loginscreen animated fadeInDown"> <div> <div>  <h1 class="logo-name">ESTAP</h1>  </div> <h3>Hoş Geldiniz</h3> <div class="col-md-4"></div> <div class="col-md-4 bg-white p-t-20 p-b-30 m-l-10 m-r-10"> <div data-id="formLogin" data-model-url="/Login/LoginControl" data-ajax-function="funcLoginResponse"> <strong class="m-b--20 col-blue-grey">Kullanıcı Adı ve şifrenizi giriniz.</strong> <div class="input-group m-t-20"> <span class="input-group-addon"> <i class="fa fa-person"></i> </span> <div class="form-line"> <input type="text" class="form-control" name="username" data-attribute="UserName" placeholder="Kullanıcı Adı" required autofocus> </div> </div> <div class="input-group"> <span class="input-group-addon"> <i class="fa fa-lock"></i> </span> <div class="form-line"> <input type="password" class="form-control" name="password" data-attribute="Password" placeholder="Şifreniz" required> </div> </div> <button class="btn btn-block bg-pink waves-effect" type="button" onclick="formSendModel($('[data-id=\'formLogin\']')[0].dataset)">Giriş Yap</button> </div> </div> <div class="col-md-4"></div> <div class="clearfix"></div> <p class="m-t text-center m-t-10"> <small>erenege Yazılım & Bilgisayar &copy; 2017 - 2021</small> </p> </div> </div>  </body>  @section scripts{ <script src="~/Scripts/jquery-3.4.1.min.js"></script> <script src="~/Scripts/bootstrap.min.js"></script> <script> $("body").on("keypress", function (e) { e.keyCode == 13 ? formSendModel($('[data-id=\'formLogin\']')[0].dataset) : 1 == 1; }); function funcLoginResponse(e) { @{<text>window.location=e;</text>} } </script> } 
+﻿@{
+    Layout = "~/Views/Shared/_Login_Layout.cshtml";
+    ViewBag.BodyClassName = "login-page";
+}
+<style>
+    .gray-bg, .bg-muted { background-color: #f3f3f4; }
+
+    .logo-name {
+        color: #e6e6e6;
+        font-size: 140px;
+        font-weight: 800;
+        letter-spacing: -10px;
+        margin-bottom: 0;
+    }
+
+    h3, h4, h5 {
+        font-weight: 600;
+        margin-top: 5px;
+    }
+</style>
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">ESTAP</h1>
+        </div>
+        <h3>Hoş Geldiniz</h3>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 bg-white p-t-20 p-b-30 m-l-10 m-r-10">
+            <div data-id="formLogin" data-model-url="/Login/LoginControl" data-ajax-function="funcLoginResponse">
+                <strong class="m-b--20 col-blue-grey">Kullanıcı Adı ve şifrenizi giriniz.</strong>
+                <div class="input-group m-t-20">
+                    <span class="input-group-addon">
+                        <i class="fa fa-person"></i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" name="username" data-attribute="UserName" placeholder="Kullanıcı Adı" required autofocus>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" name="password" data-attribute="Password" placeholder="Şifreniz" required>
+                    </div>
+                </div> <button class="btn btn-block bg-pink waves-effect" type="button" onclick="formSendModel($('[data-id=\'formLogin\']')[0].dataset)">Giriş Yap</button>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="clearfix"></div>
+        <p class="m-t text-center m-t-10">
+            <small>erenege Yazılım & Bilgisayar &copy; 2017 - 2021</small>
+        </p>
+    </div>
+</div>
+</body>
+
+@section scripts{ <script src="~/Scripts/jquery-3.4.1.min.js"></script> <script src="~/Scripts/bootstrap.min.js"></script> <script>
+                                                                                                                               $("body").on("keypress", function(e) { e.keyCode == 13 ? formSendModel($('[data-id=\'formLogin\']')[0].dataset) : 1 == 1; });
+
+                                                                                                                               function funcLoginResponse(e) { @{ <text>window.location = e;</text> } }
+                                                                                                                           </script> }

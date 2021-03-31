@@ -1,156 +1,47 @@
-﻿@{ ViewBag.Title = "Mahalle Tanımlama"; Layout = "~/Views/Shared/_Layout.cshtml"; } <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" /> <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <div class="row"> <div class="col-md-12"> <div class="card m-t-15"> <div class="header bg-brown"> <h2>MAHALLE TANIMLAMA</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-5"> <div class="form-group"> <label>İLÇE ADI</label> <input class="form-control" id="ddlIlce" data-attribute="ddlIlce" /> </div> <div id="dvGoster"> <div class="form-group"> <label>MAHALLE ADI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtMahalle" data-attribute="txtMahalle" onkeyup="BuyukHarf(this)" placeholder="Mahalle adını giriniz." /> </div> <span style="color: #dcdcdc; font-style: italic">Örnek: CUMHURİYET MAH.</span> </div> </div> <div class="p-t-20"> <button id="btnKaydet" class="btn btn-lg btn-success w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button> </div> </div> </div> <div class="col-md-7"> <h3><label id="lblMahalleAdi"></label></h3> <div id="dvMahalleler"></div> </div> </div> </div> </div> </div> </div> </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "Mahalle Tanımlama";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/> <link href="/Scripts/select2/select2.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card m-t-15">
+            <div class="header bg-brown">
+                <h2>MAHALLE TANIMLAMA</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 20px;">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>İLÇE ADI</label> <input class="form-control" id="ddlIlce" data-attribute="ddlIlce"/>
+                            </div>
+                            <div id="dvGoster">
+                                <div class="form-group">
+                                    <label>MAHALLE ADI</label>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="txtMahalle" data-attribute="txtMahalle" onkeyup="BuyukHarf(this)" placeholder="Mahalle adını giriniz."/>
+                                        </div> <span style="color: #dcdcdc; font-style: italic">Örnek: CUMHURİYET MAH.</span>
+                                    </div>
+                                </div>
+                                <div class="p-t-20">
+                                    <button id="btnKaydet" class="btn btn-lg btn-success w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <h3>
+                                <label id="lblMahalleAdi"></label>
+                            </h3>
+                            <div id="dvMahalleler"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
@@ -160,109 +51,118 @@
         $("#dvGoster").hide();
         $("#dvMahalleler").hide();
         IlceleriGetir();
+
         function IlceleriGetir() {
-            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/GetirIlceler", function (e) {
-                $("[data-attribute='ddlIlce']").select2({
-                    placeholder: 'İlçe seçiniz',
-                    type: "GET",
-                    data: e.IlceListesi,
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Tanimlamalar/GetirIlceler",
+                function(e) {
+                    $("[data-attribute='ddlIlce']").select2({
+                        placeholder: 'İlçe seçiniz',
+                        type: "GET",
+                        data: e.IlceListesi,
+                    });
                 });
-            });
         }
-        $("[data-attribute='ddlIlce']").change(function () {
+
+        $("[data-attribute='ddlIlce']").change(function() {
             var ilce = $(this).select2('data');
             var ilceadi = ilce.text;
-            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/DTIlceyeGoreMahalleler?ilceid=" + $(this).val(), function (t) {
-                $("#dvMahalleler").html("");
-                $("#dvMahalleler").html(t.ds);
-                $("#tblMahalleler").dataTable({
-                    "language": {
-                        "sDecimal": ",",
-                        "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
-                        "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                        "sInfoEmpty": "Kayıt yok",
-                        "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                        "sInfoPostFix": "",
-                        "sInfoThousands": ".",
-                        "sLengthMenu": "Sayfada _MENU_ kayıt göster",
-                        "sLoadingRecords": "Yükleniyor...",
-                        "sProcessing": "İşleniyor...",
-                        "sSearch": "Ara:",
-                        "sZeroRecords": "Eşleşen kayıt bulunamadı",
-                        "oPaginate": {
-                            "sFirst": "İlk",
-                            "sLast": "Son",
-                            "sNext": "Sonraki",
-                            "sPrevious": "Önceki"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": artan sütun sıralamasını aktifleştir",
-                            "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Tanimlamalar/DTIlceyeGoreMahalleler?ilceid=" + $(this).val(),
+                function(t) {
+                    $("#dvMahalleler").html("");
+                    $("#dvMahalleler").html(t.ds);
+                    $("#tblMahalleler").dataTable({
+                        "language": {
+                            "sDecimal": ",",
+                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                            "sInfoEmpty": "Kayıt yok",
+                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                            "sLoadingRecords": "Yükleniyor...",
+                            "sProcessing": "İşleniyor...",
+                            "sSearch": "Ara:",
+                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                            "oPaginate": {
+                                "sFirst": "İlk",
+                                "sLast": "Son",
+                                "sNext": "Sonraki",
+                                "sPrevious": "Önceki"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                            }
                         }
-                    }
+                    });
+                    $("#lblMahalleAdi").text(ilceadi + " İLÇESİNE AİT MAHALLELER");
+                    $("#dvGoster").show();
+                    $("#dvMahalleler").show();
+                    $("[data-attribute='txtMahalle']").focus();
                 });
-                $("#lblMahalleAdi").text(ilceadi + " İLÇESİNE AİT MAHALLELER")
-                $("#dvGoster").show();
-                $("#dvMahalleler").show();
-                $("[data-attribute='txtMahalle']").focus();
-            });
         });
-        $(document).keypress(function (e) {
+        $(document).keypress(function(e) {
             if (e.which == 13) {
                 $("#btnKaydet").trigger("click");
             }
         });
-        $("#btnKaydet").click(function () {
+        $("#btnKaydet").click(function() {
             var veriler = {
                 ilceid: $("[data-attribute='ddlIlce']").val(),
                 mahalle: $("[data-attribute='txtMahalle']").val()
-            }
+            };
             if ($("[data-attribute='txtMahalle']").val() != "") {
-                $.ErcanAyhan.Server.PostAsync(veriler, "/Tanimlamalar/KaydetMahalle", function (e) {
-                    if (e > 0) {
-                        $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/DTIlceyeGoreMahalleler?ilceid=" + e, function (t) {
-                            $("#dvMahalleler").html("");
-                            $("#dvMahalleler").html(t.ds);
-                            $("#tblMahalleler").dataTable({
-                                "language": {
-                                    "sDecimal": ",",
-                                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
-                                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                                    "sInfoEmpty": "Kayıt yok",
-                                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                                    "sInfoPostFix": "",
-                                    "sInfoThousands": ".",
-                                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
-                                    "sLoadingRecords": "Yükleniyor...",
-                                    "sProcessing": "İşleniyor...",
-                                    "sSearch": "Ara:",
-                                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
-                                    "oPaginate": {
-                                        "sFirst": "İlk",
-                                        "sLast": "Son",
-                                        "sNext": "Sonraki",
-                                        "sPrevious": "Önceki"
-                                    },
-                                    "oAria": {
-                                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
-                                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
-                                    }
-                                }
-                            });
-                            $("#lblMahalleAdi").text(ilceadi + " İLÇESİNE AİT MAHALLELER")
-                            $("#dvGoster").show();
-                            $("#dvMahalleler").show();
-                            $("[data-attribute='txtMahalle']").focus();
-                        });
-                        $("[data-attribute='txtMahalle']").val("");
-                        swal("Mahalle kaydı başarılı.", "Yeni mahalle oluşturma işlemi başarı ile gerçekleştirildi.", "success");
-                    }
-                });
-            }
-            else {
+                $.ErcanAyhan.Server.PostAsync(veriler,
+                    "/Tanimlamalar/KaydetMahalle",
+                    function(e) {
+                        if (e > 0) {
+                            $.ErcanAyhan.Server.GetAsync("",
+                                "/Tanimlamalar/DTIlceyeGoreMahalleler?ilceid=" + e,
+                                function(t) {
+                                    $("#dvMahalleler").html("");
+                                    $("#dvMahalleler").html(t.ds);
+                                    $("#tblMahalleler").dataTable({
+                                        "language": {
+                                            "sDecimal": ",",
+                                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                                            "sInfoEmpty": "Kayıt yok",
+                                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                                            "sInfoPostFix": "",
+                                            "sInfoThousands": ".",
+                                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                                            "sLoadingRecords": "Yükleniyor...",
+                                            "sProcessing": "İşleniyor...",
+                                            "sSearch": "Ara:",
+                                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                                            "oPaginate": {
+                                                "sFirst": "İlk",
+                                                "sLast": "Son",
+                                                "sNext": "Sonraki",
+                                                "sPrevious": "Önceki"
+                                            },
+                                            "oAria": {
+                                                "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                                "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                                            }
+                                        }
+                                    });
+                                    $("#lblMahalleAdi").text(ilceadi + " İLÇESİNE AİT MAHALLELER");
+                                    $("#dvGoster").show();
+                                    $("#dvMahalleler").show();
+                                    $("[data-attribute='txtMahalle']").focus();
+                                });
+                            $("[data-attribute='txtMahalle']").val("");
+                            swal("Mahalle kaydı başarılı.", "Yeni mahalle oluşturma işlemi başarı ile gerçekleştirildi.", "success");
+                        }
+                    });
+            } else {
                 $("[data-attribute='txtMahalle']").focus();
                 swal("Mahalle girmelisiniz.", "Lütfen alanları boş geçmeyiniz.", "warning");
-                
+
             }
         });
     </script>

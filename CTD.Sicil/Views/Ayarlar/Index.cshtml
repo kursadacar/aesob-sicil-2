@@ -1,187 +1,121 @@
-﻿ @{ ViewBag.Title = "Index"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" /> <div class="sidebar-container"> <ul class="nav nav-tabs navs-3"> <li id="liSifre"> <a data-toggle="tab" href="#tab-1"> <h3><i class="fa fa-key"></i> Şifre Değiştirme</h3> </a> </li> @if (Accesses.Hak != "muhasebe") { <li id="liMakbuz"> <a data-toggle="tab" href="#tab-2"> <h3><i class="fa fa-print"></i> Makbuz No Ayarlama</h3> </a> </li> } <li> <a data-toggle="tab" href="#tab-3"> <h3><i class="fa fa-try"></i> Rapor 3</h3> </a> </li> </ul> <div class="tab-content"> <div id="tab-1" class="tab-pane"> <div class="sidebar-title"> <h3> <i class="fa fa-expeditedssl"></i> Sistem giriş şifrenizi değiştirmek için aşağıdaki formu kullanabilirsiniz.</h3> </div> <div class="body" style="background-color: white"> <div class="col-md-4"></div> <div class="col-md-4 m-t-20"> <div class="form-group"> <label>ESKİ ŞİFRE</label> <div class="input-group"> <div class="form-line"> <input type="password" class="form-control" data-attribute="txtEskiSifre" placeholder="Mevcut şifrenizi giriniz" /> </div> </div> </div> <div class="form-group"> <label>YENİ ŞİFRE</label> <div class="input-group"> <div class="form-line"> <input type="password" class="form-control" data-attribute="txtYeniSifre" placeholder="Yeni şifrenizi giriniz" /> </div> </div> </div> <div class="form-group"> <label>YENİ ŞİFRE (Tekrar)</label> <div class="input-group"> <div class="form-line"> <input type="password" class="form-control" data-attribute="txtYeniSifreTekrar" placeholder="Yeni şifrenizi tekrar giriniz" /> </div> </div> </div> <div class="form-group"> <div class="col-sm-offset-4 col-sm-4"> <a href="#" id="btnPasswordSave" class="btn btn-lg btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Kaydet</a> </div> </div> <br /><br /> </div> <div class="col-md-4 p-t-20"> <i id="check" class="fa fa-4x fa-check" style="color: green; display: none;"></i><i id="error" class="fa fa-4x fa-close" style="color: red; display: none;"></i> <input type="hidden" id="hdcheck" /> </div> <div class="clearfix"></div> </div> </div> @if (Accesses.Hak != "muhasebe") { <div id="tab-2" class="tab-pane"> <div class="sidebar-title"> <h3> <i class="fa fa-print"></i> Sicil Veznelerinde kesilecek olan makbuz serilerini ayarlayabilirsiniz.</h3> </div> <div class="body" style="background-color: white"> <div class="col-md-4"></div> <div class="col-md-1 m-t-20"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtSeriNo" /> </div> </div> </div> <div class="form-group"> <div class="col-sm-offset-4 col-sm-4"> <a href="#" id="btnMakbuzSave" class="btn btn-lg btn-success"><i class="fa fa-save"></i>&nbsp;&nbsp;Kaydet</a> <input type="hidden" data-attribute="id" /> </div> </div>  </div> <div class="col-md-3 m-t-20"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtMakbuzNo" onkeypress="return Numeric(this,event);" /> </div> </div> </div> </div> <div class="col-md-4 p-t-20"> <i id="check" class="fa fa-4x fa-check" style="color: green; display: none;"></i><i id="error" class="fa fa-4x fa-close" style="color: red; display: none;"></i> <input type="hidden" id="hdcheck" /> </div> <div class="clearfix"></div> <br /><br /> </div> </div> }  <div id="tab-3" class="tab-pane"> <div class="sidebar-title"> <h3> <i class="fa fa-try"></i> Rapor 3</h3> </div> <div> İçerik 3</div> </div>  </div> </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<div class="sidebar-container">
+    <ul class="nav nav-tabs navs-3">
+        <li id="liSifre">
+            <a data-toggle="tab" href="#tab-1">
+                <h3><i class="fa fa-key"></i> Şifre Değiştirme</h3>
+            </a>
+        </li>
+        @if (Accesses.Hak != "muhasebe")
+        {
+            <li id="liMakbuz">
+                <a data-toggle="tab" href="#tab-2">
+                    <h3><i class="fa fa-print"></i> Makbuz No Ayarlama</h3>
+                </a>
+            </li>
+        }
+        <li>
+            <a data-toggle="tab" href="#tab-3">
+                <h3><i class="fa fa-try"></i> Rapor 3</h3>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab-1" class="tab-pane">
+            <div class="sidebar-title">
+                <h3> <i class="fa fa-expeditedssl"></i> Sistem giriş şifrenizi değiştirmek için aşağıdaki formu kullanabilirsiniz.</h3>
+            </div>
+            <div class="body" style="background-color: white">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 m-t-20">
+                    <div class="form-group">
+                        <label>ESKİ ŞİFRE</label>
+                        <div class="input-group">
+                            <div class="form-line">
+                                <input type="password" class="form-control" data-attribute="txtEskiSifre" placeholder="Mevcut şifrenizi giriniz"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>YENİ ŞİFRE</label>
+                        <div class="input-group">
+                            <div class="form-line">
+                                <input type="password" class="form-control" data-attribute="txtYeniSifre" placeholder="Yeni şifrenizi giriniz"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>YENİ ŞİFRE (Tekrar)</label>
+                        <div class="input-group">
+                            <div class="form-line">
+                                <input type="password" class="form-control" data-attribute="txtYeniSifreTekrar" placeholder="Yeni şifrenizi tekrar giriniz"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <a href="#" id="btnPasswordSave" class="btn btn-lg btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Kaydet</a>
+                        </div>
+                    </div> <br/><br/>
+                </div>
+                <div class="col-md-4 p-t-20">
+                    <i id="check" class="fa fa-4x fa-check" style="color: green; display: none;"></i><i id="error" class="fa fa-4x fa-close" style="color: red; display: none;"></i> <input type="hidden" id="hdcheck"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        @if (Accesses.Hak != "muhasebe")
+        {
+            <div id="tab-2" class="tab-pane">
+                <div class="sidebar-title">
+                    <h3> <i class="fa fa-print"></i> Sicil Veznelerinde kesilecek olan makbuz serilerini ayarlayabilirsiniz.</h3>
+                </div>
+                <div class="body" style="background-color: white">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-1 m-t-20">
+                        <div class="form-group">
+                            <label>SERİ NO</label>
+                            <div class="input-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" data-attribute="txtSeriNo"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-4">
+                                <a href="#" id="btnMakbuzSave" class="btn btn-lg btn-success"><i class="fa fa-save"></i>&nbsp;&nbsp;Kaydet</a> <input type="hidden" data-attribute="id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 m-t-20">
+                        <div class="form-group">
+                            <label>MAKBUZ NO</label>
+                            <div class="input-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" data-attribute="txtMakbuzNo" onkeypress="return Numeric(this, event);"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-t-20">
+                        <i id="check" class="fa fa-4x fa-check" style="color: green; display: none;"></i><i id="error" class="fa fa-4x fa-close" style="color: red; display: none;"></i> <input type="hidden" id="hdcheck"/>
+                    </div>
+                    <div class="clearfix"></div> <br/><br/>
+                </div>
+            </div>
+        }
+        <div id="tab-3" class="tab-pane">
+            <div class="sidebar-title">
+                <h3> <i class="fa fa-try"></i> Rapor 3</h3>
+            </div>
+            <div> İçerik 3</div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
@@ -193,6 +127,7 @@
             var results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         };
+
         // query string: ?secim=lorem&bar=&baz
         var secim = getUrlParameter('secim'); // "lorem"
         //$("ul.navs-3 > li").removeClass("active");
@@ -202,8 +137,7 @@
             $("div.tab-content > div").removeClass("active");
             $("#liSifre").addClass("active");
             $("#tab-1").addClass("active");
-        }
-        else if (secim == "liMakbuz") {
+        } else if (secim == "liMakbuz") {
             $("ul.navs-3 > li").removeClass("active");
             $("div.tab-content > div").removeClass("active");
             $("#liMakbuz").addClass("active");
@@ -211,14 +145,14 @@
             $.ajax({
                 url: '@Url.Action("MakbuzTanimlama", "Ayarlar")',
                 datatype: "Json",
-                success: function (e) {
+                success: function(e) {
                     $("[data-attribute='txtSeriNo']").val(e.ONTAKI);
                     $("[data-attribute='txtMakbuzNo']").val(e.MAKBUZNO);
                     $("[data-attribute='id']").val(e.Id);
                 }
-            })
+            });
         }
-        $("[data-attribute='txtEskiSifre']").change(function () {
+        $("[data-attribute='txtEskiSifre']").change(function() {
             $("#check").hide();
             $("#error").hide();
             $("#hdcheck").val("");
@@ -226,7 +160,7 @@
                 url: '@Url.Action("ControlPassword", "Ayarlar")',
                 data: { pass: $(this).val() },
                 datatype: "Json",
-                success: function (sonuc) {
+                success: function(sonuc) {
                     if (sonuc === 1) {
                         $("#check").show();
                         $("#hdcheck").val("1");
@@ -239,7 +173,7 @@
                 }
             });
         });
-        $("#btnPasswordSave").click(function () {
+        $("#btnPasswordSave").click(function() {
             var mevcutsifre = $("[data-attribute='txtEskiSifre']").val();
             var yenisifre = $("[data-attribute='txtYeniSifre']").val();
             var yenisifretekrar = $("[data-attribute='txtYeniSifreTekrar']").val();
@@ -252,7 +186,7 @@
                             data: { pass: mevcutsifre, newpass: yenisifre },
                             datatype: "Json",
                             method: "POST",
-                            success: function (sonuc) {
+                            success: function(sonuc) {
                                 if (sonuc === 1) {
                                     $("#check").hide();
                                     $("#error").hide();
@@ -278,12 +212,12 @@
                 swal("Alanları boş geçemezsiniz", "Tüm alanları doldurmalısınız.", "warning");
             }
         });
-        $(document).keypress(function (e) {
+        $(document).keypress(function(e) {
             if (e.which == 13) {
                 $("#btnMakbuzSave").click();
             }
         });
-        $("#btnMakbuzSave").click(function () {
+        $("#btnMakbuzSave").click(function() {
             var id = $("[data-attribute='id']").val();
             var ontaki = $("[data-attribute='txtSeriNo']").val();
             var makbuzno = $("[data-attribute='txtMakbuzNo']").val();
@@ -292,7 +226,7 @@
                 contentType: "application/json; charset=utf-8",
                 datatype: "Json",
                 data: { Id: id, ONTAKI: ontaki, MAKBUZNO: makbuzno },
-                success: function (e) {
+                success: function(e) {
                     if (e == 1) {
                         swal("Makbuz Bilgisi Güncellendi.", "Makbuz bilgisi güncelleme işlemi başarı ile gerçekleştirildi.", "success");
                     }
@@ -302,5 +236,3 @@
         });
     </script>
 }
-
-

@@ -1,166 +1,84 @@
-﻿ @{ ViewBag.Title = "IP Tanımlama"; Layout = "~/Views/Shared/_Layout.cshtml"; } <link href="/Scripts/select2/select2.css" rel="stylesheet" />  <div class="row"> <div class="col-md-12"> <div class="card m-t-15"> <div class="header bg-light-blue"> <h2>IP TANIMLAMA</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-4"></div> <div class="col-md-4"> <div class="form-group"> <label>KULLANICI</label> <input class="form-control" id="personel" data-attribute="personel" /> </div> <div class="form-group"> <label>GÖREV YERİ</label> <select id="gorevyeri" class="form-control"> <option value="memur">MERKEZ</option> <option value="mudur">MÜDÜR YETKİSİ</option> <option value="sube">İRTİBAT BÜROSU</option> </select> </div> <div class="form-group"> <label>İLÇE</label> <select id="ilce" class="form-control"> <option value="MERKEZ">MERKEZ</option> <option value="ALANYA">ALANYA</option> <option value="MANAVGAT">MANAVGAT</option> <option value="SERİK">SERİK</option> <option value="FİNİKE">FİNİKE</option> <option value="SOBACILAR">SOBACILAR</option> </select> </div> <div class="form-group"> <label>IP ADRESİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtIpAdres" data-attribute="txtIpAdres" /> </div> </div> </div> <div class="p-t-20"> <button id="btnKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button> </div> </div> <div class="col-md-4"></div> </div> </div> </div> </div> </div> </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "IP Tanımlama";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Scripts/select2/select2.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card m-t-15">
+            <div class="header bg-light-blue">
+                <h2>IP TANIMLAMA</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 20px;">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>KULLANICI</label> <input class="form-control" id="personel" data-attribute="personel"/>
+                            </div>
+                            <div class="form-group">
+                                <label>GÖREV YERİ</label>
+                                <select id="gorevyeri" class="form-control">
+                                    <option value="memur">MERKEZ</option> <option value="mudur">MÜDÜR YETKİSİ</option> <option value="sube">İRTİBAT BÜROSU</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>İLÇE</label>
+                                <select id="ilce" class="form-control">
+                                    <option value="MERKEZ">MERKEZ</option> <option value="ALANYA">ALANYA</option> <option value="MANAVGAT">MANAVGAT</option> <option value="SERİK">SERİK</option> <option value="FİNİKE">FİNİKE</option> <option value="SOBACILAR">SOBACILAR</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>IP ADRESİ</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtIpAdres" data-attribute="txtIpAdres"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-t-20">
+                                <button id="btnKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
-<script src="/Scripts/select2/select2.min.js"></script>
+    <script src="/Scripts/select2/select2.min.js"></script>
     <script>
         KullanicilariGetir();
+
         function KullanicilariGetir() {
-            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/ComboBoxKullanicilar", function (e) {
-                $("[data-attribute='personel']").select2({
-                    placeholder: 'Kullanıcı seçiniz',
-                    type: "GET",
-                    data: e.KullaniciListesi,
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Tanimlamalar/ComboBoxKullanicilar",
+                function(e) {
+                    $("[data-attribute='personel']").select2({
+                        placeholder: 'Kullanıcı seçiniz',
+                        type: "GET",
+                        data: e.KullaniciListesi,
+                    });
                 });
-            });
         };
 
         $('select').select2({
             placeholder: 'Görev yeri seçiniz'
         });
 
-        $("#personel").change(function () {
+        $("#personel").change(function() {
             var kullaniciid = $("#personel").val();
             $.ajax({
                 url: "/Tanimlamalar/KullaniciIp",
                 data: { id: kullaniciid },
                 dataType: "Json",
                 type: "GET",
-                success: function (data) {
+                success: function(data) {
                     $("#txtIpAdres").val(data.ip);
                     $("#gorevyeri").select2("val", data.gorevyeri);
                     $("#ilce").select2("val", data.ilce);
@@ -168,7 +86,7 @@
             });
         });
 
-        $("#btnKaydet").click(function () {
+        $("#btnKaydet").click(function() {
             var kullaniciid = $("#personel").val();
             var ip = $("#txtIpAdres").val();
             var hak = $("#gorevyeri").val();
@@ -178,7 +96,7 @@
                 data: { id: kullaniciid, ip: ip, hak: hak, sube: sube },
                 dataType: "Json",
                 type: "GET",
-                success: function (data) {
+                success: function(data) {
                     if (data == "basarili") {
                         swal("IP değiştirme başarılı", "IP değiştirme işlemi başarı ile gerçekleştirildi.", "success");
                         KullanicilariGetir();
@@ -190,4 +108,3 @@
     </script>
 
 }
-

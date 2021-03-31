@@ -1,166 +1,36 @@
-﻿ @{ ViewBag.Title = "MeslekTerkNedeni"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />  <div class="row"> <div class="col-md-12"> <div class="card m-t-15"> <div class="header bg-danger"> <h2>MESLEK TERK NEDENİ İŞLEMLERİ</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12"> <div class="col-md-5"> <div class="form-group"> <label>MESLEK TERK NEDENİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="terknedeni" placeholder="Meslek Terk Nedeni giriniz" onkeyup="BuyukHarf(this)" /> </div> </div> </div> <input type="button" id="btnKaydet" class="btn btn-success" value="Kaydet" /> <input type="hidden" id="hdId" value="0" /> </div> <div class="col-md-7"> <div id="DataTable"></div> </div> </div> </div> </div> </div> </div> </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "MeslekTerkNedeni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card m-t-15">
+            <div class="header bg-danger">
+                <h2>MESLEK TERK NEDENİ İŞLEMLERİ</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>MESLEK TERK NEDENİ</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" data-attribute="terknedeni" placeholder="Meslek Terk Nedeni giriniz" onkeyup="BuyukHarf(this)"/>
+                                    </div>
+                                </div>
+                            </div> <input type="button" id="btnKaydet" class="btn btn-success" value="Kaydet"/> <input type="hidden" id="hdId" value="0"/>
+                        </div>
+                        <div class="col-md-7">
+                            <div id="DataTable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
@@ -168,63 +38,69 @@
     <script src="/Scripts/select2/select2.min.js"></script>
     <script>
         TerkNedenleriGetir();
+
         function TerkNedenleriGetir() {
-            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/GetirTerkNedenleri", function (t) {
-                $("#DataTable").html("");
-                $("#DataTable").html(t.ds);
-                $("#tblTerkNedenleri").dataTable({
-                    "language": {
-                        "sDecimal": ",",
-                        "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
-                        "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                        "sInfoEmpty": "Kayıt yok",
-                        "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                        "sInfoPostFix": "",
-                        "sInfoThousands": ".",
-                        "sLengthMenu": "Sayfada _MENU_ kayıt göster",
-                        "sLoadingRecords": "Yükleniyor...",
-                        "sProcessing": "İşleniyor...",
-                        "sSearch": "Ara:",
-                        "sZeroRecords": "Eşleşen kayıt bulunamadı",
-                        "oPaginate": {
-                            "sFirst": "İlk",
-                            "sLast": "Son",
-                            "sNext": "Sonraki",
-                            "sPrevious": "Önceki"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": artan sütun sıralamasını aktifleştir",
-                            "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Tanimlamalar/GetirTerkNedenleri",
+                function(t) {
+                    $("#DataTable").html("");
+                    $("#DataTable").html(t.ds);
+                    $("#tblTerkNedenleri").dataTable({
+                        "language": {
+                            "sDecimal": ",",
+                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                            "sInfoEmpty": "Kayıt yok",
+                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                            "sLoadingRecords": "Yükleniyor...",
+                            "sProcessing": "İşleniyor...",
+                            "sSearch": "Ara:",
+                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                            "oPaginate": {
+                                "sFirst": "İlk",
+                                "sLast": "Son",
+                                "sNext": "Sonraki",
+                                "sPrevious": "Önceki"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                            }
                         }
-                    }
-                });;
-            })
+                    });;
+                });
         };
 
         function TerkNedeniDuzenle(id) {
-            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/GetirTerkNedeni?id=" + id, function (e) {
-                $("[data-attribute='terknedeni']").val(e.ACIKLAMA);
-                $("#hdId").val(e.Id);
-            });
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Tanimlamalar/GetirTerkNedeni?id=" + id,
+                function(e) {
+                    $("[data-attribute='terknedeni']").val(e.ACIKLAMA);
+                    $("#hdId").val(e.Id);
+                });
         };
 
-        $("#btnKaydet").click(function () {
+        $("#btnKaydet").click(function() {
             var model = {
                 Id: $("#hdId").val(),
                 ACIKLAMA: $("[data-attribute='terknedeni']").val()
             };
-            $.ErcanAyhan.Server.PostAsync(model, "/Tanimlamalar/TerkNedenikaydet", function (e) {
-                $("[data-attribute='terknedeni']").val("");
-                $("#hdId").val("0");
-                if (e == 1) {
-                    TerkNedenleriGetir();
-                    swal("Yeni terk nedeni oluşturuldu.", "İşlemi başarı ile gerçekleştirildi.", "success");
-                }
-                else if (e == 2) {
-                    TerkNedenleriGetir();
-                    swal("Terk nedeni başarı ile güncellendi.", "Güncelleme işlemi başarı ile gerçekleştirildi.", "success");
-                }
-            });
+            $.ErcanAyhan.Server.PostAsync(model,
+                "/Tanimlamalar/TerkNedenikaydet",
+                function(e) {
+                    $("[data-attribute='terknedeni']").val("");
+                    $("#hdId").val("0");
+                    if (e == 1) {
+                        TerkNedenleriGetir();
+                        swal("Yeni terk nedeni oluşturuldu.", "İşlemi başarı ile gerçekleştirildi.", "success");
+                    } else if (e == 2) {
+                        TerkNedenleriGetir();
+                        swal("Terk nedeni başarı ile güncellendi.", "Güncelleme işlemi başarı ile gerçekleştirildi.", "success");
+                    }
+                });
         });
 
     </script>

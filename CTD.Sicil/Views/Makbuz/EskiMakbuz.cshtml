@@ -1,213 +1,87 @@
 ﻿@model CTD.Dto.SingleDto.EskiMakbuzGetirDto
-  @{ ViewBag.Title = "Eski Makbuz İşlemleri"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Scripts/select2/select2.css" rel="stylesheet" /> <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-red"> <h2>ESKİ MAKBUZ İŞLEMLERİ</h2> </div> <div class="body"> <div class="row"> <div class="col-md-2 p-t-20"> <div data-id="formEskiMakbuz" data-model-url="/Makbuz/EskiMakbuzGetir2" data-ajax-function="funcEskiMakbuzBilgileri"> <div class="col-md-12"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="SeriNo" data-attribute="SeriNo" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="col-md-12"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="MakbuzNo" data-attribute="MakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control  text-center" id="MakbuzTarihi" data-attribute="MakbuzTarihi" maxlength="10" onkeyup="tarih(this)" /> </div> </div> </div> </div>  </div> <a href="javascript:void(formSendModel($('[data-id=\'formEskiMakbuz\']')[0].dataset));" class="btn bg-green waves-effect"> <i class="fa fa-undo"></i>  &nbsp;MAKBUZ GETİR </a> </div> <div class="col-md-10 p-t-20"> <div data-attribute="dvSicilMakbuz"> <div class="col-md-5"> <div class="form-group"> <label data-attribute="lblAdSoyad" class="f-16 m-t-30 text-navy"></label> <input type="hidden" id="hdAdSoyad" /> </div> </div> <div class="col-md-4"> <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi" /> </div> <div class="col-md-3"> <label>İŞLEMİ YAPAN</label> <input class="form-control" data-attribute="Kullanicilar" />  </div> <div class="clearfix"></div> <div class="col-md-6"> <div class="form-group"> <label>AÇIKLAMA</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="Aciklama" data-attribute="Aciklama" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-8"> <table id="example" class="display" style="width:100%;"></table> </div> </div> </div> </div> </div> </div> </div> </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@{
+    ViewBag.Title = "Eski Makbuz İşlemleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Scripts/select2/select2.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card esbis m-t-15">
+            <div class="header bg-red">
+                <h2>ESKİ MAKBUZ İŞLEMLERİ</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-2 p-t-20">
+                        <div data-id="formEskiMakbuz" data-model-url="/Makbuz/EskiMakbuzGetir2" data-ajax-function="funcEskiMakbuzBilgileri">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>SERİ NO</label>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control text-center" id="SeriNo" data-attribute="SeriNo" onkeyup="BuyukHarf(this)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>MAKBUZ NO</label>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control text-center" id="MakbuzNo" data-attribute="MakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>MAKBUZ TARİHİ</label>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control  text-center" id="MakbuzTarihi" data-attribute="MakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <a href="javascript:void(formSendModel($('[data-id=\'formEskiMakbuz\']')[0].dataset));" class="btn bg-green waves-effect"> <i class="fa fa-undo"></i> &nbsp;MAKBUZ GETİR </a>
+                    </div>
+                    <div class="col-md-10 p-t-20">
+                        <div data-attribute="dvSicilMakbuz">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label data-attribute="lblAdSoyad" class="f-16 m-t-30 text-navy"></label> <input type="hidden" id="hdAdSoyad"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label>İŞLEMİ YAPAN</label> <input class="form-control" data-attribute="Kullanicilar"/>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>AÇIKLAMA</label>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="Aciklama" data-attribute="Aciklama" onkeyup="BuyukHarf(this)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-8">
+                                <table id="example" class="display" style="width: 100%;"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
@@ -215,6 +89,7 @@
     <script>
         $("[data-attribute='SeriNo']").focus();
         $("[data-attribute='dvSicilMakbuz']").hide();
+
         function funcEskiMakbuzBilgileri(e) {
             if (e.MakbuzDokum.ISLEM == 1 || e.MakbuzDokum.ISLEM == 2 || e.MakbuzDokum.ISLEM == 3 || e.MakbuzDokum.ISLEM == 4 || e.MakbuzDokum.ISLEM == 5 || e.MakbuzDokum.ISLEM == 6 || e.MakbuzDokum.ISLEM == 7 || e.MakbuzDokum.ISLEM == 8 || e.MakbuzDokum.ISLEM == 9 || e.MakbuzDokum.ISLEM == 10 || e.MakbuzDokum.ISLEM == 11) {
 
@@ -225,15 +100,17 @@
                         { data: "ACIKLAMA", title: "Açıklama" },
                         { data: "TUTAR", title: "Tutar" }
                     ],
-                    "columnDefs": [ {
-                            "targets":3 ,
+                    "columnDefs": [
+                        {
+                            "targets": 3,
                             "data": null,
-                            "render": function (data, type, row) {
+                            "render": function(data, type, row) {
                                 //return '<input type="button" class="SepeteEkle" data-StokId="' + row['RefStokId'] + '" value="Düzenle"/>'
-                                return '<span class="ekle" onclick="alert();"><i class="fa fa-edit"></i></span>'
+                                return '<span class="ekle" onclick="alert();"><i class="fa fa-edit"></i></span>';
                             }
 
-                        }],
+                        }
+                    ],
                     "language": {
                         "lengthMenu": "Sayfa başına _MENU_ kayıt",
                         "zeroRecords": "Kayıt Bulunamadı",
@@ -250,8 +127,6 @@
                     },
                     "bSort": false
                 });
-
-
 
 
                 $("[data-attribute='lblAdSoyad']").text(e.MakbuzDokum.ADISOYADI + " (" + e.MakbuzDokum.SICILNO + ")");

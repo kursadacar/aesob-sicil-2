@@ -1,223 +1,63 @@
-﻿ @{ ViewBag.Title = "Makbuz Silme"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-red"> <h2>MAKBUZ SİLME</h2> </div> <div class="body"> <div class="row"> <div class="col-md-3" style="padding-top: 20px;"> <div class="col-md-4"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="col-md-8"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <button id="btnMakbuzGetir" class="btn btn-success" title="Makbuz Getir"><i class="fa fa-file-text-o"></i> Makbuz Getir</button> </div> </div> </div> <div class="col-md-9"> <div id="DataTable"></div> </div> </div> </div> </div> </div> </div>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "Makbuz Silme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card esbis m-t-15">
+            <div class="header bg-red">
+                <h2>MAKBUZ SİLME</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-3" style="padding-top: 20px;">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>SERİ NO</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>MAKBUZ NO</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>MAKBUZ TARİHİ</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="btnMakbuzGetir" class="btn btn-success" title="Makbuz Getir"><i class="fa fa-file-text-o"></i> Makbuz Getir</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="DataTable"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
@@ -225,97 +65,100 @@
     <script>
         $("#btnMakbuzIptal").hide();
         $("#txtSeriNo").focus();
-        $("#btnMakbuzGetir").click(function () {
+        $("#btnMakbuzGetir").click(function() {
             var serino = $("#txtSeriNo").val();
             var makbuzno = $("#txtMakbuzNo").val();
             var makbuztarihi = $("#txtMakbuzTarihi").val();
             if (serino == "" || makbuzno == "" || makbuztarihi == "") {
                 swal("Alanları boş geçmeyiniz!", "Seri No, Makbuz No ve Makbuz Tarihi girmelisiniz.", "info");
-            }
-            else {
-                $.ErcanAyhan.Server.GetAsync("", "/Makbuz/_MakbuzSilmeList?serino=" + serino + "&makbuzno=" + makbuzno + "&makbuztarihi=" + makbuztarihi, function (t) {
-                    $("#DataTable").html("");
-                    $("#DataTable").html(t.ds);
-                    $("#tblSilinecekMakbuzlar").dataTable({
-                        "language": {
-                            "sDecimal": ",",
-                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
-                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                            "sInfoEmpty": "Kayıt yok",
-                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                            "sInfoPostFix": "",
-                            "sInfoThousands": ".",
-                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
-                            "sLoadingRecords": "Yükleniyor...",
-                            "sProcessing": "İşleniyor...",
-                            "sSearch": "Ara:",
-                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
-                            "oPaginate": {
-                                "sFirst": "İlk",
-                                "sLast": "Son",
-                                "sNext": "Sonraki",
-                                "sPrevious": "Önceki"
+            } else {
+                $.ErcanAyhan.Server.GetAsync("",
+                    "/Makbuz/_MakbuzSilmeList?serino=" + serino + "&makbuzno=" + makbuzno + "&makbuztarihi=" + makbuztarihi,
+                    function(t) {
+                        $("#DataTable").html("");
+                        $("#DataTable").html(t.ds);
+                        $("#tblSilinecekMakbuzlar").dataTable({
+                            "language": {
+                                "sDecimal": ",",
+                                "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                                "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                                "sInfoEmpty": "Kayıt yok",
+                                "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                                "sInfoPostFix": "",
+                                "sInfoThousands": ".",
+                                "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                                "sLoadingRecords": "Yükleniyor...",
+                                "sProcessing": "İşleniyor...",
+                                "sSearch": "Ara:",
+                                "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                                "oPaginate": {
+                                    "sFirst": "İlk",
+                                    "sLast": "Son",
+                                    "sNext": "Sonraki",
+                                    "sPrevious": "Önceki"
+                                }
                             }
-                        }
-                    });;
-                })
+                        });;
+                    });
             }
         });
+
         function MakbuzSil(id) {
             swal({
-                title: "Makbuz Silinecek.",
-                text: "Makbuz kaydı silinecek. Onaylıyor musunuz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet, Onaylıyorum!",
-                cancelButtonColor: "#DD6B55",
-                cancelButtonText: "Hayır, Vazgeçtim!",
-                closeOnConfirm: true,
-                closeOnCancel: false
-            },
-                function (isConfirm) {
+                    title: "Makbuz Silinecek.",
+                    text: "Makbuz kaydı silinecek. Onaylıyor musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet, Onaylıyorum!",
+                    cancelButtonColor: "#DD6B55",
+                    cancelButtonText: "Hayır, Vazgeçtim!",
+                    closeOnConfirm: true,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
                     if (isConfirm) {
                         if (id != null) {
                             $.ajax({
                                 url: "/Makbuz/MakbuzKaydiSil",
                                 datatype: "Json",
                                 data: { makbuzid: id },
-                                success: function (sonuc) {
+                                success: function(sonuc) {
                                     if (sonuc == "ok") {
                                         var serino = $("#txtSeriNo").val();
                                         var makbuzno = $("#txtMakbuzNo").val();
                                         var makbuztarihi = $("#txtMakbuzTarihi").val();
                                         if (serino == "" || makbuzno == "" || makbuztarihi == "") {
                                             swal("Alanları boş geçmeyiniz!", "Seri No, Makbuz No ve Makbuz Tarihi girmelisiniz.", "info");
-                                        }
-                                        else {
-                                            $.ErcanAyhan.Server.GetAsync("", "/Makbuz/_MakbuzSilmeList?serino=" + serino + "&makbuzno=" + makbuzno + "&makbuztarihi=" + makbuztarihi, function (t) {
-                                                $("#DataTable").html("");
-                                                $("#DataTable").html(t.ds);
-                                                $("#tblSilinecekMakbuzlar").dataTable({
-                                                    "language": {
-                                                        "sDecimal": ",",
-                                                        "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
-                                                        "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                                                        "sInfoEmpty": "Kayıt yok",
-                                                        "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                                                        "sInfoPostFix": "",
-                                                        "sInfoThousands": ".",
-                                                        "sLengthMenu": "Sayfada _MENU_ kayıt göster",
-                                                        "sLoadingRecords": "Yükleniyor...",
-                                                        "sProcessing": "İşleniyor...",
-                                                        "sSearch": "Ara:",
-                                                        "sZeroRecords": "Eşleşen kayıt bulunamadı",
-                                                        "oPaginate": {
-                                                            "sFirst": "İlk",
-                                                            "sLast": "Son",
-                                                            "sNext": "Sonraki",
-                                                            "sPrevious": "Önceki"
+                                        } else {
+                                            $.ErcanAyhan.Server.GetAsync("",
+                                                "/Makbuz/_MakbuzSilmeList?serino=" + serino + "&makbuzno=" + makbuzno + "&makbuztarihi=" + makbuztarihi,
+                                                function(t) {
+                                                    $("#DataTable").html("");
+                                                    $("#DataTable").html(t.ds);
+                                                    $("#tblSilinecekMakbuzlar").dataTable({
+                                                        "language": {
+                                                            "sDecimal": ",",
+                                                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                                                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                                                            "sInfoEmpty": "Kayıt yok",
+                                                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                                                            "sInfoPostFix": "",
+                                                            "sInfoThousands": ".",
+                                                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                                                            "sLoadingRecords": "Yükleniyor...",
+                                                            "sProcessing": "İşleniyor...",
+                                                            "sSearch": "Ara:",
+                                                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                                                            "oPaginate": {
+                                                                "sFirst": "İlk",
+                                                                "sLast": "Son",
+                                                                "sNext": "Sonraki",
+                                                                "sPrevious": "Önceki"
+                                                            }
                                                         }
-                                                    }
-                                                });;
-                                            })
+                                                    });;
+                                                });
                                         }
                                         swal("Makbuz Silindi!", "Makbuz kaydınız kayıtlardan silinmiştir.", "success");
                                     } else {
@@ -329,6 +172,7 @@
                     }
                 });
         }
+
         function tarihformati(d) {
             var tmp = d.match(/\d+/);
             if (tmp && tmp.length) {
@@ -339,4 +183,3 @@
     </script>
 
 }
-

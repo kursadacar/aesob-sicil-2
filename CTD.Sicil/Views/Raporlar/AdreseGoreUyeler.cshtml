@@ -1,231 +1,46 @@
-﻿ @{ ViewBag.Title = "Adrese Göre Üyeler"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet" />  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-primary"> <h2 style="color:white">ADRESE GÖRE ÜYE RAPORLAMA</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-3"> <div class="form-group"> <label>İLÇE</label> <input class="form-control" data-attribute="ISADRESILCE" onchange="funcIlceChange(this)" /> </div> </div> <div class="col-md-4"> <div class="form-group"> <label>MAHALLE</label> <input class="form-control" data-attribute="ISADRESMAHALLE" onchange="funcMahalleChange(this)" /> </div> </div> <div class="col-md-4"> <div class="form-group"> <label>BULVAR/CADDE/SOKAK</label> <input class="form-control" data-attribute="ISADRESCADSOKBULV" /> </div> </div> <div class="col-md-1 m-t-20"> <a href="#" class="btn btn-primary" onclick="return Listele();"><i class="fa fa-search"></i> Listele</a> </div> </div> <div class="col-md-12"> <div id="dvUyeler"></div> </div> </div> </div> </div> </div> </div> <div class="col-md-12 m-t-10">  </div>   <div class="clearfix"></div> <br /><br /><br /><br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "Adrese Göre Üyeler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Scripts/select2/select2.css" rel="stylesheet"/> <link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card esbis m-t-15">
+            <div class="header bg-primary">
+                <h2 style="color: white">ADRESE GÖRE ÜYE RAPORLAMA</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 20px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>İLÇE</label> <input class="form-control" data-attribute="ISADRESILCE" onchange="funcIlceChange(this)"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>MAHALLE</label> <input class="form-control" data-attribute="ISADRESMAHALLE" onchange="funcMahalleChange(this)"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>BULVAR/CADDE/SOKAK</label> <input class="form-control" data-attribute="ISADRESCADSOKBULV"/>
+                            </div>
+                        </div>
+                        <div class="col-md-1 m-t-20">
+                            <a href="#" class="btn btn-primary" onclick="return Listele();"><i class="fa fa-search"></i> Listele</a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="dvUyeler"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 m-t-10"> </div>
+<div class="clearfix"></div> <br/><br/><br/><br/>
 
 
 @section scripts{
@@ -234,51 +49,59 @@
     <script src="~/Scripts/DataTables/jszip.min.js"></script>
     <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
     <script>
-        $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirIlceler", function (e) {
-            $("[data-attribute='ISADRESILCE']").select2({
-                placeholder: 'İlçe seçiniz',
-                type: "GET",
-                data: e
-            });
-        });
-        function funcIlceChange() {
-            var id = $("[data-attribute='ISADRESILCE']").val();
-            $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirIlceyeGoreMahalle?id=" + id, function (e) {
-                $("[data-attribute='ISADRESMAHALLE']").select2({
+        $.ErcanAyhan.Server.GetAsync("",
+            "/Sicil/GetirIlceler",
+            function(e) {
+                $("[data-attribute='ISADRESILCE']").select2({
+                    placeholder: 'İlçe seçiniz',
                     type: "GET",
-                    data: e,
-                    placeholder: 'Mahalle seçiniz',
+                    data: e
                 });
             });
+
+        function funcIlceChange() {
+            var id = $("[data-attribute='ISADRESILCE']").val();
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Sicil/GetirIlceyeGoreMahalle?id=" + id,
+                function(e) {
+                    $("[data-attribute='ISADRESMAHALLE']").select2({
+                        type: "GET",
+                        data: e,
+                        placeholder: 'Mahalle seçiniz',
+                    });
+                });
             $("[data-attribute='ISADRESMAHALLE']").select2('open');
             $("[data-attribute='ISADRESMAHALLE']").val(null).trigger('change');
             $("[data-attribute='ISADRESCADSOKBULV']").val(null).trigger('change');
         }
+
         function funcMahalleChange() {
             var id = $("[data-attribute='ISADRESMAHALLE']").val();
-            $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirMahalleyeGoreCadSokBulv?id=" + id, function (e) {
-                $("[data-attribute='ISADRESCADSOKBULV']").select2({
-                    type: "GET",
-                    data: e,
-                    placeholder: 'Bulvar Cadde Sokak seçiniz',
+            $.ErcanAyhan.Server.GetAsync("",
+                "/Sicil/GetirMahalleyeGoreCadSokBulv?id=" + id,
+                function(e) {
+                    $("[data-attribute='ISADRESCADSOKBULV']").select2({
+                        type: "GET",
+                        data: e,
+                        placeholder: 'Bulvar Cadde Sokak seçiniz',
+                    });
                 });
-            });
             $("[data-attribute='ISADRESCADSOKBULV']").select2('open');
         }
+
         function Listele() {
             var ilce = $("[data-attribute='ISADRESILCE']").val();
             var mahalle = $("[data-attribute='ISADRESMAHALLE']").val();
             var cadde = $("[data-attribute='ISADRESCADSOKBULV']").val();
             if (ilce == "") {
                 swal("İlçe seçmelisiniz", "Listeleme yapabilmek için en az bir ilçe seçmelisiniz.", "warning");
-            }
-            else {
+            } else {
                 $.ajax({
                     url: "/Sicil/Listele",
                     type: "POST",
                     data: { ilcem: ilce, mahallem: mahalle, caddem: cadde },
                     datatype: "Json",
-                    success: function (e) {
+                    success: function(e) {
                         $("#dvUyeler").html("");
                         $("#dvUyeler").html(e.ds);
                         $("#tblUyeler").DataTable({

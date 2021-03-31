@@ -1,19 +1,15 @@
 table.fixedHeader-floating {
-  position: fixed !important;
-  background-color: white;
+    background-color: white;
+    position: fixed !important;
 }
 
-table.fixedHeader-floating.no-footer {
-  border-bottom-width: 0;
-}
+table.fixedHeader-floating.no-footer { border-bottom-width: 0; }
 
 table.fixedHeader-locked {
-  position: absolute !important;
-  background-color: white;
+    background-color: white;
+    position: absolute !important;
 }
 
 @media print {
-  table.fixedHeader-floating {
-    display: none;
-  }
+    table.fixedHeader-floating { display: none; }
 }

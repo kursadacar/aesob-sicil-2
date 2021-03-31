@@ -1,264 +1,146 @@
-﻿ @{ ViewBag.Title = "Makbuz İptali"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-red"> <h2>MAKBUZ İPTALİ</h2> </div> <div class="body"> <div class="row"> <div class="col-md-3" style="padding-top: 20px;"> <div class="col-md-4"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="col-md-8"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <button id="btnMakbuzGetir" class="btn btn-success" title="Makbuz Getir"><i class="fa fa-file-text-o"></i> Makbuz Getir</button> </div> </div> </div> <div class="col-md-7"> <div id="divMakbuzDetay" class="col-md-12">  <div class="col-md-4 text-right"> <b>ADI SOYADI </b> </div> <div class="col-md-4"><span id="spAdSoyad"></span></div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>ESNAF SİCİL NO </b> </div> <div class="col-md-4"><span id="spSicilNo"></span></div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>SERİ NO - MAKBUZ NO </b> </div> <div class="col-md-4"><span id="spSeriMakbuz"></span></div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>MAKBUZ TARİHİ </b> </div> <div class="col-md-4"><span id="spMakbuzTarihi"></span></div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>AÇIKLAMA </b> </div> <div class="col-md-4"><span id="spAciklama"></span></div> <div class="clearfix"></div> <div class="col-md-4"> <br /> </div> <div class="col-md-4"> <br /> </div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>BİRLİK TAHSİLATI </b> </div> <div class="col-md-4"> <span id="spBirlikTahsilati"></span>.-TL </div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>ID TAHSİLATI </b> </div> <div class="col-md-4"> <span id="spIdTahsilati"></span>.-TL </div> <div class="clearfix"></div> <div class="col-md-4 text-right"> <b>TOPLAM TAHSİLAT </b> </div> <div class="col-md-5"> <span id="spToplamTahsilati"></span>.-TL </div> </div> </div> <div class="col-md-2"> <button id="btnMakbuzIptal" class="btn btn-lg btn-danger" title="Makbuz İptal"><i class="fa fa-close"></i> Makbuz İptal</button> <input type="hidden" id="iptalid" /> </div> </div> </div> </div> </div> </div>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "Makbuz İptali";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card esbis m-t-15">
+            <div class="header bg-red">
+                <h2>MAKBUZ İPTALİ</h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-3" style="padding-top: 20px;">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>SERİ NO</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>MAKBUZ NO</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>MAKBUZ TARİHİ</label>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="btnMakbuzGetir" class="btn btn-success" title="Makbuz Getir"><i class="fa fa-file-text-o"></i> Makbuz Getir</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div id="divMakbuzDetay" class="col-md-12">
+                            <div class="col-md-4 text-right">
+                                <b>ADI SOYADI </b>
+                            </div>
+                            <div class="col-md-4">
+                                <span id="spAdSoyad"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>ESNAF SİCİL NO </b>
+                            </div>
+                            <div class="col-md-4">
+                                <span id="spSicilNo"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>SERİ NO - MAKBUZ NO </b>
+                            </div>
+                            <div class="col-md-4">
+                                <span id="spSeriMakbuz"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>MAKBUZ TARİHİ </b>
+                            </div>
+                            <div class="col-md-4">
+                                <span id="spMakbuzTarihi"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>AÇIKLAMA </b>
+                            </div>
+                            <div class="col-md-4">
+                                <span id="spAciklama"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4">
+                                <br/>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>BİRLİK TAHSİLATI </b>
+                            </div>
+                            <div class="col-md-4"> <span id="spBirlikTahsilati"></span>.-TL </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>ID TAHSİLATI </b>
+                            </div>
+                            <div class="col-md-4"> <span id="spIdTahsilati"></span>.-TL </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-4 text-right">
+                                <b>TOPLAM TAHSİLAT </b>
+                            </div>
+                            <div class="col-md-5"> <span id="spToplamTahsilati"></span>.-TL </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="btnMakbuzIptal" class="btn btn-lg btn-danger" title="Makbuz İptal"><i class="fa fa-close"></i> Makbuz İptal</button> <input type="hidden" id="iptalid"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
-    
+
     <script>
         $("#divMakbuzDetay").hide();
         $("#btnMakbuzIptal").hide();
         $("#txtSeriNo").focus();
-        $("#btnMakbuzGetir").click(function () {
+        $("#btnMakbuzGetir").click(function() {
             var serino = $("#txtSeriNo").val();
             var makbuzno = $("#txtMakbuzNo").val();
             var makbuztarihi = $("#txtMakbuzTarihi").val();
             if (serino == "" || makbuzno == "" || makbuztarihi == "") {
                 swal("Alanları boş geçmeyiniz!", "Seri No, Makbuz No ve Makbuz Tarihi girmelisiniz.", "info");
-            }
-            else {
+            } else {
                 $.ajax({
                     url: "/Makbuz/_MakbuzDetay",
                     data: { serino: serino, makbuzno: makbuzno, makbuztarihi: makbuztarihi },
                     datatype: "json",
-                    success: function (e) {
+                    success: function(e) {
                         if (e.IPTAL == true) {
                             swal("İptal Edilmiş!", "Bu makbuz zaten iptal edilmiş.", "warning");
-                        }
-                        else {
-                            
+                        } else {
+
                             $("#divMakbuzDetay").show();
                             $("#btnMakbuzIptal").show();
                             $("#spAciklama").text(e.ACIKLAMA);
@@ -276,20 +158,20 @@
                 });
             }
         });
-        $("#btnMakbuzIptal").click(function () {
+        $("#btnMakbuzIptal").click(function() {
             swal({
-                title: "Makbuz İptal Edilecek.",
-                text: "Makbuz kaydı iptal edilecek. Onaylıyor musunuz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet, Onaylıyorum!",
-                cancelButtonColor: "#DD6B55",
-                cancelButtonText: "Hayır, Vazgeçtim!",
-                closeOnConfirm: true,
-                closeOnCancel: false
-            },
-                function (isConfirm) {
+                    title: "Makbuz İptal Edilecek.",
+                    text: "Makbuz kaydı iptal edilecek. Onaylıyor musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet, Onaylıyorum!",
+                    cancelButtonColor: "#DD6B55",
+                    cancelButtonText: "Hayır, Vazgeçtim!",
+                    closeOnConfirm: true,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
                     if (isConfirm) {
                         var makbuzid = $("#iptalid").val();
                         var makbuztarihi = $("#txtMakbuzTarihi").val();
@@ -298,7 +180,7 @@
                                 url: "/Makbuz/MakbuzIptalEt",
                                 datatype: "Json",
                                 data: { makbuzid: makbuzid, makbuztarihi: makbuztarihi },
-                                success: function (result) {
+                                success: function(result) {
                                     if (result == "ok") {
                                         $("#txtSeriNo").val("");
                                         $("#txtMakbuzNo").val("");
@@ -329,6 +211,7 @@
                     }
                 });
         });
+
         function tarihformati(d) {
             var tmp = d.match(/\d+/);
             if (tmp && tmp.length) {
@@ -337,6 +220,5 @@
             return 0;
         }
     </script>
-    
-    }
 
+}

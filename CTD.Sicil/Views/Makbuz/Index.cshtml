@@ -1,233 +1,176 @@
-﻿ @{ ViewBag.Title = "Sicil Makbuz"; Layout = "~/Views/Shared/_Layout.cshtml"; } <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <div class="row"> <div class="col-md-2 m-t-10"> <div class="form-group"> <label>ESNAF SİCİL NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtSicilNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;" /> </div> </div> </div> <div class="form-group"> <label>FİYAT SINIFI</label><br /> <section class="section"> <div class="rbcontainer"> <input type="radio" name="grpsinif" id="rbsinif1" value="1" title="1. SINIF"> <label for="rbsinif1"><span class="radio">1. Sınıf</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpsinif" id="rbsinif2" value="2" title="2. SINIF"> <label for="rbsinif2"><span class="radio">2. Sınıf</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpsinif" id="rbsinif3" value="3" title="3. SINIF"> <label for="rbsinif3"><span class="radio">3. Sınıf</span></label> </div> </section> </div> <div class="form-group"> <label>TAHSİLAT İŞLEMİ</label><br /> <section class="section"> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem1" value="1" title="YENİ KAYIT"> <label for="rbislem1"><span class="radio">Yeni Kayıt</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem2" value="2" title="DEĞİŞİKLİK"> <label for="rbislem2"><span class="radio">Değişiklik</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem4" value="4" title="TERK"> <label for="rbislem4"><span class="radio">Terk</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem12" value="1017" title="ODASIZ KAYIT"> <label for="rbislem12"><span class="radio">Odasız Kayıt</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem13" value="2017" title="ODALI KAYIT"> <label for="rbislem13"><span class="radio">Odalı Kayıt</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem6" value="6" title="SURET"> <label for="rbislem6"><span class="radio">Suret</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem7" value="7" title="HİZMET BEDELİ"> <label for="rbislem7"><span class="radio">Hizmet Bedeli</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem8" value="8" title="SİCİL GAZETESİ"> <label for="rbislem8"><span class="radio">Sicil Gazetesi</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem9" value="9" title="İhale Yazısı"> <label for="rbislem9"><span class="radio">İhale Yazısı</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem10" value="10" title="Kapasite Raporu"> <label for="rbislem10"><span class="radio">Kapasite Raporu</span></label> </div> <div class="rbcontainer"> <input type="radio" name="grpislem" id="rbislem11" value="11" title="Tasdik"> <label for="rbislem11"><span class="radio">Tasdik</span></label> </div> </section> </div> <div class="form-group"> <button id="btnMakbuzOlustur" class="btn btn-success" title="Makbuz Oluştur"><i class="fa fa-file-text-o"></i> Makbuz Oluştur</button> </div> <div class="clearfix"></div> <br /><br /> </div> <div id="dvDokum" class="col-md-10 p-10"> <div class="col-md-5"> <div class="form-group"> <label id="lblAdSoyad" class="f-16 m-t-30 text-navy"></label> <input type="hidden" id="hdAdSoyad" /> </div> </div> <div class="col-md-4"> <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi" /> </div> <div class="col-md-3"> <label>İŞLEMİ YAPAN</label> <input class="form-control" data-attribute="Kullanicilar" />  </div> <div class="clearfix"></div> <div class="col-md-2 col-xs-6"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtSeriNo" maxlength="10" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-6"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;" /> </div> </div> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" style="background-color: #f3f3f4;" /> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label>AÇIKLAMA</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;" /> </div> </div> </div> </div>  <div class="clearfix"></div> <div class="col-md-12"> <div id="divMakbuzListe"> @Html.Action("_MakbuzDokum", "Makbuz") </div> </div> </div>  </div>   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿@{
+    ViewBag.Title = "Sicil Makbuz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Scripts/select2/select2.css" rel="stylesheet"/>
+<div class="row">
+    <div class="col-md-2 m-t-10">
+        <div class="form-group">
+            <label>ESNAF SİCİL NO</label>
+            <div class="input-group">
+                <div class="form-line">
+                    <input type="text" class="form-control" data-attribute="txtSicilNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>FİYAT SINIFI</label><br/>
+            <section class="section">
+                <div class="rbcontainer">
+                    <input type="radio" name="grpsinif" id="rbsinif1" value="1" title="1. SINIF">
+                    <label for="rbsinif1">
+                        <span class="radio">1. Sınıf</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpsinif" id="rbsinif2" value="2" title="2. SINIF">
+                    <label for="rbsinif2">
+                        <span class="radio">2. Sınıf</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpsinif" id="rbsinif3" value="3" title="3. SINIF">
+                    <label for="rbsinif3">
+                        <span class="radio">3. Sınıf</span>
+                    </label>
+                </div>
+            </section>
+        </div>
+        <div class="form-group">
+            <label>TAHSİLAT İŞLEMİ</label><br/>
+            <section class="section">
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem1" value="1" title="YENİ KAYIT">
+                    <label for="rbislem1">
+                        <span class="radio">Yeni Kayıt</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem2" value="2" title="DEĞİŞİKLİK">
+                    <label for="rbislem2">
+                        <span class="radio">Değişiklik</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem4" value="4" title="TERK">
+                    <label for="rbislem4">
+                        <span class="radio">Terk</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem12" value="1017" title="ODASIZ KAYIT">
+                    <label for="rbislem12">
+                        <span class="radio">Odasız Kayıt</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem13" value="2017" title="ODALI KAYIT">
+                    <label for="rbislem13">
+                        <span class="radio">Odalı Kayıt</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem6" value="6" title="SURET">
+                    <label for="rbislem6">
+                        <span class="radio">Suret</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem7" value="7" title="HİZMET BEDELİ">
+                    <label for="rbislem7">
+                        <span class="radio">Hizmet Bedeli</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem8" value="8" title="SİCİL GAZETESİ">
+                    <label for="rbislem8">
+                        <span class="radio">Sicil Gazetesi</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem9" value="9" title="İhale Yazısı">
+                    <label for="rbislem9">
+                        <span class="radio">İhale Yazısı</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem10" value="10" title="Kapasite Raporu">
+                    <label for="rbislem10">
+                        <span class="radio">Kapasite Raporu</span>
+                    </label>
+                </div>
+                <div class="rbcontainer">
+                    <input type="radio" name="grpislem" id="rbislem11" value="11" title="Tasdik">
+                    <label for="rbislem11">
+                        <span class="radio">Tasdik</span>
+                    </label>
+                </div>
+            </section>
+        </div>
+        <div class="form-group">
+            <button id="btnMakbuzOlustur" class="btn btn-success" title="Makbuz Oluştur"><i class="fa fa-file-text-o"></i> Makbuz Oluştur</button>
+        </div>
+        <div class="clearfix"></div> <br/><br/>
+    </div>
+    <div id="dvDokum" class="col-md-10 p-10">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label id="lblAdSoyad" class="f-16 m-t-30 text-navy"></label> <input type="hidden" id="hdAdSoyad"/>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi"/>
+        </div>
+        <div class="col-md-3">
+            <label>İŞLEMİ YAPAN</label> <input class="form-control" data-attribute="Kullanicilar"/>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-2 col-xs-6">
+            <div class="form-group">
+                <label>SERİ NO</label>
+                <div class="input-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" data-attribute="txtSeriNo" maxlength="10" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-6">
+            <div class="form-group">
+                <label>MAKBUZ NO</label>
+                <div class="input-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>MAKBUZ TARİHİ</label>
+                <div class="input-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" style="background-color: #f3f3f4;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>AÇIKLAMA</label>
+                <div class="input-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+            <div id="divMakbuzListe"> @Html.Action("_MakbuzDokum", "Makbuz") </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts
@@ -237,7 +180,7 @@
     <script>
         $("#dvDokum").hide();
 
-        $("#btnMakbuzOlustur").click(function () {
+        $("#btnMakbuzOlustur").click(function() {
             var sicilno = $("[data-attribute='txtSicilNo']").val();
             var sinif = 0;
             var siniftext = "";
@@ -262,8 +205,7 @@
                 }
                 if (sinif == 0 || islem == 0) {
                     swal("Fiyat Sınıfı ve Tahsilat İşlemi seçmelisiniz!", "Seçim alanlarını boş geçemezsiniz.", "warning");
-                }
-                else {
+                } else {
                     $.ajax({
                         url: "/Makbuz/MakbuzDokum",
                         data: {
@@ -272,7 +214,7 @@
                             islem: islem
                         },
                         datatype: "json",
-                        success: function (tm) {
+                        success: function(tm) {
                             $("#lblAdSoyad").text(tm.AdSoyad + " (" + sicilno + ")");
                             $("#hdAdSoyad").val(tm.AdSoyad);
                             $("#hdAdSoyad2").val(tm.AdSoyad);
@@ -302,7 +244,7 @@
                                     siciladsoyad: $("#lblAdSoyad").text(),
                                     not: $("[data-attribute='txtAciklama']").val()
                                 },
-                                success: function (data) {
+                                success: function(data) {
                                     $("#divMakbuzListe").html(data);
                                 }
                             });
@@ -310,8 +252,7 @@
                     });
                     $("#dvDokum").show();
                 }
-            }
-            else {
+            } else {
                 swal("Sicil No Boş Geçmeyiniz!", "Esnaf Sicil No alanını boş geçemezsiniz.", "warning");
             }
         });
@@ -322,18 +263,18 @@
                 swal("Seçim yapınız!", "İşlemi Yapan alanı boş geçilemez!", "warning");
             } else {
                 swal({
-                    title: "Makbuz Kaydedilecek.",
-                    text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Evet, Onaylıyorum!",
-                    cancelButtonColor: "#DD6B55",
-                    cancelButtonText: "Hayır, iptal edilsin!",
-                    closeOnConfirm: true,
-                    closeOnCancel: false
-                },
-                    function (isConfirm) {
+                        title: "Makbuz Kaydedilecek.",
+                        text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Evet, Onaylıyorum!",
+                        cancelButtonColor: "#DD6B55",
+                        cancelButtonText: "Hayır, iptal edilsin!",
+                        closeOnConfirm: true,
+                        closeOnCancel: false
+                    },
+                    function(isConfirm) {
                         if (isConfirm) {
                             var sicilno = $("[data-attribute='txtSicilNo']").val();
                             var sinif = 0;
@@ -371,12 +312,12 @@
                                     oda: $("[data-attribute='MeslekOdasi']").val(),
                                     adisoyadi: $("#hdAdSoyad").val()
                                 },
-                                success: function () {
+                                success: function() {
                                     $.ajax({
                                         url: "/Makbuz/MakbuzSayac",
                                         datatype: "Json",
                                         data: { serino: $("[data-attribute='txtSeriNo']").val(), makbuzno: $("[data-attribute='txtMakbuzNo']").val() },
-                                        success: function () {
+                                        success: function() {
                                             $("#btnPrint").show();
                                             $("#btnKaydet").hide();
                                             $("#btnTemizle").show();

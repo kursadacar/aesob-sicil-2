@@ -1,3 +1,41 @@
 ﻿@model List<CTD.Dto.SingleDto.MakbuzDetayLogDto>
 
-@{ var makbuzdokumid = ViewBag.MakbuzDokumId; decimal toplamtutar = 0; foreach(var item in Model) { toplamtutar += Convert.ToDecimal(item.Tutar); } }  <div class="col-md-6"> <table id="EvrakDokumu" class="mGrid"> <thead> <tr> <th>KOD</th> <th>TAHSİLAT KALEMİ</th> <th class="tc">TUTAR</th> <th class="tc">SİL</th> </tr> </thead>  @foreach(var item in Model) { string satir = ""; if(item.Makbuz == true) { satir += @"<tr class='red'>" + Environment.NewLine + "<td>" + @item.Kod + "</td>" + Environment.NewLine + "<td>" + @item.Aciklama + "</td>" + Environment.NewLine + "<td class='text-right'>" + Convert.ToDecimal(@item.Tutar).ToString("c") + "</td>" + Environment.NewLine + "<td class='text-center pasifle' style='cursor: pointer;' href='#' id='" + item.Id + "' onclick='return MakbuzDetayLogSil(" + item.Id + ");' title='Sil' data-id='" + item.Id + "'><i class='fa fa-trash-o'></i></td>" + Environment.NewLine + "</tr>"; } @Html.Raw(satir) }  </table> </div> <div class="col-md-4 p-t-20"> <div class="webgrid-footer hi"> <div class="tr"> <div class="col-md-8 text-right p-t-10 p-b-5"> <label class="f-16 red">TOPLAM TAHSİLAT</label><br /> </div> <div class="col-md-4 text-right p-t-10 p-b-5"> <label id="lblEKToplamTutar" class="f-16 red hidden">@toplamtutar</label> <label id="lblEKToplamTutar2" class="f-16 red">@toplamtutar.ToString("c")</label><br /> </div> <div class="clearfix"></div> </div> </div> </div>  
+@{
+    var makbuzdokumid = ViewBag.MakbuzDokumId;
+    decimal toplamtutar = 0;
+    foreach (var item in Model)
+    {
+        toplamtutar += Convert.ToDecimal(item.Tutar);
+    }
+}
+<div class="col-md-6">
+    <table id="EvrakDokumu" class="mGrid">
+        <thead>
+        <tr>
+            <th>KOD</th> <th>TAHSİLAT KALEMİ</th> <th class="tc">TUTAR</th> <th class="tc">SİL</th>
+        </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            var satir = "";
+            if (item.Makbuz == true)
+            {
+                satir += @"<tr class='red'>" + Environment.NewLine + "<td>" + item.Kod + "</td>" + Environment.NewLine + "<td>" + item.Aciklama + "</td>" + Environment.NewLine + "<td class='text-right'>" + Convert.ToDecimal(item.Tutar).ToString("c") + "</td>" + Environment.NewLine + "<td class='text-center pasifle' style='cursor: pointer;' href='#' id='" + item.Id + "' onclick='return MakbuzDetayLogSil(" + item.Id + ");' title='Sil' data-id='" + item.Id + "'><i class='fa fa-trash-o'></i></td>" + Environment.NewLine + "</tr>";
+            }
+            @Html.Raw(satir)
+        }
+    </table>
+</div>
+<div class="col-md-4 p-t-20">
+    <div class="webgrid-footer hi">
+        <div class="tr">
+            <div class="col-md-8 text-right p-t-10 p-b-5">
+                <label class="f-16 red">TOPLAM TAHSİLAT</label><br/>
+            </div>
+            <div class="col-md-4 text-right p-t-10 p-b-5">
+                <label id="lblEKToplamTutar" class="f-16 red hidden">@toplamtutar</label> <label id="lblEKToplamTutar2" class="f-16 red">@toplamtutar.ToString("c")</label><br/>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

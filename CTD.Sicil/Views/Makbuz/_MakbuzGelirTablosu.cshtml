@@ -1,4 +1,21 @@
-﻿@{ var grid = new WebGrid(source: Model, canPage: false, selectionFieldName: "SelectedRow"); decimal toplamgelir = 0; var toplamadet = 0; foreach(var item in Model) { toplamgelir += item.TUTAR; toplamadet += item.ADET; } @toplamgelir; }  @grid.GetHtml(  tableStyle: "mGrid", headerStyle: "hidden-xs hidden-sm", footerStyle: "webgrid-footer", alternatingRowStyle: "alternate", rowStyle: "gridrow", columns: new[] { grid.Column(header: "#", style:"text-center", format:@<text><div>@(item.WebGrid.Rows.IndexOf(item)+1)</div></text>), grid.Column("KOD", header: "Kod", style:"text-center"), grid.Column("ACIKLAMA", header: "Gelir Kalemi"), grid.Column("ADET", header: "Adet", style:"text-center"), grid.Column("TUTAR", header: "Tutar", style:"tutar text-right", format: @<text>@item.TUTAR.ToString("c")</text>) })
+﻿@{
+    var grid = new WebGrid(source: Model, canPage: false, selectionFieldName: "SelectedRow");
+    decimal toplamgelir = 0;
+    var toplamadet = 0;
+    foreach (var item in Model)
+    {
+        toplamgelir += item.TUTAR;
+        toplamadet += item.ADET;
+    }
+    @toplamgelir
+    ;
+}
+@grid.GetHtml(tableStyle: "mGrid", headerStyle: "hidden-xs hidden-sm", footerStyle: "webgrid-footer", alternatingRowStyle: "alternate", rowStyle: "gridrow", columns: new[]
+{
+    grid.Column(header: "#", style: "text-center", format: @<text>
+                                                               <div>@(item.WebGrid.Rows.IndexOf(item) + 1)</div></text>),
+    grid.Column("KOD", "Kod", style: "text-center"), grid.Column("ACIKLAMA", "Gelir Kalemi"), grid.Column("ADET", "Adet", style: "text-center"), grid.Column("TUTAR", header: "Tutar", style: "tutar text-right", format: @<text>@item.TUTAR.ToString("c")</text>)
+})
 
 <script type="text/javascript">
     $('tbody').append('<tr><td colspan="3" class="text-right"><b>TOPLAM </b></td><td class="text-center"><b>' + @toplamadet + '</b></td><td class="text-right"><b>' + @toplamgelir + '</b></td></tr>');

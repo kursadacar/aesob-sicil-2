@@ -1,0 +1,145 @@
+﻿@model List<CTD.Dto.SingleDto.SicilMeslekDto>
+
+<table id="UyeMeslekleri" class="table table-hover" style="margin-bottom: 5px;">
+    <thead>
+        <tr>
+            <th>MESLEK ODASI</th>
+            <th>MESLEK</th>
+            <th class='hidden-xs'>İŞ ADRESİ</th>
+            <th></th>
+            <th class='hidden-xs'>KAYIT TARİHİ</th>
+            <th class='hidden-xs'>TERK TARİHİ</th>
+            <th colspan='6' class='hidden-xs' style="text-align:center">İŞLEMLER</th>
+        </tr>
+    </thead>
+
+    @foreach(var item in Model)
+    {
+        #region Tarih Formatlama...
+
+        //MESLEKTERKTAR Formatlama..
+        var terk = new DateTime();
+        string terk2 = null;
+        if(item.MESLEKTERKTAR != null)
+        {
+            terk = Convert.ToDateTime(item.MESLEKTERKTAR);
+            terk2 = Convert.ToString(terk.ToShortDateString());
+        }
+        else
+        {
+            terk2 = null;
+        }
+
+        //VIZESURESIBITTAR Formatlama...
+        var vize = new DateTime();
+        string vize2 = null;
+        if(item.VIZESURESIBITTAR != null)
+        {
+            vize = Convert.ToDateTime(item.VIZESURESIBITTAR);
+            vize2 = Convert.ToString(vize.ToShortDateString());
+        }
+        else
+        {
+            vize2 = null;
+        }
+
+        //KAYITTAR Formatlama...
+        var kayit = new DateTime();
+        string kayit2 = null;
+        if(item.KAYITTAR != null)
+        {
+            kayit = Convert.ToDateTime(item.KAYITTAR);
+            kayit2 = Convert.ToString(kayit.ToShortDateString());
+        }
+        else
+        {
+            kayit2 = null;
+        }
+
+        #endregion
+
+
+        string satir = "";
+        if(item.MESLEKTERKTAR != null)
+        {
+            if(Accesses.Hak == "mudur")
+            {
+                satir += @"<tr class='red'>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKODASIKISAAD + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKADI + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.ISADRES2 + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'><span class='label label-danger'>Pasif</span></td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @kayit2 + "</td>" + Environment.NewLine +
+                     //"<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @vize2 + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @terk2 + "</td>" + Environment.NewLine +
+                     "<td colspan='2'  class='text-center hidden-xs' style='cursor: pointer; border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' data-target='#myModalChangeRecord' id='" + item.ID + "' onclick='return SicilMeslekDuzenle(" + item.ID + ");' title='Düzenle' data-id='" + item.ID + "'><i class='fa fa-edit'></td>" + Environment.NewLine +
+                     "<td colspan='2' class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' title='Sicil Tasdiknamesi' data-id='" + item.ID + "'><a href='/Sicil/ReportSicilTasdiknamesi?id=" + item.ID + "' target='_blank'><i class='fa fa-file-pdf-o'></i></a></td>" + Environment.NewLine +
+                     "<td colspan='2' class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 2px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' id='" + item.ID + "' onclick='return MeslekSil(" + item.ID + ");' title='İşyeri Sil' data-id='" + item.ID + "'><i class='fa fa-trash'></td>" + Environment.NewLine +
+                     "</tr>" + Environment.NewLine +
+                     "";
+            }
+            else
+            {
+                satir += @"<tr class='red'>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKODASIKISAAD + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKADI + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.ISADRES2 + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'><span class='label label-danger'>Pasif</span></td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @kayit2 + "</td>" + Environment.NewLine +
+                     //"<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @vize2 + "</td>" + Environment.NewLine +
+                     "<td colspan='2'  class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @terk2 + "</td>" + Environment.NewLine +
+                     "<td colspan='2' class='text-center hidden-xs' style='cursor: pointer; border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' data-target='#myModalChangeRecord' id='" + item.ID + "' onclick='return SicilMeslekDuzenle(" + item.ID + ");' title='Düzenle' data-id='" + item.ID + "'><i class='fa fa-edit'></td>" + Environment.NewLine +
+                     "<td colspan='2' class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 2px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' id='" + item.ID + "' onclick='return MeslekSil(" + item.ID + ");' title='İşyeri Sil' data-id='" + item.ID + "'><i class='fa fa-trash'></td>" + Environment.NewLine +
+                     "</tr>" + Environment.NewLine +
+                     "";
+            }
+
+        }
+        else
+        {
+            if(Accesses.Hak == "mudur")
+            {
+                satir += @"<tr>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKODASIKISAAD + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKADI + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.ISADRES2 + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'><span class='label label-primary'>Aktif</span></td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @kayit2 + "</td>" + Environment.NewLine +
+                     //"<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @vize2 + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @terk2 + "</td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' data-toggle='modal' data-target='#myModalChangeRecord' id='" + item.ID + "' onclick='return SicilMeslekDuzenle(" + item.ID + ");' title='Düzenle' data-id='" + item.ID + "'><i class='fa fa-edit'></td>" + Environment.NewLine +
+
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' title='Kayıt Kapak Sayfası' data-id='" + item.ID + "'><a href='/Sicil/ReportKayitKapak?id=" + item.ID + "' target='_blank'><i class='fa fa-file-text-o'></i></a></td>" + Environment.NewLine +
+
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' title='Suret Dilekçesi' data-id='" + item.ID + "'><a href='/Sicil/ReportSuretDilekcesi?id=" + item.ID + "' target='_blank'><i class='fa fa-address-book'></i></a></td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' title='Sicil Tasdiknamesi' data-id='" + item.ID + "'><a href='/Sicil/ReportSicilTasdiknamesi?id=" + item.ID + "' target='_blank'><i class='fa fa-file-pdf-o'></i></a></td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' data-target='#myModalNewSube' id='" + item.ID + "' onclick='return SubeEkle(" + item.ID + ");' title='Şube Ekle' data-id='" + item.ID + "'><i class='fa fa-institution'></td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 2px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' id='" + item.ID + "' onclick='return MeslekSil(" + item.ID + ");' title='İşyeri Sil' data-id='" + item.ID + "'><i class='fa fa-trash'></td>" + Environment.NewLine +
+                     "</tr>" + Environment.NewLine +
+                     "";
+            }
+            else
+            {
+                satir += @"<tr>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKODASIKISAAD + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.MESLEKADI + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @item.ISADRES2 + "</td>" + Environment.NewLine +
+                     "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'><span class='label label-primary'>Aktif</span></td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @kayit2 + "</td>" + Environment.NewLine +
+                     //"<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @vize2 + "</td>" + Environment.NewLine +
+                     "<td class='hidden-xs' onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-bottom: 1px solid #dcdcdc;'>" + @terk2 + "</td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' data-toggle='modal' data-target='#myModalChangeRecord' id='" + item.ID + "' onclick='return SicilMeslekDuzenle(" + item.ID + ");' title='Düzenle' data-id='" + item.ID + "'><i class='fa fa-edit'></td>" + Environment.NewLine +
+
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' title='Kayıt Kapak Sayfası' data-id='" + item.ID + "'><a href='/Sicil/ReportKayitKapak?id=" + item.ID + "' target='_blank'><i class='fa fa-dashboard'></i></a></td>" + Environment.NewLine +
+
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' title='Suret Dilekçesi' data-id='" + item.ID + "'><a href='/Sicil/ReportSuretDilekcesi?id=" + item.ID + "' target='_blank'><i class='fa fa-file-text-o'></i></a></td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' data-target='#myModalNewSube' id='" + item.ID + "' onclick='return SubeEkle(" + item.ID + ");' title='Şube Ekle' data-id='" + item.ID + "'><i class='fa fa-institution'></td>" + Environment.NewLine +
+                     "<td class='text-center hidden-xs' style='cursor: pointer; width:40px;border-right: 2px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;' href='#' data-toggle='modal' id='" + item.ID + "' onclick='return MeslekSil(" + item.ID + ");' title='İşyeri Sil' data-id='" + item.ID + "'><i class='fa fa-trash'></td>" + Environment.NewLine +
+                     "</tr>" + Environment.NewLine +
+                     "";
+            }
+        }
+        @Html.Raw(satir)
+    }
+</table>
+

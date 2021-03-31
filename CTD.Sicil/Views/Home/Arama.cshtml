@@ -1,0 +1,293 @@
+﻿ @{ ViewBag.Title = "Arama"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" /> <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <div class="sidebar-container"> <ul class="nav nav-tabs navs-4"> <li id="liDetayliArama"> <a data-toggle="tab" href="#tab-1"> <h3><i class="fa fa-user"></i> Detaylı Arama</h3> </a> </li> <li class="active"> <a data-toggle="tab" href="#tab-2"> <h3><i class="fa fa-search"></i> Ünvan Arama</h3> </a> </li> <li> <a data-toggle="tab" href="#tab-3"> <h3><i class="fa fa-try"></i> Rapor 3</h3> </a> </li> <li> <a data-toggle="tab" href="#tab-4"> <h3><i class="fa fa-file-pdf-o"></i> Rapor 4</h3> </a> </li> </ul> <div class="tab-content"> <div id="tab-1" class="tab-pane"> <div class="sidebar-title"> <div class="col-md-3"> <label>ADI SOYADI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtAdSoyad" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;" /> </div> </div> </div> <div class="col-md-2"> <label>BABA ADI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtBabaAdi" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;" /> </div> </div> </div> <div class="col-md-3" style="padding-top:4px;"> <label>MESLEK ODASI</label> <div class="input-group"> <input id="ddlMeslekOdasi" data-attribute="ddlMeslekOdasi" class="form-control" /> </div> </div> <div class="col-md-4" style="padding-top:4px;"> <label>MESLEK</label> <div class="input-group"> <input id="ddlMeslek" data-attribute="ddlMeslek" class="form-control" /> </div> </div> <div class="clearfix"></div> <div class="text-center"><button id="btnDetayliAra" class="btn btn-success" title="Ara"><i class="fa fa-search"></i> Arama</button></div> </div> <div class="body p-10" style="background-color: white"> <div id="dvAramaSonuc1"></div> </div> <br /> </div> <div id="tab-2" class="tab-pane active"> <div class="sidebar-title p-b-0"> <div class="col-md-6"> <h3><i class="fa fa-search"></i> Ünvan sorgulamak istediğiniz kelimeyi giriniz.</h3> </div> <div class="col-md-4 text-right"> <div class="form-group m-b-0"> <label>ÜNVAN</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtUnvan" style="background-color: #f9f9f9;" /> </div> </div> </div> </div> <div class="col-md-2 text-left m-t-20"> <button id="btnUnvanAra" class="btn btn-success" title="Ünvan Arama"><i class="fa fa-search"></i> Ünvan Arama</button> </div> <div class="clearfix"></div> </div> <div class="body p-10" style="background-color: white"> <div id="dvAramaSonuc"></div> </div> <br /> </div> <div id="tab-3" class="tab-pane"> <div class="sidebar-title"> <h3> <i class="fa fa-try"></i> Rapor 3</h3> </div> <div> İçerik 3</div> </div> <div id="tab-4" class="tab-pane"> <div class="sidebar-title"> <h3> <i class="fa fa-file-pdf-o"></i> Üye ile ilgili verilebilen evraklar</h3> </div>  <div>İçerik 4</div> </div> </div> </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="/Scripts/select2/select2.min.js"></script>
+    <script>
+        $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirOdalar", function (e) {
+            $("[data-attribute='ddlMeslekOdasi']").select2({
+                type: "GET",
+                data: e,
+                placeholder: 'Meslek odası seçiniz',
+                allowClear: true
+            });
+        });
+        $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/GetirMeslekler", function (t) {
+            $("[data-attribute='ddlMeslek']").select2({
+                type: "GET",
+                data: t,
+                placeholder: 'Meslek seçiniz',
+                allowClear: true
+            });
+        });
+        $("#btnUnvanAra").click(function () {
+            var kriter = $("[data-attribute='txtUnvan']").val();
+            if (kriter != "") {
+                $.ajax({
+                    url: "/Home/UnvanArama",
+                    data: { kriter: kriter },
+                    datatype: "json",
+                    type: "POST",
+                    success: function (result) {
+                        $("#dvAramaSonuc").html("");
+                        $("#dvAramaSonuc").html(result.ds);
+                        $("#tblUnvan").dataTable({
+                            "language": {
+                                "sDecimal": ",",
+                                "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                                "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                                "sInfoEmpty": "Kayıt yok",
+                                "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                                "sInfoPostFix": "",
+                                "sInfoThousands": ".",
+                                "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                                "sLoadingRecords": "Yükleniyor...",
+                                "sProcessing": "İşleniyor...",
+                                "sSearch": "Ara:",
+                                "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                                "oPaginate": {
+                                    "sFirst": "İlk",
+                                    "sLast": "Son",
+                                    "sNext": "Sonraki",
+                                    "sPrevious": "Önceki"
+                                },
+                                "oAria": {
+                                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                                }
+                            }
+                        });
+                    }
+                });
+            } else {
+                swal("Ünvan giriniz!", "Arama yapmak için arama kriteri girmelisiniz.", "info");
+            }
+        });
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                $("#btnUnvanAra").trigger("click");
+            }
+        });
+        $("#btnDetayliAra").click(function () {
+            var veriler = {
+                adsoyad: $("[data-attribute='txtAdSoyad']").val(),
+                babaadi: $("[data-attribute='txtBabaAdi']").val(),
+                meslekodasi: $("[data-attribute='ddlMeslekOdasi']").val(),
+                meslek: $("[data-attribute='ddlMeslek']").val()
+            };
+            $.ErcanAyhan.Server.PostAsync(veriler, "/Sicil/DetayliArama", function (z) {
+                $("#dvAramaSonuc1").html("");
+                $("#dvAramaSonuc1").html(z.ds);
+                $("#tblDetayliArama").dataTable({
+                    "language": {
+                        "sDecimal": ",",
+                        "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                        "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                        "sInfoEmpty": "Kayıt yok",
+                        "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ".",
+                        "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                        "sLoadingRecords": "Yükleniyor...",
+                        "sProcessing": "İşleniyor...",
+                        "sSearch": "Ara:",
+                        "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                        "oPaginate": {
+                            "sFirst": "İlk",
+                            "sLast": "Son",
+                            "sNext": "Sonraki",
+                            "sPrevious": "Önceki"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                            "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

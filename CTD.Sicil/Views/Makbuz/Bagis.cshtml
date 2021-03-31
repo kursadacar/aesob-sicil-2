@@ -1,0 +1,296 @@
+﻿ @{ ViewBag.Title = "Bağış ve Yardımlar"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-light-blue"> <h2>BAĞIŞ VE YARDIMLAR</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-1 col-xs-3"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-4"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-5"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")' /> </div> </div> </div> </div> <div class="col-md-5"> <div class="form-group"> <label>BAĞIŞ YAPAN</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtBagis" data-attribute="txtBagis" maxlength="80" onkeyup="BuyukHarf(this)" onchange="$('[data-attribute=\'txtTutar\']').focus();"/> </div> </div> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>TUTAR</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-5"> <input id="hdMakbuzDokumId" type="hidden" /> </div> <div id="btnBdiv" class="col-md-2 p-t-20"> <button id="btnKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button> </div>  <div id="divPrintMakbuz" class="col-md-12"> @Html.Action("_PrintBMakbuz", "Makbuz") </div>  </div> </div> </div> </div> </div> </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script>
+        $("#txtBagis").focus();
+        $("#btnKaydet").click(function () {
+            swal({
+                title: "Makbuz Kaydedilecek.",
+                text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet, Onaylıyorum!",
+                cancelButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır, iptal edilsin!",
+                closeOnConfirm: true,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        var serino = $("#txtSeriNo").val();
+                        var makbuzno = $("#txtMakbuzNo").val();
+                        var makbuztarihi = $("#txtMakbuzTarihi").val();
+                        var bagisyapan = $("#txtBagis").val();
+                        var tutar = $("#txtTutar").val();
+                        if (serino == "" || makbuzno == "" || makbuztarihi == "" || bagisyapan == "" || tutar == "") {
+                            swal("Alanları boş geçmeyiniz!", "Seri No, Makbuz No, Makbuz Tarihi ve Açıklama girmelisiniz.", "info");
+                        }
+                        else {
+                            $.ajax({
+                                url: "/Makbuz/BagisEkle",
+                                data: { serino: serino, makbuzno: makbuzno, makbuztarihi: makbuztarihi, bagisyapan: bagisyapan, tutar: tutar },
+                                datatype: "json",
+                                success: function (result) {
+                                    $("#hdMakbuzDokumId").val(result);
+                                    $.ajax({
+                                        url: "/Makbuz/_PrintBMakbuz",
+                                        datatype: "Json",
+                                        data: { makbuzdokumid: result, bagisyapan: bagisyapan },
+                                        success: function (data) {
+                                            $("#divPrintMakbuz").html(data);
+                                            $("#btnKaydet").attr("disabled", "disabled");
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        swal("İptal Edildi!", "İsteğiniz üzerine işlem iptal edilmiştir :)", "error");
+                    }
+                });
+        });
+        function PrintFunctionB(div) {
+            document.getElementById('printdivB').style.display = "none";
+            document.getElementById('btnTemizleB').style.display = "inline";
+            PopupB($(printdivB).html());
+        }
+        function PopupB(data) {
+            var printwindow = window.open('', 'printdivB');
+            printwindow.document.write('<html><head><title></title>');
+            printwindow.document.write('</head><body>');
+            printwindow.document.write(data);
+            printwindow.document.write('</body></html>');
+            printwindow.document.close();
+
+            document.getElementById('printdivB').style.display = "none";
+            printwindow.focus();
+            printwindow.print();
+            printwindow.close();
+            document.getElementById('printdivB').style.display = "none";
+        }
+    </script>
+
+    }

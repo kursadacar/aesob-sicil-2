@@ -1,0 +1,1 @@
+﻿using CTD.Dto.SingleDto; using System.Collections.Generic;  namespace CTD.Dto.ListedDto { public class TahsilatListesiDto { public List<ComboBoxIdTextDto> VezneListesi { get; set; } } } 

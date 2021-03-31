@@ -1,0 +1,244 @@
+﻿ @{ ViewBag.Title = "MeslekOdasiTanimlama"; Layout = "~/Views/Shared/_Layout.cshtml"; } <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" /> <link href="/Scripts/select2/select2.css" rel="stylesheet" />  <div class="modal inmodal" id="modalEdit" tabindex="-1" role="dialog"> <div class="modal-dialog"> <div class="modal-content animated bounceInRight"> <div class="modal-header"> <button type="button" id="btnOdaClose" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Kapat</span></button> <span class="modal-title">MESLEK ODASI DÜZENLEME</span> </div> <div class="modal-body"> <div class="col-md-12"> <div class="form-group"> <label>ODA KISA ADI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="kisaad" style="background-color: #f9f9f9;" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <label>ODANIN TAM ADI</label> <div class="input-group"> <div class="form-line"> <textarea class="form-control" data-attribute="tamad" style="background-color: #f9f9f9;" onkeyup="BuyukHarf(this)"></textarea> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="col-md-6"> <label>ODANIN SINIFI</label> <select id="sinif" name="sinif" class="form-control"> <option value="1">1. SINIF</option> <option value="2">2. SINIF</option> <option value="3">3. SINIF</option> <option value="4">4. SINIF</option> <option value="5">5. SINIF</option> </select> </div> <div class="col-md-6"> <label>DURUMU</label> <select id="durum" name="durum" class="form-control"> <option value="true">AKTİF</option> <option value="false">PASİF</option> </select> </div> </div> <div class="clearfix"></div> </div> <div class="modal-footer"> <input type="hidden" id="odaid" /> <button type="button" id="btnOdaIptal" class="btn btn-danger" data-dismiss="modal">İptal</button> <input type="button" id="btnOdaKaydet" class="btn btn-primary" value="Kaydet" /> </div> </div> </div> </div>  <div class="row"> <div class="col-md-12"> <div class="card m-t-15"> <div class="header bg-light-blue"> <h2>MESLEK ODASI İŞLEMLERİ</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12"> <div id="Odalar"></div> </div> </div> </div> </div> </div> </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="/Scripts/select2/select2.min.js"></script>
+    <script>
+        OdalariGetir();
+        function OdalariGetir() {
+            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/OdalariGetir", function (t) {
+                $("#Odalar").html("");
+                $("#Odalar").html(t.ds);
+                $("#tblOdalar").dataTable({
+                    "language": {
+                        "sDecimal": ",",
+                        "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                        "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                        "sInfoEmpty": "Kayıt yok",
+                        "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ".",
+                        "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                        "sLoadingRecords": "Yükleniyor...",
+                        "sProcessing": "İşleniyor...",
+                        "sSearch": "Ara:",
+                        "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                        "oPaginate": {
+                            "sFirst": "İlk",
+                            "sLast": "Son",
+                            "sNext": "Sonraki",
+                            "sPrevious": "Önceki"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                            "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                        }
+                    }
+                });;
+            })
+            
+        };
+
+        function MeslekOdasiDuzenle(id) {
+            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/MeslekOdasiDuzenle?id=" + id, function (e) {
+                $("#odaid").val(id);
+                $("[data-attribute='kisaad']").val(e.KISAAD);
+                $("[data-attribute='tamad']").val(e.ACIKLAMA);
+
+                $("#sinif").select2("val", e.SINIF);
+                $("#durum").select2("val", e.DURUM);
+            });
+        };
+
+        $('#sinif').select2();
+        $('#durum').select2();
+
+        $("#btnOdaKaydet").click(function () {
+                var oda = {
+                    Id: $("#odaid").val(),
+                    KISAAD: $("[data-attribute='kisaad']").val(),
+                    ACIKLAMA: $("[data-attribute='tamad']").val(),
+                    SINIF: $("#sinif").val(),
+                    DURUM: $("#durum").val()
+                };
+                var yaAllah = JSON.stringify(oda);
+                $.ErcanAyhan.Server.PostAsync(oda, "/Tanimlamalar/MeslekOdasiKaydet", function (e) {
+                    $("#btnOdaClose").trigger("click");
+                    if (e == "basarili") {
+                        swal("Oda kaydınız başarı ile güncellendi.", "Güncelleme işlemi başarı ile gerçekleştirildi.", "success");
+                    }
+                    OdalariGetir();
+                });
+        });
+
+    </script>
+}
+

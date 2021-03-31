@@ -1,0 +1,320 @@
+﻿ @{ ViewBag.Title = "Kira Tahsilatı"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-light-blue"> <h2>KİRA TAHSİLATI</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-1 col-xs-3"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-4"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-5"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")' /> </div> </div> </div> </div> <div class="col-md-5"> <div class="form-group"> <label>KİRACININ ADI SOYADI / FİRMA ADI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="txtKiraci" data-attribute="txtKiraci" maxlength="80" onkeyup="BuyukHarf(this)" onchange="$('[data-attribute=\'txtTutar\']').focus();"/> </div> </div> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>TUTAR</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <label>AÇIKLAMA</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="txtAciklama" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-5"> <input id="hdMakbuzDokumId" type="hidden" /> </div> <div id="btnBdiv" class="col-md-2 p-t-20"> <button id="btnKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button> </div>  <div id="divPrintMakbuz" class="col-md-12"> @Html.Action("_PrintKiraMakbuz", "Makbuz") </div>  </div> </div> </div> </div> </div> </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script>
+        $("#txtKiraci").focus();
+        $("#btnKaydet").click(function () {
+            swal({
+                title: "Makbuz Kaydedilecek.",
+                text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet, Onaylıyorum!",
+                cancelButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır, iptal edilsin!",
+                closeOnConfirm: true,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        var serino = $("#txtSeriNo").val();
+                        var makbuzno = $("#txtMakbuzNo").val();
+                        var makbuztarihi = $("#txtMakbuzTarihi").val();
+                        var kiraci = $("#txtKiraci").val();
+                        var tutar = $("#txtTutar").val();
+                        var aciklama = $("#txtAciklama").val();
+                        if (serino == "" || makbuzno == "" || makbuztarihi == "" || kiraci == "" || tutar == "" || aciklama == "") {
+                            swal("Alanları boş geçmeyiniz!", "Seri No, Makbuz No, Makbuz Tarihi ve Açıklama girmelisiniz.", "info");
+                        }
+                        else {
+                            $.ajax({
+                                url: "/Makbuz/KiraEkle",
+                                data: { serino: serino, makbuzno: makbuzno, makbuztarihi: makbuztarihi, kiraci: kiraci, tutar: tutar, aciklama: aciklama },
+                                datatype: "json",
+                                success: function (result) {
+                                    $("#hdMakbuzDokumId").val(result);
+                                    $.ajax({
+                                        url: "/Makbuz/_PrintKiraMakbuz",
+                                        datatype: "Json",
+                                        data: { makbuzdokumid: result, kiraci: kiraci },
+                                        success: function (data) {
+                                            $("#divPrintMakbuz").html(data);
+                                            $("#btnKaydet").attr("disabled", "disabled");
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        swal("İptal Edildi!", "İsteğiniz üzerine işlem iptal edilmiştir :)", "error");
+                    }
+                });
+        });
+        function PrintFunctionKira(div) {
+            document.getElementById('printdivKira').style.display = "none";
+            document.getElementById('btnTemizleKira').style.display = "inline";
+            PopupB($(printdivKira).html());
+        }
+        function PopupKira(data) {
+            var printwindow = window.open('', 'printdivKira');
+            printwindow.document.write('<html><head><title></title>');
+            printwindow.document.write('</head><body>');
+            printwindow.document.write(data);
+            printwindow.document.write('</body></html>');
+            printwindow.document.close();
+
+            document.getElementById('printdivKira').style.display = "none";
+            printwindow.focus();
+            printwindow.print();
+            printwindow.close();
+            document.getElementById('printdivKira').style.display = "none";
+        }
+    </script>
+
+    }

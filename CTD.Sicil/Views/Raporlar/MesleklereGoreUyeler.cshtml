@@ -1,0 +1,284 @@
+﻿ @{ ViewBag.Title = "Mesleklere Göre Üyeler"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet" />  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-blue-grey"> <h2 style="color:white">MESLEKLERE GÖRE ÜYE RAPORLAMA</h2> </div> <div class="body m-b--10"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-11"> <div class="form-group"> <label>MESLEK TANIMI</label> <input class="form-control" data-attribute="MESLEKLER"> </div> </div> <div class="col-md-1 m-t-20"> <a href="#" class="btn btn-primary" onclick="return Listele();"><i class="fa fa-search"></i> Listele</a> </div> </div> <div class="col-md-12 p-t-10 m-b--10"> <div id="dvUyeler"></div> </div> </div> </div> </div> </div> </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="/Scripts/select2/select2.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/DataTables/jszip.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+    <script>
+        $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirMeslekler", function (e) {
+            $("[data-attribute='MESLEKLER']").select2({
+                placeholder: 'Meslek seçiniz',
+                type: "GET",
+                data: e
+            });
+        });
+        function Listele() {
+            var meslek = $("[data-attribute='MESLEKLER']").val();
+
+            if (meslek == "") {
+                swal("Meslek seçmelisiniz", "Listeleme yapabilmek için meslek seçmelisiniz.", "warning");
+            }
+            else {
+                $.ajax({
+                    url: "/Sicil/ListeleMeslekUye",
+                    type: "POST",
+                    data: { meslek: meslek },
+                    datatype: "Json",
+                    success: function (e) {
+                        $("#dvUyeler").html("");
+                        $("#dvUyeler").html(e.ds);
+                        $("#tblUyeler").DataTable({
+                            dom: 'Bfrtip',
+                            "language": {
+                                "sDecimal": ",",
+                                "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                                "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                                "sInfoEmpty": "Kayıt yok",
+                                "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                                "sInfoPostFix": "",
+                                "sInfoThousands": ".",
+                                "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                                "sLoadingRecords": "Yükleniyor...",
+                                "sProcessing": "İşleniyor...",
+                                "sSearch": "Ara:",
+                                "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                                "oPaginate": {
+                                    "sFirst": "İlk",
+                                    "sLast": "Son",
+                                    "sNext": "Sonraki",
+                                    "sPrevious": "Önceki"
+                                },
+                                "oAria": {
+                                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                                }
+                            },
+                            buttons: ['excel']
+                        });
+                    }
+                });
+            }
+        };
+    </script>
+}
+

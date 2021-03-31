@@ -1,0 +1,298 @@
+﻿@{ ViewBag.Title = "Meslek ve Nace Tanımlama"; Layout = "~/Views/Shared/_Layout.cshtml"; } <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" /> <link href="~/Content/DataTables/css/jquery.dataTables_themeroller.css" rel="stylesheet" /> <div id="myModalMeslek" class="modal inmodal" tabindex="-1" role="dialog"> <div class="modal-dialog"> <div class="modal-content animated bounceInRight"> <div class="modal-header"> <button type="button" id="btnMeslekClose" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Kapat</span></button> <span class="modal-title">YENİ MESLEK FORMU</span> </div> <div class="modal-body"> <div class="form-group"> <label>MESLEK KODU</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="meslekkodu" data-attribute="meslekkodu" onkeyup="BuyukHarf(this)" placeholder="Meslek Kodu giriniz." style="background-color: #f9f9f9;" /> </div> </div> </div> <label>MESLEK TANIMI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="meslektanimi" data-attribute="meslektanimi" placeholder="Meslek tanımı giriniz." style="background-color: #f9f9f9;" /> </div> </div> </div> <div class="modal-footer text-right"> <button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button> <input type="button" id="btnMeslekKaydet" class="btn btn-primary" value="Kaydet" /> </div> </div> </div> </div> <div id="myModalNace" class="modal inmodal" tabindex="-1" role="dialog"> <div class="modal-dialog"> <div class="modal-content animated bounceInRight"> <div class="modal-header"> <button type="button" id="btnNaceClose" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Kapat</span></button> <span class="modal-title">YENİ NACE FORMU</span> </div> <div class="modal-body"> <div class="form-group"> <label>NACE KODU</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="nacekodu" data-attribute="nacekodu" maxlength="6" onkeypress="return Numeric(this,event);" placeholder="NACE Kodu giriniz." style="background-color: #f9f9f9;" /> <input type="hidden" id="hdmeslekid" /> </div> </div> </div> <div class="form-group"> <label>NACE TANIMI</label> <div class="input-group"> <div class="form-line"> <textarea class="form-control" id="nacetanim" name="nacetanim" rows="4" placeholder="NACE tanımı giriniz." style="background-color: #f9f9f9;"></textarea> </div> </div> </div> </div> <div class="modal-footer text-right"> <button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button> <input type="button" id="btnNaceKaydet" class="btn btn-primary" value="Kaydet" /> </div> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="card m-t-15"> <div class="header bg-deep-purple"> <h2>MESLEK TANIMLAMA</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-6"> <h3 style="margin-top: -1px;"> <label><i class="fa fa-angle-right"></i>&nbsp;MESLEKLER</label> </h3> </div> <div class="col-md-6 text-right"> <a href="#" data-toggle="modal" data-target="#myModalMeslek" class="btn btn-warning"><i class="fa fa-plus"></i>&nbsp;Yeni Meslek</a> </div> <div class="col-md-12 mt10"> <div id="dvMeslekler"></div> </div> <div class="clearfix"></div> <hr /> <div id="dvNace" style="display: none;"> <div class="col-md-10"> <h3 style="margin-top: -1px;"> <label id="lblNaceBaslik"></label> </h3> </div> <div class="col-md-2 text-right"> <a href="#" data-toggle="modal" data-target="#myModalNace" class="btn btn-warning" onclick='return YeniNace();'><i class="fa fa-plus"></i>&nbsp;NACE Ekle</a> </div>  <div class="col-md-12"> <div id="dvNaceler"></div> </div> </div> </div> </div> </div> </div> </div> </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.select.min.js"></script>
+    <script>
+        MeslekleriGetir();
+        function MeslekleriGetir() {
+            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/MeslekleriGetir", function (e) {
+                if (e != null) {
+                    $("#dvMeslekler").html("");
+                    $("#dvMeslekler").html(e.ds);
+                    var table = $("#tblMeslek").DataTable({
+                        select: true,
+                        "language": {
+                            "sDecimal": ",",
+                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                            "sInfoEmpty": "Kayıt yok",
+                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                            "sLoadingRecords": "Yükleniyor...",
+                            "sProcessing": "İşleniyor...",
+                            "sSearch": "Ara:",
+                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                            "oPaginate": {
+                                "sFirst": "İlk",
+                                "sLast": "Son",
+                                "sNext": "Sonraki",
+                                "sPrevious": "Önceki"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                            }
+                        }
+                    });
+
+                    $("#tblMeslek tbody").on("click", "tr", function () {
+                        var data = table.row(this).data();
+                        NaceleriGetir(data[0], data[2]);
+                        $("#dvNace").show();
+                    });
+                }
+            });
+        };
+        function NaceleriGetir(meslekid, meslekadi) {
+            $("#dvNaceler").html("");
+            $("#hdmeslekid").val("");
+            $.ErcanAyhan.Server.GetAsync("", "/Tanimlamalar/NaceleriGetir?meslekid=" + meslekid, function (t) {
+                $("#dvNaceler").html(t);
+                var table = $("#tblNace").DataTable({
+                    select: true,
+                    "language": {
+                        "sDecimal": ",",
+                        "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                        "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                        "sInfoEmpty": "Kayıt yok",
+                        "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ".",
+                        "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                        "sLoadingRecords": "Yükleniyor...",
+                        "sProcessing": "İşleniyor...",
+                        "sSearch": "Ara:",
+                        "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                        "oPaginate": {
+                            "sFirst": "İlk",
+                            "sLast": "Son",
+                            "sNext": "Sonraki",
+                            "sPrevious": "Önceki"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                            "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                        }
+                    }
+                });
+                $("#lblNaceBaslik").text(meslekadi + " ait NACE'ler");
+                $("#hdmeslekid").val(meslekid);
+            });
+        }
+        function YeniNace() {
+            $("#nacekodu").val("");
+            $("#nacetanim").val("");
+        }
+        $("#btnMeslekKaydet").click(function () {
+            var veri = { MESLEKKODU: $("#meslekkodu").val(), MESLEK: $("#meslektanimi").val() };
+            $.ErcanAyhan.Server.PostAsync(veri, "/Tanimlamalar/MeslekKaydet", function (e) {
+                if (e > 0) {
+                    $("#btnMeslekClose").trigger("click");
+                    MeslekleriGetir();
+                }
+            });
+        });
+        $("#btnNaceKaydet").click(function () {
+            var nace = $("#nacekodu").val();
+            var tanimi = $("#nacetanim").val();
+            if (nace != "" && tanimi != "") {
+                var veri = { NACE: nace, TANIMI: tanimi, MESLEKID: $("#hdmeslekid").val() }
+                $.ErcanAyhan.Server.PostAsync(veri, "/Tanimlamalar/KaydetNace", function (e) {
+                    if (e > 0) {
+                        NaceleriGetir($("#hdmeslekid").val());
+                        $("#btnNaceClose").trigger("click");
+                        swal("Yeni NACE kaydı başarılı", "Kayıt işlemi başarı ile sonuçlandı", "success");
+                    }
+                })
+            }
+        });
+    </script>
+}

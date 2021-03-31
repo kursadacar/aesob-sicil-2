@@ -1,0 +1,339 @@
+﻿@{ ViewBag.Title = "New"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Scripts/select2/select2.css" rel="stylesheet" />  @if (Accesses.Hak != "muhasebe") { <div class="row"> <div class="col-md-12">  <div class="card esbis m-t-15"> <div class="header bg-blue"> <h2>ESBİS Kayıt Verilerini Yükle</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-3"></div> <div class="col-md-4"> <input type="file" name="txtUploadFile" id="txtUploadFile" class="form-control" /> </div> <div class="col-md-2 text-center"> <a href="#" class="btn btn-warning" onclick="return VerileriGetir();"><i class="fa fa-cloud-download"></i> Verileri Getir</a>  </div> <div class="col-md-3"></div> </div> </div> </div> </div>  <div class="card esbisvar m-t-15 m-b-20"> <div class="header bg-green"> <h2>Yeni Sicil Kaydı</h2> </div> <div class="body"> <div data-id="formSicil" data-model-url="/Sicil/InsertSicilRecord" data-ajax-function="funcSicilKayitDonen"> <div class="row"> <div class="col-md-2"> <b>SİCİL NO</b> <code>* Gerekli</code> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.SICILNO" /> </div> </div> </div> <div class="col-md-3"> <b>TC KİMLİK NO</b> <code>* Gerekli</code> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.TCKIMLIKNO" /> </div> </div> </div> <div class="col-md-4"> <b>ADI SOYADI</b> <code>* Gerekli</code> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.ADSOYAD" /> </div> </div> </div> <div class="col-md-2"> <b>DOĞUM TARİHİ</b> <div class="input-group"> <div class="form-line"> <input id="DogumTarihi" type="datetime" class="form-control" data-attribute="Sicil.DOGTAR"> </div> </div> </div> <div class="col-md-2"> <b>DOĞUM YERİ</b> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.DOGYERILCE" /> </div> </div> </div> <div class="col-md-2"> <b>BABA ADI</b> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.BABAADI" /> </div> </div> </div> <div class="col-md-2"> <b>ANNE ADI</b> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.ANAADI" /> </div> </div> </div> <div class="col-md-2"> <b>CEP TELEFONU</b> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Sicil.CEPTEL" /> </div> </div> </div> <div class="col-md-2"> <b>CİNSİYET</b> <div class="input-group m-t-5"> <select data-attribute="Sicil.CINSIYET" class="form-control"> <option value="0" selected>Seçim yapınız</option> <option value="1">ERKEK</option> <option value="2">KADIN</option> </select> </div> </div> </div> <div class="row"> <div class="col-md-2"> <b>İLÇELER</b> <code>* Gerekli</code> <div class="input-group m-t-5"> <input class="form-control" data-attribute="SicilMeslek.ISADRESILCE" onchange="funcIlceChange(this)" /> </div> </div> <div class="col-md-3"> <b>MAHALLELER</b> <code>* Gerekli</code> <div class="input-group m-t-5"> <input class="form-control" data-attribute="SicilMeslek.ISADRESMAHALLE" onchange="funcMahalleChange(this)" /> </div> </div> <div class="col-md-4"> <b>BULVAR/CADDE/SOKAK</b> <code>* Gerekli</code> <div class="input-group m-t-5"> <input class="form-control" data-attribute="SicilMeslek.ISADRESCADSOKBULV" /> </div> </div> <div class="col-md-3"> <b>ADRES</b> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="Adres" /> </div> </div> </div> <div class="col-md-4" style="margin-bottom: 0"> <b>MESLEK ODASI</b> <code>* Gerekli</code> <div class="input-group m-t-5"> <input class="form-control" data-attribute="SicilMeslek.MESLEKODASI" /> </div> </div> <div class="col-md-5"> <b>İŞYERİ ÜNVANI</b> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="SicilMeslek.ISYERIUNVANI" /> </div> </div> </div> <div class="col-md-2" style="margin-bottom: 0"> <b>SINIF</b> <code>* Gerekli</code> <div class="input-group m-t-5"> <input class="form-control" data-attribute="SicilMeslek.SINIF" /> </div> </div> </div> <div class="row"> <div class="col-md-2 m-b--5"> <b>NACE KODU</b> <div class="input-group m-b--5"> <div class="form-line"> <input type="text" class="form-control" data-attribute="SicilMeslek.NACEKODU" /> </div> </div> </div> <div class="col-md-6 m-b--5"> <b>MESLEK KODU ve MESLEĞİ</b> <div class="input-group m-t-10" style="margin-bottom: 0;"> <span id="MeslekKodu"></span> </div> </div> </div> <div class="row"> <div class="col-md-2"><b>NACE TANIMI: </b></div> <div class="col-md-10"> <span id="NaceTanimi"></span> </div> </div> <input type="hidden" data-attribute="SicilMeslek.ISADRES2" /> </div> <div class="row"> <div class="col-md-12 p-t-20 text-right"> <hr /> <a href="javascript:void(formSendModel($('[data-id=\'formSicil\']')[0].dataset));" class="btn bg-green waves-effect"> <i class="fa fa-save"></i> &nbsp;&nbsp;SİCİL KAYDET </a> </div>  </div> </div> <br /> </div>  </div> </div> }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/select2/select2.min.js"></script>
+    <script>
+        $(".esbisvar").show();
+        $(".esbis").hide();
+
+        var tempId = 0;
+        $("[data-attribute='Sicil.CINSIYET']").select2();
+        $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirOdalar",
+            function (e) {
+                $("[data-attribute='SicilMeslek.MESLEKODASI']").select2({
+                    placeholder: 'Meslek Odası seçiniz',
+                    type: "GET",
+                    data: e
+                });
+            });
+        $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirSiniflar",
+            function (e) {
+                $("[data-attribute='SicilMeslek.SINIF']").select2({
+                    placeholder: 'Sınıf seçiniz',
+                    type: "GET",
+                    data: e
+                });
+            });
+        $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirIlceler",
+            function (e) {
+                $("[data-attribute='SicilMeslek.ISADRESILCE']").select2({
+                    placeholder: 'İlçe seçiniz',
+                    type: "GET",
+                    data: e
+                });
+            });
+
+        $("[data-attribute='Sicil.SICILNO']").change(function () {
+            var sicilno = $("[data-attribute='Sicil.SICILNO']").val();
+            SicilNoVarmi(sicilno);
+        });
+        $("[data-attribute='Sicil.TCKIMLIKNO']").change(function () {
+            var tcno = $("[data-attribute='Sicil.TCKIMLIKNO']").val();
+            TcKimlikNoVarmi(tcno);
+        });
+
+        function SicilNoVarmi(sicilno) {
+            $.ajax({
+                url: "/Sicil/CheckSicilNo",
+                data: { sicilno: sicilno },
+                success: function (sonuc) {
+                    if (sonuc == "sicilvar") {
+                        $("[data-attribute='Sicil.SICILNO']").focus();
+                        swal("Sicil No Kullanımda!", sicilno + " nolu sicil numarası kullanılıyor. Lütfen kontrol ediniz!", "error");
+                    }
+                }
+            });
+        }
+        function TcKimlikNoVarmi(tcno) {
+            if (tcno.length < 11) {
+                swal("T.C.Kimlik No Hatalı!", "...", "error");
+            }
+            $.ajax({
+                url: "/Sicil/CheckTcKimlik",
+                data: { tcno: tcno },
+                success: function (sonuc) {
+                    if (sonuc == "tcvar") {
+                        $("[data-attribute='Sicil.TCKIMLIKNO']").focus();
+                        swal("T.C. Kimlik Numarası Kullanımda!", "T.C. Kimlik Numarası (" + tcno + ") kullanılıyor. Lütfen kontrol ediniz!", "error");
+                        waitingSeconds = 4000;
+                    }
+                }
+            });
+        }
+        function KontrolBosmu(kontrol) {
+            var dt = kontrol.val();
+            if (dt.length === 0 || dt === "") {
+                kontrol.css("background-color", "red");
+                kontrol.css("color", "white");
+            } else {
+                kontrol.css("background-color", "white");
+                kontrol.css("color", "#000000");
+            }
+        }
+        function tarihformati(d) {
+            var tmp = d.match(/\d+/);
+            if (tmp && tmp.length) {
+                return parseInt(tmp[0]);
+            }
+            return 0;
+        }
+
+        function funcIlceChange() {
+            var id = $("[data-attribute='SicilMeslek.ISADRESILCE']").val();
+            $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirIlceyeGoreMahalle?id=" + id, function (e) {
+                $("[data-attribute='SicilMeslek.ISADRESMAHALLE']").select2({
+                    type: "GET",
+                    data: e,
+                    placeholder: 'Mahalle seçiniz',
+                });
+            });
+            $("[data-attribute='SicilMeslek.ISADRESMAHALLE']").select2('open');
+            $("[data-attribute='SicilMeslek.ISADRESMAHALLE']").val(null).trigger('change');
+            $("[data-attribute='SicilMeslek.ISADRESCADSOKBULV']").val(null).trigger('change');
+        }
+        function funcMahalleChange() {
+            var id = $("[data-attribute='SicilMeslek.ISADRESMAHALLE']").val();
+            $.ErcanAyhan.Server.GetAsync("", "/Sicil/GetirMahalleyeGoreCadSokBulv?id=" + id, function (e) {
+                $("[data-attribute='SicilMeslek.ISADRESCADSOKBULV']").select2({
+                    type: "GET",
+                    data: e,
+                    placeholder: 'Bulvar Cadde Sokak seçiniz',
+                });
+            });
+            $("[data-attribute='SicilMeslek.ISADRESCADSOKBULV']").select2('open');
+        }
+
+        function funcSicilKayitDonen(e) {
+            swal({
+                title: "Sicil Kaydı Başarılı",
+                text: "Kayıt'a mı? Makbuz'a mı? gitmek istiyor musunuz?",
+                type: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Kayıta Git !",
+                cancelButtonColor: "#DD6B55",
+                cancelButtonText: "Makbuz Git !",
+                closeOnConfirm: true,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.replace("/Sicil/SicilDetail/" + e);
+                    } else {
+                        window.location.replace("/Makbuz/Detay/" + e);
+                    }
+                }
+            );
+        }
+    </script>
+}

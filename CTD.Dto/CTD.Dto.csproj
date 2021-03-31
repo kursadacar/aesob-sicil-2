@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C0D72DC-DD0A-46E9-B6A3-E0E40D3D8D8C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CTD.Dto</RootNamespace>
+    <AssemblyName>CTD.Dto</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ListedDto\RaporlarAdreseGoreUyelerListDto.cs" />
+    <Compile Include="ListedDto\SicilDetailMakbuzDokumListDto.cs" />
+    <Compile Include="ListedDto\SicilMeslekListDto.cs" />
+    <Compile Include="ListedDto\TahsilatListesiDto.cs" />
+    <Compile Include="ListedDto\YapilanIslemlerDto.cs" />
+    <Compile Include="ListedDto\YazismaReportList.cs" />
+    <Compile Include="ListedDto\YeniKayitYapilanUyelerDto.cs" />
+    <Compile Include="ParamDto\LoginParamDto.cs" />
+    <Compile Include="ParamDto\NaceMeslekParamDto.cs" />
+    <Compile Include="ParamDto\SicilMeslekDuzenleDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleDto\ComboBoxDto.cs" />
+    <Compile Include="SingleDto\EgitimKatilimDto.cs" />
+    <Compile Include="SingleDto\EskiMakbuzGetirDto.cs" />
+    <Compile Include="SingleDto\EvrakSatisEsnafDto.cs" />
+    <Compile Include="SingleDto\MakbuzDetayGelirTablosuDto.cs" />
+    <Compile Include="SingleDto\MakbuzDetayLogDto.cs" />
+    <Compile Include="SingleDto\EvrakSatisOdaDto.cs" />
+    <Compile Include="SingleDto\HomeGunlukIslemAkisi.cs" />
+    <Compile Include="SingleDto\MakbuzDokumSilDto.cs" />
+    <Compile Include="SingleDto\MakbuzDokumLogDto.cs" />
+    <Compile Include="SingleDto\MakbuzDto.cs" />
+    <Compile Include="SingleDto\MakbuzTahsilatKalemleriDto.cs" />
+    <Compile Include="SingleDto\MakbuzTahsilatModelDto.cs" />
+    <Compile Include="SingleDto\MakbuzTekrar.cs" />
+    <Compile Include="SingleDto\MobilSicilVerileriDto.cs" />
+    <Compile Include="SingleDto\PrintMakbuzDto.cs" />
+    <Compile Include="SingleDto\SicilAramaDto.cs" />
+    <Compile Include="SingleDto\SicilDetailDto.cs" />
+    <Compile Include="SingleDto\SicilDetailMeslekDto.cs" />
+    <Compile Include="SingleDto\SicilDto.cs" />
+    <Compile Include="SingleDto\SicilMeslekDto.cs" />
+    <Compile Include="SingleDto\SicilSGKYazismaDto.cs" />
+    <Compile Include="SingleDto\SicilSingleDto.cs" />
+    <Compile Include="SingleDto\SicilToplamGelirDto.cs" />
+    <Compile Include="SingleDto\SicilVerileriDto.cs" />
+    <Compile Include="SingleDto\SonSicilMeslekDegisiklik_LogListesi.cs" />
+    <Compile Include="SingleDto\SubeDto.cs" />
+    <Compile Include="SingleDto\TahsilatIslemleriDto.cs" />
+    <Compile Include="SingleDto\TahsilatTuruneGoreListeDto.cs" />
+    <Compile Include="SingleDto\UnvanAramaDto.cs" />
+    <Compile Include="SingleDto\YeniMeslekDto.cs" />
+    <Compile Include="SingleDto\YeniMeslekEkleDto.cs" />
+    <Compile Include="SingleDto\SonSicilMeslekListesi.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CTD.Core\CTD.Core.csproj">
+      <Project>{14ACCD1C-4B52-4601-AC36-A9688BE8F528}</Project>
+      <Name>CTD.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

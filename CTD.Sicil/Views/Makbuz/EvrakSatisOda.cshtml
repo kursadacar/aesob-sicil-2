@@ -1,0 +1,463 @@
+﻿@model CTD.Dto.SingleDto.EvrakSatisOdaDto
+
+ @{ ViewBag.Title = "EvrakSatisOda"; Layout = "~/Views/Shared/_Layout.cshtml"; } <link href="/Scripts/select2/select2.css" rel="stylesheet" /> <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-blue"> <h2>EVRAK SATIŞ İŞLEMİ (Odalara)</h2> </div> <div class="body"> <div class="row"> <div class="col-md-12" style="padding-top: 20px;"> <div class="col-md-3"> <div class="form-group"> <label>MESLEK ODASI</label> <input class="form-control" id="EvrakMeslekOdasi" data-attribute="EvrakMeslekOdasi" onchange="$('[data-attribute=\'EvrakTuru\']').select2('open')" /> </div> </div> <div class="col-md-6"> <div class="form-group"> <label>EVRAK TÜRÜ</label> <input class="form-control" data-attribute="EvrakTuru" onchange="$('[data-attribute=\'txtEvrakTutar\']').focus();" /> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>TUTAR</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-right" data-attribute="txtEvrakTutar" /> </div> </div> </div> </div> <div class="col-md-1 p-t-20"> <button id="btnEvrakEkle" class="btn btn-success w100" title="Evrak Ekle"><i class="fa fa-plus"></i> EKLE</button> <input id="hdMakbuzDokumId" type="hidden" /> </div> <div class="clearfix"></div> <div class="col-md-1 col-xs-3"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" data-attribute="txtESeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-4"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" data-attribute="txtEMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo" /> </div> </div> </div> </div> <div class="col-md-2 col-xs-5"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtEvrakMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" /> </div> </div> </div> </div> <div class="col-md-7"> <div class="form-group"> <label>AÇIKLAMA</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" data-attribute="txtEvrakAciklama" maxlength="80" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="clearfix"></div> <div id="divEvrakListe"> @Html.Action("_EvrakDokum", "Makbuz") </div> <div id="btndiv" class="col-md-2 p-t-20"> <button id="btnEvrakSatisKaydet" class="btn btn-lg btn-primary w100" title="Kaydet"><i class="fa fa-save"></i> Kaydet</button> </div> <div class="clearfix"></div> <div id="divPrintMakbuz" class="col-md-12"> @Html.Action("_PrintEvrakMakbuzOda", "Makbuz") </div> </div> </div> </div> </div> </div> </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="/Scripts/select2/select2.min.js"></script>
+<script>
+    $("#btnEvrakSatisKaydet").hide();
+    $("[data-attribute='txtEvrakMakbuzTarihi']").val(bugun());
+    $.ErcanAyhan.Server.PostAsync("", "/Makbuz/MakbuzOdaTahsilatKalemleri", function (e){
+        $("[data-attribute='EvrakMeslekOdasi']").select2({
+            placeholder: 'Meslek odası seçiniz',
+            type: "GET",
+            data: e.MeslekOdalari,
+        });
+        $("[data-attribute='EvrakTuru']").select2({
+            placeholder: 'Evrak türü seçiniz',
+            type: "GET",
+            data: e.TahsilatKalemleri,
+        });
+
+    })
+
+    $("#btnEvrakEkle").click(function () {
+        var evrakturu = $("[data-attribute='EvrakTuru']").select2('data');
+        var makbuzdetay_aciklama = evrakturu.text;
+        var kod = $("[data-attribute='EvrakTuru']").val();
+        var evraktutari = $("[data-attribute='txtEvrakTutar']").val();
+        var makbuztarihi = $("[data-attribute='txtEvrakMakbuzTarihi']").val();
+
+        var aciklama = $("[data-attribute='txtEvrakAciklama']").val();
+        var oda = $("[data-attribute='EvrakMeslekOdasi']").select2('data');
+        var oda_adi = oda.text;
+        var odano = $("[data-attribute='EvrakMeslekOdasi']").val();
+        var serino = $("[data-attribute='txtESeriNo']").val();
+        var makbuzno = $("[data-attribute='txtEMakbuzNo']").val();
+
+        var makbuzdokumid = $("#hdMakbuzDokumId").val();
+        if (evrakturu == 0 || evraktutari == "") {
+            swal("Alanları boş geçmeyiniz!", "Evrak Türü ve Fiyatını girmelisiniz.", "info");
+        }
+        else {
+            if (makbuzdokumid != "") {
+                $.ajax({
+                    url: "/Makbuz/MakbuzDetayLogKaydet",
+                    datatype: "json",
+                    data: { MakbuzDokumId: makbuzdokumid, Kod: kod, Aciklama: makbuzdetay_aciklama, Tutar: evraktutari, TahakkukTarihi: makbuztarihi },
+                    success: function (sonuc) {
+                        $.ajax({
+                            url: "/Makbuz/_EvrakDokum",
+                            datatype: "Json",
+                            data: { makbuzdokumid: makbuzdokumid },
+                            success: function (data) {
+                                $("#divEvrakListe").html(data);
+                                $("[data-attribute='EvrakTuru']").select2("val", "");
+                                $("[data-attribute='txtEvrakTutar']").val("");
+
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: "/Makbuz/MakbuzDokumLogKaydet",
+                    datatype: "json",
+                    data: { Oda: odano, SeriNo: serino, MakbuzNo: makbuzno, MakbuzTarihi: makbuztarihi, AdiSoyadi: oda_adi },
+                    success: function (result) {
+                        $("[data-attribute='EvrakMeslekOdasi']").prop("disabled", true);
+                        $("#hdMakbuzDokumId").val(result);
+                        $.ajax({
+                            url: "/Makbuz/MakbuzDetayLogKaydet",
+                            data: { MakbuzDokumId: result, Kod: kod, Aciklama: makbuzdetay_aciklama, Tutar: evraktutari, TahakkukTarihi: makbuztarihi },
+                            datatype: "json",
+                            success: function (result2) {
+                                if (result2 == "basarili") {
+                                    $.ajax({
+                                        url: "/Makbuz/_EvrakDokum",
+                                        datatype: "Json",
+                                        data: { makbuzdokumid: result, oda: odano },
+                                        success: function (data) {
+                                            $("#divEvrakListe").html(data);
+                                            $("[data-attribute='EvrakTuru']").select2("val", "");
+                                            $("[data-attribute='txtEvrakTutar']").val("");
+                                            $("#btnEvrakSatisKaydet").show();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    });
+
+    function MakbuzDetayLogSil(id) {
+        swal({
+            title: "Tahsilat Kalemi Silinsin mi?",
+            text: "Tahsilatı yapılacak olan evrak kalemi siliniyor. Onaylıyor musunuz?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet, silinsin!",
+            closeOnConfirm: false
+        },
+        function () {
+            var makbuzdokumid = $("#hdMakbuzDokumId").val();
+            $.ajax({
+                url: "/Makbuz/MakbuzDetayLogSil",
+                data: { id: id },
+                datatype: "json",
+                success: function (result) {
+                    $.ajax({
+                        url: "/Makbuz/_EvrakDokum",
+                        datatype: "Json",
+                        data: { makbuzdokumid: makbuzdokumid },
+                        success: function (data) {
+                            $("#divEvrakListe").html(data);
+                            swal("Kayıt Silindi!", "Tahsilatı yapılacak olan evrak kalemi silindi.", "success");
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    $("#btnEvrakSatisKaydet").click(function () {
+        swal({
+            title: "Makbuz Kaydedilecek.",
+            text: "Tahsilat kaydedilecek. Onaylıyor musunuz?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet, Onaylıyorum!",
+            cancelButtonColor: "#DD6B55",
+            cancelButtonText: "Hayır, iptal edilsin!",
+            closeOnConfirm: true,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    var makbuzdokumid = $("#hdMakbuzDokumId").val();
+                    var serino = $("[data-attribute='txtESeriNo']").val();
+                    var makbuzno = $("[data-attribute='txtEMakbuzNo']").val();
+                    var makbuztarihi = $("[data-attribute='txtEvrakMakbuzTarihi']").val();
+                    var aciklama = $("[data-attribute='txtEvrakAciklama']").val();
+                    var toplamtutar = $("#lblEvrakToplamTutar").text();
+                    var oda = $("[data-attribute='EvrakMeslekOdasi']").select2('data');
+                    var odaadi = oda.text;
+                    var odano = $("[data-attribute='EvrakMeslekOdasi']").val();
+                    if (serino == "" || makbuzno == "" || makbuztarihi == "" || aciklama == "") {
+                        alert("Seri No, Makbuz No, Makbuz Tarihi ve Açıklama girmelisiniz.");
+                    }
+                    else {
+                        $.ajax({
+                            url: "/Makbuz/MakbuzDokumLogGuncelle",
+                            data: { makbuzdokumid: makbuzdokumid, aciklama: aciklama, toplamtutar: toplamtutar },
+                            datatype: "json",
+                            success: function (result) {
+                                var yenimakbuzdokumid = result;
+                                $.ajax({
+                                    url: "/Makbuz/MakbuzDokumLogGuncelle2",
+                                    data: { makbuzdokumid: makbuzdokumid, yenimakbuzdokumid: yenimakbuzdokumid },
+                                    datatype: "json",
+                                    success: function () {
+                                        $.ajax({
+                                            url: "/Makbuz/_PrintEvrakMakbuzOda",
+                                            datatype: "Json",
+                                            data: { makbuzdokumid: result, oda: odano, aciklama: aciklama },
+                                            success: function (data) {
+                                                
+                                                $.ajax({
+                                                    url: "/Makbuz/MakbuzSayac",
+                                                    datatype: "Json",
+                                                    data: { serino: $("[data-attribute='txtESeriNo']").val(), makbuzno: $("[data-attribute='txtEMakbuzNo']").val() },
+                                                    success: function () {
+                                                        $("#divPrintMakbuz").html(data);
+                                                        $("#btnEvrakSatisKaydet").attr("disabled", "disabled");
+                                                        $(".pasifle").removeAttr("onclick");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+                else {
+                    swal("İptal Edildi!", "İsteğiniz üzerine işlem iptal edilmiştir :)", "error");
+                }
+            });
+    });
+
+    function PrintFunction(div) {
+        document.getElementById('printdivevrak').style.display = "none";
+        document.getElementById('btnTemizleEvrak').style.display = "inline";
+        PopupEvrak($(printdivevrak).html());
+    }
+    function PopupEvrak(data) {
+        var printwindow = window.open('', 'printdivevrak');
+        printwindow.document.write('<html><head><title></title>');
+        printwindow.document.write('</head><body>');
+        printwindow.document.write(data);
+        printwindow.document.write('</body></html>');
+        printwindow.document.close();
+
+        document.getElementById('printdivevrak').style.display = "none";
+        printwindow.focus();
+        printwindow.print();
+        printwindow.close();
+        document.getElementById('printdivevrak').style.display = "none";
+    }
+</script>
+    }
+

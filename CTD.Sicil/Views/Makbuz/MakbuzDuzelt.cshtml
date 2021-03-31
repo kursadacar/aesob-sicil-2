@@ -1,0 +1,336 @@
+﻿ @{ ViewBag.Title = "Makbuz Düzeltme"; Layout = "~/Views/Shared/_Layout.cshtml"; }  <link href="~/Scripts/select2/select2.css" rel="stylesheet" />  <div class="row"> <div class="col-md-12"> <div class="card esbis m-t-15"> <div class="header bg-red"> <h2>MAKBUZ DÜZELTME İŞLEMİ</h2> </div> <div class="body"> <div class="row"> <div class="col-md-2 p-t-20"> <div data-id="formEskiMakbuz" data-model-url="/Makbuz/EskiMakbuzGetir2" data-ajax-function="funcEskiMakbuzBilgileri"> <div class="col-md-12"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="SeriNo" data-attribute="SeriNo" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div> <div class="col-md-12"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="MakbuzNo" data-attribute="MakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" /> </div> </div> </div> </div> <div class="clearfix"></div> <div class="col-md-12"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control  text-center" id="MakbuzTarihi" data-attribute="MakbuzTarihi" maxlength="10" onkeyup="tarih(this)" /> </div> </div> </div> </div> </div> <a href="javascript:void(formSendModel($('[data-id=\'formEskiMakbuz\']')[0].dataset));" class="btn bg-green waves-effect"> <i class="fa fa-undo"></i>  &nbsp;MAKBUZ GETİR </a> </div> <div class="col-md-10 p-t-20" style="border-left: solid 1px #dcdcdc;"> <div data-attribute="dvSicilMakbuz">  <input type="hidden" id="hdId" />  <div class="col-md-3"> <div class="form-group"> <label>ESNAF SİCİL NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="EsnSicNo" data-attribute="EsnSicNo" onkeypress="return Numeric(this,event);" /> </div> </div> </div> </div>  <div class="col-md-4"> <div class="form-group"> <label>ADI SOYADI</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="AdSoyad" data-attribute="AdSoyad" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div>  <div class="col-md-5 p-t-5"> <label>MESLEK ODASI</label> <input class="form-control" id="MeslekOdasi" data-attribute="MeslekOdasi" /> </div>  <div class="clearfix"></div>  <div class="col-md-4 p-t-5"> <label>İŞLEMİ YAPAN</label> <input class="form-control" data-attribute="Kullanicilar" />  </div>  <div class="col-md-2"> <div class="form-group"> <label>SERİ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="SeriNosu" data-attribute="SeriNosu" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div>  <div class="col-md-3"> <div class="form-group"> <label>MAKBUZ NO</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control text-center" id="MakbuzNosu" data-attribute="MakbuzNosu" maxlength="6" onkeypress="return Numeric(this, event);" /> </div> </div> </div> </div>  <div class="col-md-3"> <div class="form-group"> <label>MAKBUZ TARİHİ</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control  text-center" id="MakbuzTarihim" data-attribute="MakbuzTarihim" /> </div> </div> </div> </div>  <div class="clearfix"></div>  <div class="col-md-4"> <label>TAHSİLAT İŞLEMİ</label> <input class="form-control" data-attribute="islemim" onchange="funcChange(this)" /> </div>  <div class="col-md-2"> <label>FİYAT SINIFI</label> <input class="form-control" data-attribute="sinifim" onchange="funcChange(this)" /> </div>  <div class="col-md-6"> <div class="form-group"> <label>AÇIKLAMA</label> <div class="input-group"> <div class="form-line"> <input type="text" class="form-control" id="Aciklama" data-attribute="Aciklama" onkeyup="BuyukHarf(this)" /> </div> </div> </div> </div>  <div class="clearfix"></div>  <div class="col-md-12 text-center"> <a id="btnKaydet" onclick='SicilMakbuzGuncelle();' class="btn bg-red waves-effect" title="Makbuz Güncelle"> <i class="fa fa-check"></i>  &nbsp;MAKBUZ GÜNCELLE </a> </div>  </div> </div> </div> </div> </div> </div> </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/select2/select2.min.js"></script>
+    <script>
+        $("[data-attribute='SeriNo']").focus();
+        $("[data-attribute='dvSicilMakbuz']").hide();
+        function funcEskiMakbuzBilgileri(e) {
+            if (e.MakbuzDokum.ISLEM == 1 || e.MakbuzDokum.ISLEM == 2 || e.MakbuzDokum.ISLEM == 3 || e.MakbuzDokum.ISLEM == 4 || e.MakbuzDokum.ISLEM == 5 || e.MakbuzDokum.ISLEM == 6 || e.MakbuzDokum.ISLEM == 7 || e.MakbuzDokum.ISLEM == 8 || e.MakbuzDokum.ISLEM == 9 || e.MakbuzDokum.ISLEM == 10 || e.MakbuzDokum.ISLEM == 11 || e.MakbuzDokum.ISLEM == 1017 || e.MakbuzDokum.ISLEM == 2017) {
+
+                $("#hdId").val(e.ID);
+                $("#EsnSicNo").val(e.MakbuzDokum.SICILNO);
+                $("#AdSoyad").val(e.MakbuzDokum.ADISOYADI);
+                $("#SeriNosu").val(e.MakbuzDokum.SERINO);
+                $("#MakbuzNosu").val(e.MakbuzDokum.MAKBUZNO);
+                var trh = $("#MakbuzTarihi").val();
+                $("#MakbuzTarihim").val(trh);
+
+                $("#hdAdSoyad").val(e.MakbuzDokum.ADISOYADI);
+                $("#Aciklama").val(e.MakbuzDokum.ACIKLAMA);
+                $("[data-attribute='MeslekOdasi']").select2({
+                    placeholder: 'Meslek odası seçiniz',
+                    type: "GET",
+                    data: e.MeslekOdalari,
+                });
+                $("[data-attribute='Kullanicilar']").select2({
+                    placeholder: 'Memur seçiniz',
+                    type: "GET",
+                    data: e.Kullanicilar,
+                });
+                $("[data-attribute='sinifim']").select2({
+                    placeholder: 'Sınıf seçiniz',
+                    type: "GET",
+                    data: e.Siniflar,
+                });
+                $("[data-attribute='islemim']").select2({
+                    placeholder: 'Tahsilat türü seçiniz',
+                    type: "GET",
+                    data: e.Islemler,
+                });
+                $("[data-attribute='MeslekOdasi']").select2("val", e.MakbuzDokum.ODA);
+                $("[data-attribute='Kullanicilar']").select2("val", e.MakbuzDokum.ISLEMIYAPAN);
+                $("[data-attribute='islemim']").select2("val", e.MakbuzDokum.ISLEM);
+
+                var aciklama = e.MakbuzDokum.ACIKLAMA;
+                var i = aciklama.indexOf("(");
+                yazi = e.MakbuzDokum.ACIKLAMA.substring(i + 1, i + 2)
+                $("[data-attribute='sinifim']").select2("val", parseInt(yazi));
+
+                $("[data-attribute='dvSicilMakbuz']").show();
+            }
+
+        }
+        function funcChange() {
+            $("[data-attribute='Aciklama']").val("");
+            var islem = $("[data-attribute='islemim']").select2('data');
+            var sinif = $("[data-attribute='sinifim']").select2('data');
+            $("#Aciklama").val(islem.text + " (" + sinif.text + ")");
+        }
+        function SicilMakbuzGuncelle() {
+            var kullaniciid = $("[data-attribute='Kullanicilar']").val();
+                swal({
+                    title: "Makbuz güncellenecek.",
+                    text: "Onaylıyor musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet, Onaylıyorum!",
+                    cancelButtonColor: "#DD6B55",
+                    cancelButtonText: "Hayır, iptal edilsin!",
+                    closeOnConfirm: true,
+                    closeOnCancel: false
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            $.ajax({
+                                url: "/Makbuz/MakbuzGuncelle",
+                                type: "POST",
+                                datatype: "Json",
+                                data: {
+                                    ID: $("#hdId").val(),
+                                    SICILNO: $("[data-attribute='EsnSicNo']").val(),
+                                    ADISOYADI: $("[data-attribute='AdSoyad']").val(),
+                                    oda: $("[data-attribute='MeslekOdasi']").val(),
+                                    islemiyapan: $("[data-attribute='Kullanicilar']").val(),
+                                    serino: $("[data-attribute='SeriNosu']").val(),
+                                    makbuzno: $("[data-attribute='MakbuzNosu']").val(),
+                                    makbuztar: $("[data-attribute='MakbuzTarihim']").val(),
+                                    islem: $("[data-attribute='islemim']").val(),
+                                    sinif: $("[data-attribute='sinifim']").val(),
+                                    aciklama: $("[data-attribute='Aciklama']").val(), 
+                                },
+                                success: function () {
+                                    swal("Güncelleme başarılı", "Güncelleme işlemi başarı ile sonuçlandı", "success");
+                                    window.location.replace("/Makbuz/MakbuzDuzelt/");
+                                }
+                            });
+                        } else {
+                            swal("İptal Edildi!", "İsteğiniz üzerine işlem iptal edilmiştir :)", "error");
+                        }
+                    });
+        }
+    </script>
+}
+

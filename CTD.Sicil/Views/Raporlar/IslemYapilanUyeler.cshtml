@@ -4,6 +4,26 @@
 }
 <link href="/Scripts/select2/select2.css" rel="stylesheet"/> <link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet"/>
 <div class="row">
+    @{
+        if (!Accesses.IsAdmin)
+        {
+            <text>
+                <div class="col-lg-3">
+                    <div class="widget style1 red-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-times fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right m-t-10">
+                                <span style="font-size: 16px;">Raporlamaları Yalnızca Admin Kullanıcı Görebilir</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </text>
+            return;
+        }
+    }
     <div class="col-md-12">
         <div class="card esbis m-t-15">
             <div class="header bg-deep-purple">

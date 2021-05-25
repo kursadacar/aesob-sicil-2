@@ -12,6 +12,8 @@ namespace System.Web.Mvc
     {
         public static List<string> CookieKeys = new List<string> {"_adi", "_hak", "_ip", "_id", "_resim"};
 
+        public static bool IsAdmin => Hak == "admin";
+
         public static string Adi
         {
             get

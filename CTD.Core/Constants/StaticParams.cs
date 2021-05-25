@@ -2,7 +2,7 @@
 {
     public struct StaticParams
     {
-        public const string Dashboard = "/Home";
-        public const string SifrelemeParametresi = "neoturkcem";
+        public const string Dashboard = "/Home/Index";
+        public const string SifrelemeParametresi = "encaesryptob";
     }
 }

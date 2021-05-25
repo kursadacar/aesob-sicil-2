@@ -3,6 +3,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/>
+@{
+    if (!Accesses.IsAdmin)
+    {
+        <text>
+            <div class="col-lg-3">
+                <div class="widget style1 red-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-times fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right m-t-10">
+                            <span style="font-size: 16px;">Sicil Verilerini Yalnızca Admin Kullanıcı Görebilir</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </text>
+        return;
+    }
+}
 <div class="sidebar-container">
     <ul class="nav nav-tabs navs-4">
         <li>

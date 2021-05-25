@@ -463,7 +463,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-xs-6">
+                <div class="col-md-2 col-xs-6" @{if(!Accesses.IsAdmin){<text>style="display:none"</text>}}>
                     <b>TC KİMLİK NO</b> <code> * </code>
                     <div class="input-group">
                         <div class="form-line">
@@ -502,10 +502,13 @@
                         <div class="form-line">
                             <input type="text" class="form-control" data-attribute="Sicil.BABAADI" value="@Model.Sicil.BABAADI"/>
                         </div>
-                    </div> <b>CEP TELEFONU</b>
-                    <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" data-attribute="Sicil.CEPTEL" value="@Model.Sicil.CEPTEL"/>
+                    </div>
+                    <div @{if(!Accesses.IsAdmin){<text>style="display:none"</text>}}>
+                        <b>CEP TELEFONU</b>
+                        <div class="input-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" data-attribute="Sicil.CEPTEL" value="@Model.Sicil.CEPTEL"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -532,7 +535,10 @@
                     </div>
                 </div>
                 <div class="col-md-3 text-right m-t-20">
-                    <button class="btn btn-block bg-orange waves-effect" type="button" onclick="formSendModel($('[data-id=\'formKisiselBilgiler\']')[0].dataset)">
+                    <button
+                        class="btn btn-block bg-orange waves-effect"
+                        type="button"
+                        onclick="formSendModel($('[data-id=\'formKisiselBilgiler\']')[0].dataset)">
                         <i class="fa fa-2x fa-save"></i>
                         <h2>Güncelle</h2>
                     </button> <input type="hidden" data-attribute="Sicil.DEGEDEN" value="@Model.Sicil.DEGEDEN"/>

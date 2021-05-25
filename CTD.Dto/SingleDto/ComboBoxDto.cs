@@ -17,6 +17,6 @@ namespace CTD.Dto.SingleDto
     public class ComboBoxLabelValueDto
     {
         public string label { get; set; }
-        public int value { get; set; }
+        public int? value { get; set; }
     }
 }

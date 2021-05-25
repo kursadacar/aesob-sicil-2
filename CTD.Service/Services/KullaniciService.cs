@@ -18,9 +18,11 @@ namespace CTD.Service.Services
 
         public Kullanici KullaniciGetir(string userName, string password)
         {
-            var result = _kullaniciRepository.GetAll().Where(p => p.login == userName).SingleOrDefault();
-            if (result == null) return null;
-            if (EnDeCode.Decrypt(result.pass2, StaticParams.SifrelemeParametresi) == password) return result;
+            var result = _kullaniciRepository.GetAll().SingleOrDefault(p => p.login == userName);
+
+            if (EnDeCode.Decrypt(result.pass2, StaticParams.SifrelemeParametresi) == password)
+                return result;
+
             return null;
         }
 

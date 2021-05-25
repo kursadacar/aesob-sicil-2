@@ -56,8 +56,17 @@
 </div>
 </body>
 
-@section scripts{ <script src="~/Scripts/jquery-3.4.1.min.js"></script> <script src="~/Scripts/bootstrap.min.js"></script> <script>
-                                                                                                                               $("body").on("keypress", function(e) { e.keyCode == 13 ? formSendModel($('[data-id=\'formLogin\']')[0].dataset) : 1 == 1; });
+@section scripts{ 
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script> 
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $("body").on("keypress", function(e) {
+            e.keyCode == 13 ? formSendModel($('[data-id=\'formLogin\']')[0].dataset) : 1 == 1;
+        });
 
-                                                                                                                               function funcLoginResponse(e) { @{ <text>window.location = e;</text> } }
-                                                                                                                           </script> }
+        function funcLoginResponse(e) {
+            @{
+                <text>window.location = e;</text>
+            }
+        }
+    </script> }

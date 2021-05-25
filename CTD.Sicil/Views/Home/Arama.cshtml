@@ -175,6 +175,9 @@
         });
         $(document).keypress(function(e) {
             if (e.which == 13) {
+                @{
+                    Console.WriteLine("Key press");
+                }
                 $("#btnUnvanAra").trigger("click");
             }
         });

@@ -480,7 +480,8 @@ namespace CTD.Service.Services
                         sadto.BabaAdi = item.BABAADI;
                         sadto.AnneAdi = item.ANAADI;
                         sadto.TcKimlikNo = item.TCKIMLIKNO;
-                        var it = Convert.ToDateTime(item.DOGTAR.ToString());
+                        var date = item.DOGTAR ?? DateTime.MinValue;
+                        var it = Convert.ToDateTime(date.ToString());
                         sadto.DogumTarihi = string.Format("{0:d}", it);
                         sadto.SicilNo = int.Parse(item.SICILNO.ToString());
                         sadto.Durum = "tckimliknoyagoreliste";

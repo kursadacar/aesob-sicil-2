@@ -59,7 +59,7 @@ namespace CTD.Service.Services
 
         public List<HomeGunlukIslemAkisi> GunlukIslemAkisi(string hak, int kullanici)
         {
-            if (hak == "mudur")
+            if (hak == "mudur" || hak == "admin") //TODO: Recheck
             {
                 var list = (from c in _makbuzDokumRepository.GetAll()
                     join tt in _tahsilatTurleriRepository.GetAll() on c.ISLEM equals tt.Id
@@ -333,12 +333,12 @@ namespace CTD.Service.Services
 
         public List<ComboBoxIdTextDto> GetirVezneler(int id)
         {
-            var yetki = _kullaniciRepository.GetAll().FirstOrDefault(k => k.Id == id).hak;
-            if (yetki == "mudur" || yetki == "muhasebe")
+            var yetki = _kullaniciRepository.GetAll().FirstOrDefault(k => k.Id == id)?.hak;
+            if (yetki == "admin" || yetki == "muhasebe") //TODO: Recheck this
             {
                 var result =
                     (from c in _kullaniciRepository.GetAll()
-                        where c.YETKILI && (c.hak == "sube" || c.hak == "mudur")
+                        where c.YETKILI && (c.hak == "sube" || c.hak == "mudur" || c.hak == "admin") //TODO: Recheck
                         select c).ToList().Select(p => new ComboBoxIdTextDto {id = p.Id.ToString(), text = p.adi})
                     .ToList();
                 result.Add(new ComboBoxIdTextDto {id = "99", text = "Tüm Vezneler"});

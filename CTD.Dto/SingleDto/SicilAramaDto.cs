@@ -7,7 +7,7 @@
         public string TcKimlikNo { get; set; }
         public string AnneAdi { get; set; }
         public string DogumTarihi { get; set; }
-        public int SicilNo { get; set; }
+        public int? SicilNo { get; set; }
         public string Durum { get; set; }
     }
 }

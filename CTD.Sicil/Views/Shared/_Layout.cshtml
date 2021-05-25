@@ -2,33 +2,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>@ViewBag.Title - ESTAP</title> <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <meta charset="utf-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>@ViewBag.Title - ESTAP</title> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     @if (IsSectionDefined("Styles"))
     {
         @RenderSection("Styles", false)
     }
-    @Styles.Render("~/Content/css") @Styles.Render("~/font-awesome/css") <link href="~/Scripts/sweetalert/sweetalert.css" rel="stylesheet"/> <script src="~/Scripts/jquery-3.2.1.min.js"></script> <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/> <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script> <script src="~/Scripts/bootstrap.js"></script> <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon"/> <script src="~/Scripts/growl.js"></script>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css") 
+    <link href="~/Scripts/sweetalert/sweetalert.css" rel="stylesheet"/> 
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script> 
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/> 
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script> 
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon"/> 
+    <script src="~/Scripts/growl.js"></script>
+    
+    <link href="~/Content/kendo.bootstrap-v4.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
 </head>
 <body>
-<div class="page-loader-wrapper">
-    <div class="loader">
-        <div class="preloader">
-            <div class="spinner-layer pl-blue">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
             </div>
+            <p>Lütfen bekleyin...</p>
         </div>
-        <p>Lütfen bekleyin...</p>
     </div>
-</div>
-<div class="overlay"></div>
-<div id="wrapper" class="@Html.PageClass()">
-    @Html.Partial("_Navigation")
-    <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass"> @Html.Partial("_TopNavbar") @RenderBody() @Html.Partial("_Footer") </div> @Html.Partial("_RightSidebar")
-</div> @Scripts.Render("~/plugins/slimScroll") @Scripts.Render("~/bundles/inspinia") <script src="~/Scripts/jquery.inputmask.bundle.js"></script> <script src="~/Scripts/ercanayhan.admin.js?v=1.0"></script> <script src="~/Scripts/ercanayhan.min.js?v=1.0"></script> <script src="~/Scripts/sweetalert/sweetalert.min.js"></script> @Scripts.Render("~/bundles/skinConfig") @RenderSection("scripts", false)
+    <div class="overlay"></div>
+    <div id="wrapper" class="@Html.PageClass()">
+        @Html.Partial("_Navigation")
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+            @Html.Partial("_TopNavbar")
+            @RenderBody()
+            @Html.Partial("_Footer")
+        </div>
+        @Html.Partial("_RightSidebar")
+    </div>
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia") 
+    <script src="~/Scripts/jquery.inputmask.bundle.js"></script> 
+    <script src="~/Scripts/ercanayhan.admin.js?v=1.0"></script> 
+    <script src="~/Scripts/ercanayhan.min.js?v=1.0"></script> 
+    <script src="~/Scripts/sweetalert/sweetalert.min.js"></script> 
+    @Scripts.Render("~/bundles/skinConfig") 
+    @RenderSection("scripts", false)
 </body>
 </html>

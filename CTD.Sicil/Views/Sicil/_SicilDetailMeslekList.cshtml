@@ -61,7 +61,7 @@
         var satir = "";
         if (item.MESLEKTERKTAR != null)
         {
-            if (Accesses.Hak == "mudur")
+            if (Accesses.Hak == "mudur" || Accesses.Hak == "admin")//TODO: Recheck
             {
                 satir += @"<tr class='red'>" + Environment.NewLine +
                          "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;'>" + item.MESLEKODASIKISAAD + "</td>" + Environment.NewLine +
@@ -95,7 +95,7 @@
         }
         else
         {
-            if (Accesses.Hak == "mudur")
+            if (Accesses.Hak == "mudur" || Accesses.Hak == "admin")//TODO: Recheck
             {
                 satir += @"<tr>" + Environment.NewLine +
                          "<td onclick='return MeslekDetay(" + item.ID + ");' id='" + item.ID + "' style='cursor: pointer;border-left: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;'>" + item.MESLEKODASIKISAAD + "</td>" + Environment.NewLine +

@@ -490,7 +490,11 @@ namespace CTD.Sicil.Controllers
                 if (Accesses.Adi != null)
                 {
                     p8 = new ReportParameter("kullanici", Accesses.Adi);
-                    if (Accesses.Hak == "mudur")
+                    if (Accesses.Hak == "admin")
+                    {
+                        p9 = new ReportParameter("unvan", "Admin");
+                    }
+                    else if (Accesses.Hak == "mudur")//TODO: Recheck
                         p9 = new ReportParameter("unvan", "Sicil Müdürü");
                     else
                         p9 = new ReportParameter("unvan", "Sicil Memuru");
@@ -534,10 +538,18 @@ namespace CTD.Sicil.Controllers
                 if (Accesses.Adi != null)
                 {
                     p8 = new ReportParameter("kullanici", Accesses.Adi);
-                    if (Accesses.Hak == "mudur")
+                    if (Accesses.Hak == "admin")
+                    {
+                        p9 = new ReportParameter("unvan", "Admin");
+                    }
+                    else if (Accesses.Hak == "mudur")
+                    {
                         p9 = new ReportParameter("unvan", "Sicil Müdürü");
+                    }
                     else
+                    {
                         p9 = new ReportParameter("unvan", "Sicil Memuru");
+                    }
                 }
 
                 lr.SetParameters(new[] {p1, p2, p3, p4, p5, p6, p7, p8, p9});
@@ -678,10 +690,18 @@ namespace CTD.Sicil.Controllers
                 p5 = new ReportParameter("dogumyeri", s.DOGYERILCE);
                 p6 = new ReportParameter("dogumtarihi", s.DOGTAR.ToString());
                 p7 = new ReportParameter("kullanici", Accesses.Adi);
-                if (Accesses.Hak == "mudur")
+                if (Accesses.Hak == "admin")
+                {
+                    p8 = new ReportParameter("unvan", "Admin");
+                }
+                else if (Accesses.Hak == "mudur")
+                {
                     p8 = new ReportParameter("unvan", "Sicil Müdürü");
+                }
                 else
+                {
                     p8 = new ReportParameter("unvan", "Sicil Memuru");
+                }
             }
 
             lr.SetParameters(new[] {p1, p2, p3, p4, p5, p6, p7, p8});

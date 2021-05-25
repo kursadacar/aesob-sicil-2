@@ -15,6 +15,10 @@
                             <span class="text-muted text-xs block">
                                 @{
                                     var unvan = "";
+                                    if (Accesses.Hak == "admin")
+                                    {
+                                        unvan = "Admin";
+                                    }
                                     if (Accesses.Hak == "mudur")
                                     {
                                         unvan = "Sicil Müdürü";
@@ -65,7 +69,7 @@
                     </a>
                 </li>
             }
-            @if (Accesses.Hak == "mudur")
+            @if (Accesses.Hak == "mudur" || Accesses.Hak == "admin") //TODO: Recheck
             {
                 <li class="@Html.IsSelected("Tanımlamalar")">
                     <a href="#">
@@ -144,7 +148,7 @@
                             <a href="@Url.Action("MakbuzIptal", "Makbuz")">Makbuz İptali</a>
                         </li>
                     }
-                    @if (Accesses.Hak == "mudur")
+                    @if (Accesses.Hak == "mudur" || Accesses.Hak == "admin") // TODO: Recheck
                     {
                         <li class="@Html.IsSelected(action: "MakbuzSil")">
                             <a href="@Url.Action("MakbuzSil", "Makbuz")">Makbuz Sil</a>
@@ -158,7 +162,7 @@
                     </li>
                 </ul>
             </li>
-            @if (Accesses.Hak == "mudur")
+            @if (Accesses.Hak == "mudur" || Accesses.Hak == "admin") //TODO: Recheck
             {
                 <li class="special_link @Html.IsSelected("Raporlar")">
                     <a href="@Url.Action("SicilVerileri", "Raporlar")">

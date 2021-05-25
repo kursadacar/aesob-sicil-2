@@ -10,6 +10,6 @@ namespace CTD.Dto.SingleDto
         public List<SicilMeslek> SicilMeslekler { get; set; }
         public List<SicilDetailMakbuzDokumListDto> MakbuzDokumleri { get; set; }
         public List<TahsilatIslemleriDto> GecmisIslemler { get; set; }
-        public int Durum { get; set; }
+        public int? Durum { get; set; }
     }
 }

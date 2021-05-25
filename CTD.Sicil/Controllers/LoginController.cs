@@ -32,38 +32,53 @@ namespace CTD.Sicil.Controllers
             if (Accesses.IsLogin() != ForbiddenAccessTypes.UnForbidden ||
                 Accesses.IsLogin() == ForbiddenAccessTypes.IsLogout)
             {
+                //var encryptedPassword = EnDeCode.Encrypt(model.Password, StaticParams.SifrelemeParametresi);
+                //var user = _kullaniciService.KullaniciGetir(model.UserName, model.Password);
+                //user.pass2 = encryptedPassword;
+                //user.pass = "";
+                //_kullaniciService.SifreGuncelle(user);
+                //_uow.SaveChanges();
+                //return AjaxMessage("Şifre Değiştirildi", $"Pass:{user.pass} -- Pass2:{user.pass2}", MessageTypes.info);
                 var person = _kullaniciService.KullaniciGetir(model.UserName, model.Password);
                 if (person == null) return AjaxMessage("Uyarı", "Yanlış kullanıcı adı veya şifre", MessageTypes.danger);
+
                 var ticket = new FormsAuthenticationTicket(1,
                     EnDeCode.Encrypt(person.Id.ToString(), StaticParams.SifrelemeParametresi), DateTime.Now,
                     DateTime.Now.AddDays(1), true,
                     EnDeCode.Encrypt(person.Id.ToString(), StaticParams.SifrelemeParametresi),
                     FormsAuthentication.FormsCookiePath);
                 var encTicket = FormsAuthentication.Encrypt(ticket);
+
                 var cookie = new HttpCookie(".u", encTicket);
                 var kullaniciAdi = new HttpCookie("_adi", UtilityManager.Base64Encode(person.adi));
                 var yetkisi = new HttpCookie("_hak", UtilityManager.Base64Encode(person.hak));
                 var ipNo = new HttpCookie("_ip", UtilityManager.Base64Encode(person.ip));
                 var resim = new HttpCookie("_resim", UtilityManager.Base64Encode(person.resim));
                 var id = new HttpCookie("_id", UtilityManager.Base64Encode(person.Id.ToString()));
+
                 cookie.HttpOnly = true;
                 kullaniciAdi.HttpOnly = true;
                 yetkisi.HttpOnly = true;
                 ipNo.HttpOnly = true;
                 resim.HttpOnly = true;
                 id.HttpOnly = true;
-                cookie.Expires = DateTime.Now.AddDays(1);
-                kullaniciAdi.Expires = DateTime.Now.AddDays(1);
-                yetkisi.Expires = DateTime.Now.AddDays(1);
-                ipNo.Expires = DateTime.Now.AddDays(1);
-                resim.Expires = DateTime.Now.AddDays(1);
-                id.Expires = DateTime.Now.AddDays(1);
+
+                var expireDate = DateTime.Now.AddDays(1);
+
+                cookie.Expires = expireDate;
+                kullaniciAdi.Expires = expireDate;
+                yetkisi.Expires = expireDate;
+                ipNo.Expires = expireDate;
+                resim.Expires = expireDate;
+                id.Expires = expireDate;
+
                 Response.Cookies.Add(cookie);
                 Response.Cookies.Add(kullaniciAdi);
                 Response.Cookies.Add(yetkisi);
                 Response.Cookies.Add(ipNo);
                 Response.Cookies.Add(resim);
                 Response.Cookies.Add(id);
+
                 return Json("/Home/Index", JsonRequestBehavior.AllowGet);
             }
 

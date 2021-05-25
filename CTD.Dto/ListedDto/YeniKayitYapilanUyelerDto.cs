@@ -2,7 +2,7 @@
 {
     public class YeniKayitYapilanUyelerDto
     {
-        public int SICILNO { get; set; }
+        public int? SICILNO { get; set; }
         public string ADSOYAD { get; set; }
         public string KISAAD { get; set; }
         public string MESLEK { get; set; }

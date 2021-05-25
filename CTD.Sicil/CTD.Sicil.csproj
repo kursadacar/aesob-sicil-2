@@ -682,7 +682,6 @@
     <Content Include="Views\Tanimlamalar\MeslekveNaceTanimlama.cshtml" />
     <Content Include="Views\Sicil\_SicilDetailMeslekList.cshtml" />
     <Content Include="Views\Sicil\SicilDetail.cshtml" />
-    <Content Include="Views\Login\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

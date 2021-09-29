@@ -13,14 +13,12 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-search"></i>
                             </span>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="arama" data-attribute="arama" placeholder="Arama kriteri" required autofocus>
-                            </div>
+                            <input id="arama-field" type="text" class="form-control" name="arama" data-attribute="arama" placeholder="Arama kriteri" required autofocus>
                         </div>
                         <div>
-                            <button id="btnArama" class="btn btn-block bg-pink waves-effect" type="button" onclick="formSendModel($('[data-id=\'formSearch\']')[0].dataset)">Arama</button>
+                            <button id="btnArama" data-btn class="btn btn-block bg-pink waves-effect" type="button" onclick="formSendModelAsync($('[data-id=\'formSearch\']')[0].dataset)">Arama</button>
                         </div>
-                        <p class="p-t-10 p-l-10"> Ad Soyad, T.C. Kimlik No veya Esnaf Sicil No ile arama yapabilirsiniz. </p>
+                        <p class="p-t-10 p-l-10">@(Accesses.IsAdmin ? "Ad Soyad, " : "")T.C. Kimlik No veya Esnaf Sicil No ile arama yapabilirsiniz.</p>
                     </div>
                 </div>
             </div>
@@ -39,195 +37,15 @@
         </div>
     </div>
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @section scripts {
     <script>
         $(".arama").hide();
 
         $("body").on("keypress",
-            function(e) {
-                e.keyCode == 13 ? formSendModel($('[data-id=\'formSearch\']')[0].dataset) : 1 == 1;
+            function (e) {
+                if (document.activeElement == document.getElementById("arama-field")) {
+                    e.keyCode == 13 ? formSendModel($('[data-id=\'formSearch\']')[0].dataset) : 1 == 1;
+                }
             });
 
         function funcAramaResponse(e) {

@@ -2,7 +2,8 @@
     ViewBag.Title = "Meslek ve Nace Tanımlama";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/> <link href="~/Content/DataTables/css/jquery.dataTables_themeroller.css" rel="stylesheet"/>
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<link href="~/Content/DataTables/css/jquery.dataTables_themeroller.css" rel="stylesheet"/>
 <div id="myModalMeslek" class="modal inmodal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
@@ -15,19 +16,15 @@
                 <div class="form-group">
                     <label>MESLEK KODU</label>
                     <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" id="meslekkodu" data-attribute="meslekkodu" onkeyup="BuyukHarf(this)" placeholder="Meslek Kodu giriniz." style="background-color: #f9f9f9;"/>
-                        </div>
+                        <input type="text" class="form-control" id="meslekkodu" data-attribute="meslekkodu" onkeyup="BuyukHarf(this)" placeholder="Meslek Kodu giriniz." style="background-color: #f9f9f9;" />
                     </div>
                 </div> <label>MESLEK TANIMI</label>
                 <div class="input-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" id="meslektanimi" data-attribute="meslektanimi" placeholder="Meslek tanımı giriniz." style="background-color: #f9f9f9;"/>
-                    </div>
+                    <input type="text" class="form-control" id="meslektanimi" data-attribute="meslektanimi" placeholder="Meslek tanımı giriniz." style="background-color: #f9f9f9;" />
                 </div>
             </div>
             <div class="modal-footer text-right">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button> <input type="button" id="btnMeslekKaydet" class="btn btn-primary" value="Kaydet"/>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button> <input type="button" id="btnMeslekKaydet" class="btn btn-primary" value="Kaydet" />
             </div>
         </div>
     </div>
@@ -44,17 +41,13 @@
                 <div class="form-group">
                     <label>NACE KODU</label>
                     <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" id="nacekodu" data-attribute="nacekodu" maxlength="6" onkeypress="return Numeric(this, event);" placeholder="NACE Kodu giriniz." style="background-color: #f9f9f9;"/> <input type="hidden" id="hdmeslekid"/>
-                        </div>
+                        <input type="text" class="form-control" id="nacekodu" data-attribute="nacekodu" maxlength="6" onkeypress="return Numeric(this, event);" placeholder="NACE Kodu giriniz." style="background-color: #f9f9f9;" /> <input type="hidden" id="hdmeslekid" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label>NACE TANIMI</label>
                     <div class="input-group">
-                        <div class="form-line">
-                            <textarea class="form-control" id="nacetanim" name="nacetanim" rows="4" placeholder="NACE tanımı giriniz." style="background-color: #f9f9f9;"></textarea>
-                        </div>
+                        <textarea class="form-control" id="nacetanim" name="nacetanim" rows="4" placeholder="NACE tanımı giriniz." style="background-color: #f9f9f9;"></textarea>
                     </div>
                 </div>
             </div>

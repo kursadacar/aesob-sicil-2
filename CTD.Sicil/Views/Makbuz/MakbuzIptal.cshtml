@@ -15,9 +15,7 @@
                             <div class="form-group">
                                 <label>SERİ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" />
                                 </div>
                             </div>
                         </div>
@@ -25,9 +23,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" />
                                 </div>
                             </div>
                         </div>
@@ -36,9 +32,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ TARİHİ</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" />
                                 </div>
                             </div>
                         </div>
@@ -136,6 +130,7 @@
                     url: "/Makbuz/_MakbuzDetay",
                     data: { serino: serino, makbuzno: makbuzno, makbuztarihi: makbuztarihi },
                     datatype: "json",
+                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                     success: function(e) {
                         if (e.IPTAL == true) {
                             swal("İptal Edilmiş!", "Bu makbuz zaten iptal edilmiş.", "warning");
@@ -179,6 +174,7 @@
                             $.ajax({
                                 url: "/Makbuz/MakbuzIptalEt",
                                 datatype: "Json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 data: { makbuzid: makbuzid, makbuztarihi: makbuztarihi },
                                 success: function(result) {
                                     if (result == "ok") {

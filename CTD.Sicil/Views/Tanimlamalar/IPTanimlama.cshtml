@@ -32,9 +32,7 @@
                             <div class="form-group">
                                 <label>IP ADRESİ</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtIpAdres" data-attribute="txtIpAdres"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtIpAdres" data-attribute="txtIpAdres" />
                                 </div>
                             </div>
                             <div class="p-t-20">
@@ -77,6 +75,7 @@
                 url: "/Tanimlamalar/KullaniciIp",
                 data: { id: kullaniciid },
                 dataType: "Json",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 type: "GET",
                 success: function(data) {
                     $("#txtIpAdres").val(data.ip);
@@ -95,6 +94,7 @@
                 url: "/Tanimlamalar/KullaniciIpKaydet",
                 data: { id: kullaniciid, ip: ip, hak: hak, sube: sube },
                 dataType: "Json",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 type: "GET",
                 success: function(data) {
                     if (data == "basarili") {

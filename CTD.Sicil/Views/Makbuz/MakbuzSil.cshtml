@@ -16,9 +16,7 @@
                             <div class="form-group">
                                 <label>SERİ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" />
                                 </div>
                             </div>
                         </div>
@@ -26,9 +24,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" />
                                 </div>
                             </div>
                         </div>
@@ -37,9 +33,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ TARİHİ</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" />
                                 </div>
                             </div>
                         </div>
@@ -122,6 +116,7 @@
                             $.ajax({
                                 url: "/Makbuz/MakbuzKaydiSil",
                                 datatype: "Json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 data: { makbuzid: id },
                                 success: function(sonuc) {
                                     if (sonuc == "ok") {

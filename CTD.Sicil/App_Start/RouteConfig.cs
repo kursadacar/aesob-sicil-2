@@ -8,10 +8,22 @@ namespace CTD.Sicil
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.MapRoute("Sicil", "{controller}/{action}/{sicilno}",
-                new {controller = "Sicil", action = "Detail", sicilno = UrlParameter.Optional});
+
+            routes.MapRoute("Sicil", "Sicil/{action}/{sicilno}",
+                new
+                {
+                    controller = "Sicil",
+                    action = "Detail",
+                    sicilno = UrlParameter.Optional
+                });
+
             routes.MapRoute("Default", "{controller}/{action}/{id}",
-                new {controller = "Home", action = "Index", id = UrlParameter.Optional});
+                new
+                {
+                    controller = "Home",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                });
         }
     }
 }

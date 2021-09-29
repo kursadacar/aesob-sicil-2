@@ -68,6 +68,7 @@
     <Compile Include="Entities\TahsilatKalemleri.cs" />
     <Compile Include="Entities\TahsilatKalemleriFiyat.cs" />
     <Compile Include="Entities\TahsilatTurleri.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

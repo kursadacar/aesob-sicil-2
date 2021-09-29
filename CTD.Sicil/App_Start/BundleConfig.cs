@@ -7,7 +7,7 @@ namespace CTD.Sicil
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.min.css", "~/Content/animate.css",
-                "~/Content/Site.css"));
+                "~/Content/Site.css", "~/Content/sicil.css"));
             bundles.Add(new StyleBundle("~/font-awesome/css").Include("~/Content/font-awesome.min.css",
                 new CssRewriteUrlTransform()));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));

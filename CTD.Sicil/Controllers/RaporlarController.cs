@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
+using CTD.Core.Helpers;
 using CTD.Data.UnitofWork;
 using CTD.Service.Interfaces;
 using CTD.Web.Framework.Controller;
@@ -77,8 +79,8 @@ namespace CTD.Sicil.Controllers
 
         public JsonResult IkiTarihSicilVerileri(string ilktarih, string sontarih, int id)
         {
-            var it = Convert.ToDateTime(ilktarih);
-            var st = Convert.ToDateTime(sontarih);
+            var it = DateHelper.GetDateTimeCultural(ilktarih);
+            var st = DateHelper.GetDateTimeCultural(sontarih);
             var htmlicerik = "";
             if (id != 0)
             {
@@ -182,8 +184,8 @@ namespace CTD.Sicil.Controllers
         {
             if (ilktarih != null && sontarih != null)
             {
-                var it = Convert.ToDateTime(ilktarih);
-                var st = Convert.ToDateTime(sontarih);
+                var it = DateHelper.GetDateTimeCultural(ilktarih);
+                var st = DateHelper.GetDateTimeCultural(sontarih);
                 var data = _makbuzDokumService.YeniKayitYapilanUyeler(it, st, vezne);
                 return PartialView(data);
             }
@@ -193,8 +195,8 @@ namespace CTD.Sicil.Controllers
 
         public ActionResult ReportYeniKayitYapilanUyeler(string id, string ilktarih, string sontarih, string vezne)
         {
-            var it = Convert.ToDateTime(ilktarih);
-            var st = Convert.ToDateTime(sontarih);
+            var it = DateHelper.GetDateTimeCultural(ilktarih);
+            var st = DateHelper.GetDateTimeCultural(sontarih);
             var liste = _makbuzDokumService.YeniKayitYapilanUyeler(it, st, int.Parse(vezne));
             var STF_Helvetica_Turkish = BaseFont.CreateFont("Helvetica", "CP1254", BaseFont.NOT_EMBEDDED);
             var fontNormal = new Font(STF_Helvetica_Turkish, 10, Font.NORMAL);

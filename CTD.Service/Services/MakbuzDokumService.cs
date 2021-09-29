@@ -97,21 +97,32 @@ namespace CTD.Service.Services
                 tm.Makbuz = GetirMakbuz(islem, userid);
                 tm.UyeMeslekOdaList = GetirSicilMeslek(sicilno);
                 tm.AdSoyad = GetirAdSoyad(sicilno);
-                if (islem == 1)
+                if (islem == 2018)
                 {
                     var uye = _sicilRepository.GetAll().FirstOrDefault(s => s.SICILNO == sicilno);
-                    if (uye == null) return tm;
+
+                    if (uye == null)
+                        return tm;
+
                     var maxid = _sicilMeslekRepository.GetAll().Where(sm => sm.SICILID == uye.Id).Max(d => d.Id);
                     var sonsicilmeslek = _sicilMeslekRepository.GetAll().FirstOrDefault(f => f.Id == maxid);
-                    if (sonsicilmeslek != null) tm.Kullanicilar = GetirKullanici(sonsicilmeslek.KAYITEDEN);
-                    if (sonsicilmeslek == null) return tm;
+
+                    if (sonsicilmeslek != null)
+                        tm.Kullanicilar = GetirKullanici(sonsicilmeslek.KAYITEDEN);
+
+                    if (sonsicilmeslek == null)
+                        return tm;
+
                     tm.KullaniciId = sonsicilmeslek.KAYITEDEN;
                     tm.MeslekOdasiId = sonsicilmeslek.MESLEKODASI;
                 }
                 else
                 {
                     var u = _kullaniciRepository.GetAll().FirstOrDefault(p => p.Id == userid);
-                    if (u != null) tm.Kullanicilar = u.sube != "MERKEZ" ? GetirKullanici(userid) : GetirKullanicilar();
+                    if (u != null)
+                    {
+                        tm.Kullanicilar = u.sube != "MERKEZ" ? GetirKullanici(userid) : GetirKullanicilar();
+                    }
                 }
 
                 return tm;
@@ -124,6 +135,10 @@ namespace CTD.Service.Services
         {
             var makbuz = _makbuzRepository.GetAll().Where(m => m.KULLANICI == userid && m.ONTAKI != "SNL")
                 .FirstOrDefault();
+            if(makbuz == null)
+            {
+                return null;
+            }
             var mdto = new MakbuzDto {OnTaki = makbuz.ONTAKI, MakbuzNo = makbuz.MAKBUZNO + 1};
             return mdto;
         }
@@ -135,18 +150,19 @@ namespace CTD.Service.Services
 
         public List<MakbuzTahsilatKalemleriDto> GetirTahsilatKalemleri(int? islem)
         {
-            return (from tk in _tahsilatKalemleriRepository.GetAll()
-                    where tk.TAHSILATTURUID == islem
-                    select new MakbuzTahsilatKalemleriDto
-                        {Id = tk.Id, Kod = tk.KOD.ToString(), Makbuz = tk.MAKBUZ, TahsilatKalemi = tk.TAHSILATKALEMI})
-                .OrderByDescending(d => d.Makbuz).ToList();
+            var kalemler = from tk in _tahsilatKalemleriRepository.GetAll()
+                           where tk.TAHSILATTURUID == islem
+                           select new MakbuzTahsilatKalemleriDto
+                           { Id = tk.Id, Kod = tk.KOD.ToString(), Makbuz = tk.MAKBUZ, TahsilatKalemi = tk.TAHSILATKALEMI };
+            
+            return kalemler.OrderByDescending(d => d.Makbuz).ToList();
         }
 
         public decimal GetirTahsilatKalemiFiyat(int? sinif, int? tahsilatkalemid)
         {
-            var fiyat = _tahsilatKalemleriFiyatRepository.GetAll()
-                .SingleOrDefault(c => c.SINIF == sinif && c.TAHSILATKALEMID == tahsilatkalemid).FIYAT;
-            return fiyat;
+            var fiyatObj = _tahsilatKalemleriFiyatRepository.GetAll()
+                .SingleOrDefault(c => c.SINIF == sinif && c.TAHSILATKALEMID == tahsilatkalemid);
+            return fiyatObj?.FIYAT ?? 0;
         }
 
         public void MakbuzKaydet(MakbuzDokum model)
@@ -345,7 +361,7 @@ namespace CTD.Service.Services
                 return result;
             }
 
-            if (yetki == "sube")
+            if (yetki == "sube" || yetki == "mudur")
             {
                 var result = (from c in _kullaniciRepository.GetAll() where c.YETKILI && c.Id == id select c).ToList()
                     .Select(p => new ComboBoxIdTextDto {id = p.Id.ToString(), text = p.adi}).ToList();

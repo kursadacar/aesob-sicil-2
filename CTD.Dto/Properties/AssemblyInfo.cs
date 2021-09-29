@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CTD.Dto")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Cem Tayfur Demirsal - erenege Yazılım Bilgisayar")]
+[assembly: AssemblyCompany("Kursad Acar")]
 [assembly: AssemblyProduct("CTD.Dto")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

@@ -1,0 +1,55 @@
+﻿.d-flex{
+    display: flex !important;
+}
+
+.flex-row{
+    flex-direction: row !important;
+}
+
+.flex-column{
+    flex-direction: column !important;
+}
+
+.align-items-start {
+    align-items: start;
+}
+.align-items-center{
+    align-items:center;
+}
+.align-items-end {
+    align-items: end;
+}
+
+.justify-content-start {
+    justify-content: start;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-end {
+    justify-content: end;
+}
+
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
+.flex-nowrap{
+    flex-wrap: nowrap;
+}
+
+.label-big {
+    width: 100%;
+    font-size: 24px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 6px;
+    text-align:center;
+}
+
+.input-group{
+    margin-top: 2px;
+}
+
+.bg-green{
+    background-color: #1b9f06 !important;
+}

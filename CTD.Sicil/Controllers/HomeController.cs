@@ -22,15 +22,30 @@ namespace CTD.Sicil.Controllers
 
         public ActionResult Index()
         {
-            var liste = _makbuzDokumService.GunlukIslemAkisi(Accesses.Hak, Accesses.Id);
-            ViewBag.MakbuzDokum = liste;
+            try
+            {
+                var liste = _makbuzDokumService.GunlukIslemAkisi(Accesses.Hak, Accesses.Id);
+                ViewBag.MakbuzDokum = liste;
+            }
+            finally
+            {
+                //intentionally left blank
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult HizliUyeArama(string arama)
         {
-            return Json(_sicilService.GetirUyeler(arama), JsonRequestBehavior.AllowGet);
+            var uyeler = _sicilService.GetirUyeler(arama);
+            if (uyeler?.Count == 1)
+            {
+                return Json(uyeler, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return AjaxMessage("Bulunamadı", $"\"{arama}\" arama kriterlerine uygun üye bulunamadı. Lütfen girdiğiniz T.C. Kimlik No veya Sicil Numarasının doğru olduğundan emin olun.", Web.Framework.Enums.MessageTypes.info);
+            }
         }
 
         public ActionResult Arama()

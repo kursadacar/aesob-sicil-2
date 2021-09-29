@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using CTD.Core.Entities;
+using CTD.Core.Helpers;
 using CTD.Data.UnitofWork;
 using CTD.Dto.ListedDto;
 using CTD.Dto.ParamDto;
@@ -64,7 +65,7 @@ namespace CTD.Service.Services
                 }
                 else if (baslik.InnerText == "Doğum&nbsp;Tarihi&nbsp;:")
                 {
-                    sicildto.Sicil.DOGTAR = Convert.ToDateTime(sicilveriler[8].InnerText);
+                    sicildto.Sicil.DOGTAR = DateHelper.GetDateTimeCultural(sicilveriler[8].InnerText);
                 }
                 else if (baslik.InnerText == "Doğum&nbsp;Yeri")
                 {
@@ -228,7 +229,7 @@ namespace CTD.Service.Services
                 }
                 else if (baslik.InnerText == "Doğum&nbsp;Tarihi&nbsp;:")
                 {
-                    sicil.DOGTAR = Convert.ToDateTime(veriler[8].InnerText);
+                    sicil.DOGTAR = DateHelper.GetDateTimeCultural(veriler[8].InnerText);
                 }
                 else if (baslik.InnerText == "Doğum&nbsp;Yeri")
                 {
@@ -397,7 +398,7 @@ namespace CTD.Service.Services
                             sadto.BabaAdi = item.BABAADI;
                             sadto.AnneAdi = item.ANAADI;
                             sadto.TcKimlikNo = item.TCKIMLIKNO;
-                            var it = Convert.ToDateTime(item.DOGTAR.ToString());
+                            var it = DateHelper.GetDateTimeCultural(item.DOGTAR.ToString());
                             sadto.DogumTarihi = string.Format("{0:d}", it);
                             sadto.SicilNo = int.Parse(item.SICILNO.ToString());
                             sadto.Durum = "tckimliknoyagoreliste";
@@ -438,7 +439,7 @@ namespace CTD.Service.Services
                             sadto.BabaAdi = item.BABAADI;
                             sadto.AnneAdi = item.ANAADI;
                             sadto.TcKimlikNo = item.TCKIMLIKNO;
-                            var it = Convert.ToDateTime(item.DOGTAR.ToString());
+                            var it = DateHelper.GetDateTimeCultural(item.DOGTAR.ToString());
                             sadto.DogumTarihi = string.Format("{0:d}", it);
                             sadto.SicilNo = int.Parse(item.SICILNO.ToString());
                             sadto.Durum = "tckimliknoyagoreliste";
@@ -481,7 +482,7 @@ namespace CTD.Service.Services
                         sadto.AnneAdi = item.ANAADI;
                         sadto.TcKimlikNo = item.TCKIMLIKNO;
                         var date = item.DOGTAR ?? DateTime.MinValue;
-                        var it = Convert.ToDateTime(date.ToString());
+                        var it = DateHelper.GetDateTimeCultural(date.ToString());
                         sadto.DogumTarihi = string.Format("{0:d}", it);
                         sadto.SicilNo = int.Parse(item.SICILNO.ToString());
                         sadto.Durum = "tckimliknoyagoreliste";
@@ -828,7 +829,7 @@ namespace CTD.Service.Services
 
         public int GetirSicilMeslekDegisiklik_LogSayisi(int sicilid)
         {
-            var dt = Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", DateTime.Now));
+            var dt = DateHelper.GetDateTimeCultural(string.Format("{0:dd/MM/yyyy}", DateTime.Now));
             var sayi = _sicilMeslekDegisiklik_LogRepository.GetAll()
                 .Where(c => c.SICILID == sicilid && c.ISLEMTARIHI == dt).Count();
             return sayi;
@@ -915,7 +916,7 @@ namespace CTD.Service.Services
 
         public SicilMeslekDegisiklik_Log GetirSicilMeslekDegisiklik_Log(int sicilid, int sicilmeslekid)
         {
-            var dt = Convert.ToDateTime(string.Format("{0:dd/MM/yyyy}", DateTime.Now));
+            var dt = DateHelper.GetDateTimeCultural(string.Format("{0:dd/MM/yyyy}", DateTime.Now));
             return _sicilMeslekDegisiklik_LogRepository.GetAll().OrderByDescending(s => s.Id).FirstOrDefault(c =>
                 c.SICILID == sicilid && c.SICILMESLEKID == sicilmeslekid && c.ISLEMTARIHI == dt);
         }
@@ -925,7 +926,7 @@ namespace CTD.Service.Services
             var veriler = new List<string>();
             var cepler = "";
             var sayac = 0;
-            var gununtarihi = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            var gununtarihi = DateHelper.GetDateTimeCultural(DateTime.Now.ToShortDateString());
             var d2 = gununtarihi.AddDays(-6);
             var besyiloncesi = d2.AddYears(-5);
             var vizesigelenler = (from s in _sicilRepository.GetAll()

@@ -15,9 +15,7 @@
                             <div class="form-group">
                                 <label>SERİ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki" />
                                 </div>
                             </div>
                         </div>
@@ -25,9 +23,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo" />
                                 </div>
                             </div>
                         </div>
@@ -35,9 +31,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ TARİHİ</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")'/>
-                                    </div>
+                                    <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")' />
                                 </div>
                             </div>
                         </div>
@@ -45,9 +39,7 @@
                             <div class="form-group">
                                 <label>KİRACININ ADI SOYADI / FİRMA ADI</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="txtKiraci" data-attribute="txtKiraci" maxlength="80" onkeyup="BuyukHarf(this)" onchange="$('[data-attribute=\'txtTutar\']').focus();"/>
-                                    </div>
+                                    <input type="text" class="form-control" id="txtKiraci" data-attribute="txtKiraci" maxlength="80" onkeyup="BuyukHarf(this)" onchange="$('[data-attribute=\'txtTutar\']').focus();" />
                                 </div>
                             </div>
                         </div>
@@ -55,9 +47,7 @@
                             <div class="form-group">
                                 <label>TUTAR</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar"/>
-                                    </div>
+                                    <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar" />
                                 </div>
                             </div>
                         </div>
@@ -66,9 +56,7 @@
                             <div class="form-group">
                                 <label>AÇIKLAMA</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtAciklama" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtAciklama" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)" />
                                 </div>
                             </div>
                         </div>
@@ -119,11 +107,13 @@
                                 url: "/Makbuz/KiraEkle",
                                 data: { serino: serino, makbuzno: makbuzno, makbuztarihi: makbuztarihi, kiraci: kiraci, tutar: tutar, aciklama: aciklama },
                                 datatype: "json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 success: function(result) {
                                     $("#hdMakbuzDokumId").val(result);
                                     $.ajax({
                                         url: "/Makbuz/_PrintKiraMakbuz",
                                         datatype: "Json",
+                                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                         data: { makbuzdokumid: result, kiraci: kiraci },
                                         success: function(data) {
                                             $("#divPrintMakbuz").html(data);

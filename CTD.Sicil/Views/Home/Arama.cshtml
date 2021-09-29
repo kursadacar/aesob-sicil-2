@@ -15,7 +15,7 @@
                 <h3><i class="fa fa-search"></i> Ünvan Arama</h3>
             </a>
         </li>
-        <li>
+        @*<li>
             <a data-toggle="tab" href="#tab-3">
                 <h3><i class="fa fa-try"></i> Rapor 3</h3>
             </a>
@@ -24,7 +24,7 @@
             <a data-toggle="tab" href="#tab-4">
                 <h3><i class="fa fa-file-pdf-o"></i> Rapor 4</h3>
             </a>
-        </li>
+        </li>*@
     </ul>
     <div class="tab-content">
         <div id="tab-1" class="tab-pane">
@@ -32,17 +32,13 @@
                 <div class="col-md-3">
                     <label>ADI SOYADI</label>
                     <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" data-attribute="txtAdSoyad" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;"/>
-                        </div>
+                        <input type="text" class="form-control" data-attribute="txtAdSoyad" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;" />
                     </div>
                 </div>
                 <div class="col-md-2">
                     <label>BABA ADI</label>
                     <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" data-attribute="txtBabaAdi" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;"/>
-                        </div>
+                        <input type="text" class="form-control" data-attribute="txtBabaAdi" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;" />
                     </div>
                 </div>
                 <div class="col-md-3" style="padding-top: 4px;">
@@ -75,9 +71,7 @@
                     <div class="form-group m-b-0">
                         <label>ÜNVAN</label>
                         <div class="input-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control" data-attribute="txtUnvan" style="background-color: #f9f9f9;"/>
-                            </div>
+                            <input type="text" class="form-control" data-attribute="txtUnvan" style="background-color: #f9f9f9;" />
                         </div>
                     </div>
                 </div>
@@ -138,6 +132,7 @@
                     data: { kriter: kriter },
                     datatype: "json",
                     type: "POST",
+                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                     success: function(result) {
                         $("#dvAramaSonuc").html("");
                         $("#dvAramaSonuc").html(result.ds);

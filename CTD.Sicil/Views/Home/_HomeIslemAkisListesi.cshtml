@@ -13,92 +13,109 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var item in ViewBag.MakbuzDokum)
-            {
-                if (item.SicilMakbuz == true)
+                @if (ViewBag.MakbuzDokum != null)
                 {
-                    <tr>
-                        <td>
-                            @{
-                                if (item.Iptal == true)
-                                {
-                                    <span class="label label-inverse">İPTAL</span>
-                                }
-                                else
-                                {
-                                    if (item.Islem == 1)
-                                    {
-                                        <span class="label label-success">@item.IslemTuru</span>
+                    foreach (var item in ViewBag.MakbuzDokum)
+                    {
+                        if (item.SicilMakbuz == true)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        if (item.Iptal == true)
+                                        {
+                                            <span class="label label-inverse">İPTAL</span>
+                                        }
+                                        else
+                                        {
+                                            if (item.Islem == 1)
+                                            {
+                                                <span class="label label-success">@item.IslemTuru</span>
+                                            }
+                                            else if (item.Islem == 2)
+                                            {
+                                                <span class="label label-primary">@item.IslemTuru</span>
+                                            }
+                                            else if (item.Islem == 3)
+                                            {
+                                                <span class="label label-warning">@item.IslemTuru</span>
+                                            }
+                                            else if (item.Islem == 4)
+                                            {
+                                                <span class="label label-danger">@item.IslemTuru</span>
+                                            }
+                                            else if (item.Islem == 5)
+                                            {
+                                                <span class="label label-info">@item.IslemTuru</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">@item.IslemTuru</span>
+                                            }
+                                        }
                                     }
-                                    else if (item.Islem == 2)
-                                    {
-                                        <span class="label label-primary">@item.IslemTuru</span>
-                                    }
-                                    else if (item.Islem == 3)
-                                    {
-                                        <span class="label label-warning">@item.IslemTuru</span>
-                                    }
-                                    else if (item.Islem == 4)
-                                    {
-                                        <span class="label label-danger">@item.IslemTuru</span>
-                                    }
-                                    else if (item.Islem == 5)
-                                    {
-                                        <span class="label label-info">@item.IslemTuru</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="label label-default">@item.IslemTuru</span>
-                                    }
-                                }
+                                </td>
+                                <td>@item.AdSoyad (@item.SicilNo)</td>
+                                <td class="hidden-xs">@item.IslemiYapan</td>
+                                <td class="text-center">
+                                    <a href="/Sicil/SicilDetail/@item.SicilNo" title="@item.AdSoyad">
+                                        <i class="fa fa-user"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        else if (item.EvrakMakbuz == true)
+                        {
+                            if (item.SicilNo != "" && item.Oda == null)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="label label-info">EVRAK SATIŞI</span>
+                                    </td>
+                                    <td>@item.AdSoyad</td>
+                                    <td class="hidden-xs">@item.Aciklama</td>
+                                    <td></td>
+                                </tr>
                             }
-                        </td> <td>@item.AdSoyad (@item.SicilNo)</td> <td class="hidden-xs">@item.IslemiYapan</td>
-                        <td class="text-center">
-                            <a href="/Sicil/SicilDetail/@item.SicilNo" title="@item.AdSoyad">
-                                <i class="fa fa-user"></i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-                else if (item.EvrakMakbuz == true)
-                {
-                    if (item.SicilNo != "" && item.Oda == null)
-                    {
-                        <tr>
-                            <td>
-                                <span class="label label-info">EVRAK SATIŞI</span>
-                            </td> <td>@item.AdSoyad</td> <td class="hidden-xs">@item.Aciklama</td> <td></td>
-                        </tr>
-                    }
-                    else if (item.SicilNo == "" && item.Oda != null)
-                    {
-                        <tr>
-                            <td>
-                                <span class="label label-warning-light">EVRAK SATIŞI</span>
-                            </td> <td>@item.AdSoyad</td> <td class="hidden-xs">@item.Aciklama</td> <td></td>
-                        </tr>
-                    }
-                }
-                else if (item.DigerMakbuz == true)
-                {
-                    if (item.SicilNo == "" && item.Oda == null)
-                    {
-                        <tr>
-                            <td>
-                                <span class="label label-default">BAĞIŞ</span>
-                            </td> <td>@item.AdSoyad</td> <td class="hidden-xs">@item.Aciklama</td> <td></td>
-                        </tr>
-                    }
-                    else if (item.SicilNo == "" && item.Oda != null)
-                    {
-                        <tr>
-                            <td>
-                                <span class="label label-inverse">KATILIM-EĞİTİM</span>
-                            </td> <td>@item.AdSoyad</td> <td class="hidden-xs">@item.Aciklama</td> <td></td>
-                        </tr>
+                            else if (item.SicilNo == "" && item.Oda != null)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="label label-warning-light">EVRAK SATIŞI</span>
+                                    </td>
+                                    <td>@item.AdSoyad</td>
+                                    <td class="hidden-xs">@item.Aciklama</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
+                        else if (item.DigerMakbuz == true)
+                        {
+                            if (item.SicilNo == "" && item.Oda == null)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="label label-default">BAĞIŞ</span>
+                                    </td>
+                                    <td>@item.AdSoyad</td>
+                                    <td class="hidden-xs">@item.Aciklama</td>
+                                    <td></td>
+                                </tr>
+                            }
+                            else if (item.SicilNo == "" && item.Oda != null)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="label label-inverse">KATILIM-EĞİTİM</span>
+                                    </td>
+                                    <td>@item.AdSoyad</td>
+                                    <td class="hidden-xs">@item.Aciklama</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
                     }
                 }
-            }
             </tbody>
         </table>
     </div>

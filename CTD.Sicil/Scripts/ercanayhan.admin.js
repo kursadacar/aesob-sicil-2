@@ -652,6 +652,29 @@ function formSendModel(e) {
     $("[data-btn]").removeAttr("disabled");
 }
 
+function formSendModelAsync(e) {
+    var model = {};
+    var modelId = $("[data-id='" + e.id + "'] [data-attribute]");
+    $("[data-btn]").attr("disabled");
+    var trimByIpnuts = $("[data-id='" + e.id + "'] input");
+    for (var c = 0; c < trimByIpnuts.length; c++) {
+        if (trimByIpnuts[c].type == "text") {
+            trimByIpnuts[c].value = trimByIpnuts[c].value.trim();
+        }
+    }
+    for (var i = 0; i < modelId.length; i++) {
+        model[modelId[i].attributes["data-attribute"].value] = GetValue(modelId[i]);
+    }
+    var dataId = $("[data-id='" + e.id + "']")[0].dataset;
+    var ajaxType = dataId.ajaxType;
+    var url = dataId.modelUrl;
+    var func = dataId.ajaxFunction;
+
+    isReload = isReload ? true : (dataId.reload === "true");
+    $.ErcanAyhan.Server.PostAsync(model, url, eval(func));
+    $("[data-btn]").removeAttr("disabled");
+}
+
 function GetValue(e) {
     if (e.type == "text" ||
         e.type == "email" ||

@@ -28,9 +28,7 @@
                             <div class="form-group">
                                 <label>TUTAR</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar"/>
-                                    </div>
+                                    <input type="text" class="form-control text-right" id="txtTutar" data-attribute="txtTutar" />
                                 </div>
                             </div>
                         </div>
@@ -42,9 +40,7 @@
                             <div class="form-group">
                                 <label>SERİ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtSeriNo" data-attribute="txtSeriNo" onkeyup="BuyukHarf(this)" value="@Model.MakbuzBilgisi.OnTaki" />
                                 </div>
                             </div>
                         </div>
@@ -52,9 +48,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ NO</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo"/>
-                                    </div>
+                                    <input type="text" class="form-control text-center" id="txtMakbuzNo" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" value="@Model.MakbuzBilgisi.MakbuzNo" />
                                 </div>
                             </div>
                         </div>
@@ -62,9 +56,7 @@
                             <div class="form-group">
                                 <label>MAKBUZ TARİHİ</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control" id="txtMakbuzTarihi" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" />
                                 </div>
                             </div>
                         </div>
@@ -72,9 +64,7 @@
                             <div class="form-group">
                                 <label>AÇIKLAMA</label>
                                 <div class="input-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="txtAciklama" data-attribute="txtAciklama" maxlength="80" onkeyup="BuyukHarf(this)"/>
-                                    </div>
+                                    <input type="text" class="form-control" id="txtAciklama" data-attribute="txtAciklama" maxlength="80" onkeyup="BuyukHarf(this)" />
                                 </div>
                             </div>
                         </div>
@@ -140,6 +130,7 @@
                             $.ajax({
                                 url: "/Makbuz/_EgitimKatilimDokum",
                                 datatype: "Json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 data: { makbuzdokumid: makbuzdokumid },
                                 success: function(e) {
                                     $("#btndiv").show();
@@ -165,6 +156,7 @@
                                     $.ajax({
                                         url: "/Makbuz/_EgitimKatilimDokum",
                                         datatype: "Json",
+                                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                         data: { makbuzdokumid: result, oda: odano },
                                         success: function(data) {
                                             $("#btndiv").show();
@@ -201,6 +193,7 @@
                             $.ajax({
                                 url: "/Makbuz/_EgitimKatilimDokum",
                                 datatype: "Json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 data: { makbuzdokumid: makbuzdokumid },
                                 success: function(data) {
                                     $("#divListe").html(data);
@@ -243,12 +236,14 @@
                                 url: "/Makbuz/MakbuzDokumLogGuncelle",
                                 data: { makbuzdokumid: makbuzdokumid, aciklama: aciklama, toplamtutar: toplamtutar, makbuztarihi: makbuztarihi },
                                 datatype: "json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 success: function(result) {
                                     var yenimakbuzdokumid = result;
                                     $.ajax({
                                         url: "/Makbuz/MakbuzDokumLogGuncelle2",
                                         data: { makbuzdokumid: makbuzdokumid, yenimakbuzdokumid: yenimakbuzdokumid },
                                         datatype: "json",
+                                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                         success: function(result) {
 
                                         }
@@ -256,6 +251,7 @@
                                     $.ajax({
                                         url: "/Makbuz/_PrintEKMakbuz",
                                         datatype: "Json",
+                                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                         data: { makbuzdokumid: result, oda: oda, aciklama: aciklama },
                                         success: function(data) {
                                             $.ajax({

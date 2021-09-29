@@ -8,104 +8,32 @@
         <div class="form-group">
             <label>ESNAF SİCİL NO</label>
             <div class="input-group">
-                <div class="form-line">
-                    <input type="text" class="form-control" data-attribute="txtSicilNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;"/>
-                </div>
+                <input type="text" class="form-control" data-attribute="txtSicilNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;" />
             </div>
         </div>
         <div class="form-group">
             <label>FİYAT SINIFI</label><br/>
-            <section class="section">
-                <div class="rbcontainer">
-                    <input type="radio" name="grpsinif" id="rbsinif1" value="1" title="1. SINIF">
-                    <label for="rbsinif1">
-                        <span class="radio">1. Sınıf</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpsinif" id="rbsinif2" value="2" title="2. SINIF">
-                    <label for="rbsinif2">
-                        <span class="radio">2. Sınıf</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpsinif" id="rbsinif3" value="3" title="3. SINIF">
-                    <label for="rbsinif3">
-                        <span class="radio">3. Sınıf</span>
-                    </label>
-                </div>
-            </section>
+            <select class="form-control font-bold" id="sinif-selection">
+                <option id="rbsinif1" value="1" title="1. SINIF">1. SINIF</option>
+                <option id="rbsinif2" value="2" title="2. SINIF">2. SINIF</option>
+                <option id="rbsinif3" value="3" title="3. SINIF">3. SINIF</option>
+            </select>
         </div>
         <div class="form-group">
             <label>TAHSİLAT İŞLEMİ</label><br/>
-            <section class="section">
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem1" value="1" title="YENİ KAYIT">
-                    <label for="rbislem1">
-                        <span class="radio">Yeni Kayıt</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem2" value="2" title="DEĞİŞİKLİK">
-                    <label for="rbislem2">
-                        <span class="radio">Değişiklik</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem4" value="4" title="TERK">
-                    <label for="rbislem4">
-                        <span class="radio">Terk</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem12" value="1017" title="ODASIZ KAYIT">
-                    <label for="rbislem12">
-                        <span class="radio">Odasız Kayıt</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem13" value="2017" title="ODALI KAYIT">
-                    <label for="rbislem13">
-                        <span class="radio">Odalı Kayıt</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem6" value="6" title="SURET">
-                    <label for="rbislem6">
-                        <span class="radio">Suret</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem7" value="7" title="HİZMET BEDELİ">
-                    <label for="rbislem7">
-                        <span class="radio">Hizmet Bedeli</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem8" value="8" title="SİCİL GAZETESİ">
-                    <label for="rbislem8">
-                        <span class="radio">Sicil Gazetesi</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem9" value="9" title="İhale Yazısı">
-                    <label for="rbislem9">
-                        <span class="radio">İhale Yazısı</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem10" value="10" title="Kapasite Raporu">
-                    <label for="rbislem10">
-                        <span class="radio">Kapasite Raporu</span>
-                    </label>
-                </div>
-                <div class="rbcontainer">
-                    <input type="radio" name="grpislem" id="rbislem11" value="11" title="Tasdik">
-                    <label for="rbislem11">
-                        <span class="radio">Tasdik</span>
-                    </label>
-                </div>
-            </section>
+            <select class="form-control font-bold" id="islem-selection">
+                <option name="grpislem" id="rbislem1" value="2018" title="YENİ KAYIT">Yeni Kayıt</option>
+                <option name="grpislem" id="rbislem2" value="2" title="DEĞİŞİKLİK">Değişiklik</option>
+                <option name="grpislem" id="rbislem4" value="4" title="TERK">Terk</option>
+                <option name="grpislem" id="rbislem12" value="1017" title="ODASIZ KAYIT">Odasız Kayıt</option>
+                <option name="grpislem" id="rbislem13" value="2017" title="ODALI KAYIT">Odalı Kayıt</option>
+                <option name="grpislem" id="rbislem6" value="6" title="SURET">Suret</option>
+                <option name="grpislem" id="rbislem7" value="7" title="HİZMET BEDELİ">Hizmet Bedeli</option>
+                <option name="grpislem" id="rbislem8" value="8" title="SİCİL GAZETESİ">Sicil Gazetesi</option>
+                <option name="grpislem" id="rbislem9" value="9" title="İhale Yazısı">İhale Yazısı</option>
+                <option name="grpislem" id="rbislem10" value="10" title="Kapasite Raporu">Kapasite Raporu</option>
+                <option name="grpislem" id="rbislem11" value="11" title="Tasdik">Tasdik</option>
+            </select>
         </div>
         <div class="form-group">
             <button id="btnMakbuzOlustur" class="btn btn-success" title="Makbuz Oluştur"><i class="fa fa-file-text-o"></i> Makbuz Oluştur</button>
@@ -129,9 +57,7 @@
             <div class="form-group">
                 <label>SERİ NO</label>
                 <div class="input-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" data-attribute="txtSeriNo" maxlength="10" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;"/>
-                    </div>
+                    <input type="text" class="form-control" data-attribute="txtSeriNo" maxlength="10" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;" />
                 </div>
             </div>
         </div>
@@ -139,9 +65,7 @@
             <div class="form-group">
                 <label>MAKBUZ NO</label>
                 <div class="input-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;"/>
-                    </div>
+                    <input type="text" class="form-control" data-attribute="txtMakbuzNo" maxlength="6" onkeypress="return Numeric(this, event);" style="background-color: #f3f3f4;" />
                 </div>
             </div>
         </div>
@@ -149,9 +73,7 @@
             <div class="form-group">
                 <label>MAKBUZ TARİHİ</label>
                 <div class="input-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" style="background-color: #f3f3f4;"/>
-                    </div>
+                    <input type="text" class="form-control" data-attribute="txtMakbuzTarihi" maxlength="10" onkeyup="tarih(this)" style="background-color: #f3f3f4;" />
                 </div>
             </div>
         </div>
@@ -159,9 +81,7 @@
             <div class="form-group">
                 <label>AÇIKLAMA</label>
                 <div class="input-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;"/>
-                    </div>
+                    <input type="text" class="form-control" data-attribute="txtAciklama" onkeyup="BuyukHarf(this)" style="background-color: #f3f3f4;" />
                 </div>
             </div>
         </div>
@@ -189,20 +109,31 @@
             $("#hdAdSoyad").val("");
 
             if (sicilno !== "") {
-                var siniflar = document.getElementsByName("grpsinif");
-                var islemler = document.getElementsByName("grpislem");
-                for (var x = 0; x < siniflar.length; x++) {
-                    if (siniflar[x].checked) {
-                        sinif = siniflar[x].value;
-                        siniftext = siniflar[x].title;
-                    }
-                }
-                for (var x = 0; x < islemler.length; x++) {
-                    if (islemler[x].checked) {
-                        islem = islemler[x].value;
-                        islemtext = islemler[x].title;
-                    }
-                }
+                //var siniflar = document.getElementsByName("grpsinif");
+                //var islemler = document.getElementsByName("grpislem");
+                //for (var x = 0; x < siniflar.length; x++) {
+                //    if (siniflar[x].checked) {
+                //        sinif = siniflar[x].value;
+                //        siniftext = siniflar[x].title;
+                //    }
+                //}
+                //for (var x = 0; x < islemler.length; x++) {
+                //    if (islemler[x].checked) {
+                //        islem = islemler[x].value;
+                //        islemtext = islemler[x].title;
+                //    }
+                //}
+
+                let selectedSinif = $("#sinif-selection option:selected");
+                sinif = selectedSinif.val();
+                siniftext = selectedSinif[0].title;
+
+                let selectedIslem = $("#islem-selection option:selected");
+                islem = selectedIslem.val();
+                islemtext = selectedIslem[0].title;
+
+                console.log(`SINIF: ${sinif}\nSINIFTEXT: ${siniftext}\nİŞLEM: ${islem}\nİŞLEMTEXT: ${islemtext}`);
+
                 if (sinif == 0 || islem == 0) {
                     swal("Fiyat Sınıfı ve Tahsilat İşlemi seçmelisiniz!", "Seçim alanlarını boş geçemezsiniz.", "warning");
                 } else {
@@ -213,6 +144,7 @@
                             sinif: sinif,
                             islem: islem
                         },
+                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                         datatype: "json",
                         success: function(tm) {
                             $("#lblAdSoyad").text(tm.AdSoyad + " (" + sicilno + ")");
@@ -238,6 +170,7 @@
                             $.ajax({
                                 url: "/Makbuz/_MakbuzDokum",
                                 datatype: "Json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 data: {
                                     islem: islem,
                                     sinif: sinif,
@@ -297,6 +230,7 @@
                                 url: "/Makbuz/MakbuzKaydet",
                                 type: "POST",
                                 datatype: "json",
+                                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                 data: {
                                     sicilno: sicilno,
                                     islem: islem,
@@ -316,6 +250,7 @@
                                     $.ajax({
                                         url: "/Makbuz/MakbuzSayac",
                                         datatype: "Json",
+                                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                                         data: { serino: $("[data-attribute='txtSeriNo']").val(), makbuzno: $("[data-attribute='txtMakbuzNo']").val() },
                                         success: function() {
                                             $("#btnPrint").show();

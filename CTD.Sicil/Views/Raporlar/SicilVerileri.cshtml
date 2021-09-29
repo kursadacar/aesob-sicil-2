@@ -35,16 +35,16 @@
                 <h3><i class="fa fa-address-card-o "></i> Sicil İşlem Dökümü</h3>
             </a>
         </li>
-        <li>
+        @*<li>
             <a data-toggle="tab" href="#tab-3">
                 <h3><i class="fa fa-try"></i> Rapor 3</h3>
             </a>
-        </li>
-        <li>
+        </li>*@
+        @*<li>
             <a data-toggle="tab" href="#tab-4">
                 <h3><i class="fa fa-file-pdf-o"></i> Rapor 4</h3>
             </a>
-        </li>
+        </li>*@
     </ul>
     <div class="tab-content">
         <div id="tab-1" class="tab-pane">
@@ -62,9 +62,7 @@
                     <div class="form-group m-b-0 text-center">
                         <label>BAŞLANGIÇ TARİHİ</label>
                         <div class="input-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control text-center" data-attribute="txtTarihIlk" maxlength="10" onkeyup="tarih(this);" style="background-color: #f9f9f9;"/>
-                            </div>
+                            <input type="text" class="form-control text-center" data-attribute="txtTarihIlk" maxlength="10" onkeyup="tarih(this);" style="background-color: #f9f9f9;" />
                         </div>
                     </div>
                 </div>
@@ -72,9 +70,7 @@
                     <div class="form-group m-b-0 text-center">
                         <label>BİTİŞ TARİHİ</label>
                         <div class="input-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control text-center" data-attribute="txtTarihSon" maxlength="10" onkeyup="tarih(this);" style="background-color: #f9f9f9;"/>
-                            </div>
+                            <input type="text" class="form-control text-center" data-attribute="txtTarihSon" maxlength="10" onkeyup="tarih(this);" style="background-color: #f9f9f9;" />
                         </div>
                     </div>
                 </div>
@@ -121,6 +117,7 @@
         $.ajax({
             url: "/Raporlar/Kullanicilar",
             dataType: "Json",
+            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
             type: "GET",
             success: function(data) {
                 $("#Kullanicilar").html(data);
@@ -137,6 +134,7 @@
                 url: "/Raporlar/IkiTarihSicilVerileri",
                 data: { ilktarih: ilktarih, sontarih: sontarih, id: id },
                 dataType: "Json",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success: function(data2) {
                     $("#dvListeler").hide();
                     $("#dvListe").hide();
@@ -155,6 +153,7 @@
         $.ajax({
             url: "/Raporlar/Kullanicilar",
             dataType: "Json",
+            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
             type: "GET",
             success: function(data) {
                 $("#Kullanicilar").html(data);
@@ -171,6 +170,7 @@
             url: "/Raporlar/PersonelListeIslem",
             type: "GET",
             dataType: "Json",
+            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
             data: { ilktarih: ilktarih, sontarih: sontarih, islem: islem, personelid: personelid },
             success: function(liste) {
                 $("#dvListe").html(liste);

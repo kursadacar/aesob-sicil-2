@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CTD.Web.Framework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Cem.Tayfur.Demirsal-erenege.Yazilim.Bilgisayar")]
+[assembly: AssemblyCompany("Kursad Acar")]
 [assembly: AssemblyProduct("CTD.Web.Framework")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

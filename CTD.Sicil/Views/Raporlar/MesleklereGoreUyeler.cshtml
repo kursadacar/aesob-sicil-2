@@ -78,6 +78,7 @@
                     type: "POST",
                     data: { meslek: meslek },
                     datatype: "Json",
+                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                     success: function(e) {
                         $("#dvUyeler").html("");
                         $("#dvUyeler").html(e.ds);

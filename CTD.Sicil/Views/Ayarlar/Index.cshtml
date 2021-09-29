@@ -35,25 +35,19 @@
                     <div class="form-group">
                         <label>ESKİ ŞİFRE</label>
                         <div class="input-group">
-                            <div class="form-line">
-                                <input type="password" class="form-control" data-attribute="txtEskiSifre" placeholder="Mevcut şifrenizi giriniz"/>
-                            </div>
+                            <input type="password" class="form-control" data-attribute="txtEskiSifre" placeholder="Mevcut şifrenizi giriniz" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label>YENİ ŞİFRE</label>
                         <div class="input-group">
-                            <div class="form-line">
-                                <input type="password" class="form-control" data-attribute="txtYeniSifre" placeholder="Yeni şifrenizi giriniz"/>
-                            </div>
+                            <input type="password" class="form-control" data-attribute="txtYeniSifre" placeholder="Yeni şifrenizi giriniz" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label>YENİ ŞİFRE (Tekrar)</label>
                         <div class="input-group">
-                            <div class="form-line">
-                                <input type="password" class="form-control" data-attribute="txtYeniSifreTekrar" placeholder="Yeni şifrenizi tekrar giriniz"/>
-                            </div>
+                            <input type="password" class="form-control" data-attribute="txtYeniSifreTekrar" placeholder="Yeni şifrenizi tekrar giriniz" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -80,9 +74,7 @@
                         <div class="form-group">
                             <label>SERİ NO</label>
                             <div class="input-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control" data-attribute="txtSeriNo"/>
-                                </div>
+                                <input type="text" class="form-control" data-attribute="txtSeriNo" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,9 +87,7 @@
                         <div class="form-group">
                             <label>MAKBUZ NO</label>
                             <div class="input-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control" data-attribute="txtMakbuzNo" onkeypress="return Numeric(this, event);"/>
-                                </div>
+                                <input type="text" class="form-control" data-attribute="txtMakbuzNo" onkeypress="return Numeric(this, event);" />
                             </div>
                         </div>
                     </div>
@@ -145,6 +135,7 @@
             $.ajax({
                 url: '@Url.Action("MakbuzTanimlama", "Ayarlar")',
                 datatype: "Json",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success: function(e) {
                     $("[data-attribute='txtSeriNo']").val(e.ONTAKI);
                     $("[data-attribute='txtMakbuzNo']").val(e.MAKBUZNO);
@@ -160,6 +151,7 @@
                 url: '@Url.Action("ControlPassword", "Ayarlar")',
                 data: { pass: $(this).val() },
                 datatype: "Json",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success: function(sonuc) {
                     if (sonuc === 1) {
                         $("#check").show();
@@ -186,6 +178,7 @@
                             data: { pass: mevcutsifre, newpass: yenisifre },
                             datatype: "Json",
                             method: "POST",
+                            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                             success: function(sonuc) {
                                 if (sonuc === 1) {
                                     $("#check").hide();
@@ -225,6 +218,7 @@
                 url: '@Url.Action("MakbuzTanimlama2", "Ayarlar")',
                 contentType: "application/json; charset=utf-8",
                 datatype: "Json",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 data: { Id: id, ONTAKI: ontaki, MAKBUZNO: makbuzno },
                 success: function(e) {
                     if (e == 1) {

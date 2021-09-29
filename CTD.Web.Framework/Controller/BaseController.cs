@@ -23,15 +23,17 @@ namespace CTD.Web.Framework.Controller
 
         public ActionResult AjaxSuccess()
         {
-            return AjaxMessage(MessageTitleTypes.Tebrikler, "İşlem başarıyla gerçeleşti.", MessageTypes.success);
+            return AjaxMessage(MessageTitleTypes.Tebrikler, "İşlem başarıyla gerçekleşti.", MessageTypes.success);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+#if DEBUG
             var validationErrors = (from item in ModelState.Values from error in item.Errors select error.ErrorMessage)
                 .ToList();
             if (validationErrors.Count > 0 && Request.IsAjaxRequest() && validationErrors[0] != "")
                 filterContext.Result = AjaxMessage(MessageTitleTypes.Uyari, validationErrors[0], MessageTypes.warning);
+#endif
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
 using CTD.Core.Entities;
+using CTD.Core.Helpers;
 using CTD.Data.UnitofWork;
 using CTD.Dto.SingleDto;
 using CTD.Service.Interfaces;
@@ -259,9 +260,9 @@ namespace CTD.Sicil.Controllers
             var mdl = new MakbuzDokumLog
             {
                 ODA = model.Oda, SERINO = model.SeriNo, MAKBUZNO = model.MakbuzNo,
-                MAKBUZTAR = Convert.ToDateTime(model.MakbuzTarihi), ADISOYADI = model.AdiSoyadi, DIGERMAKBUZ = false,
+                MAKBUZTAR = DateHelper.GetDateTimeCultural(model.MakbuzTarihi), ADISOYADI = model.AdiSoyadi, DIGERMAKBUZ = false,
                 EVRAKMAKBUZ = true, ISLEMIYAPAN = Accesses.Id, SUBE = u.sube, ISLEM = 12, KAYITEDEN = Accesses.Id,
-                KAYITTAR = Convert.ToDateTime(model.MakbuzTarihi), SICILMAKBUZ = false, SICILNO = model.SicilNo
+                KAYITTAR = DateHelper.GetDateTimeCultural(model.MakbuzTarihi), SICILMAKBUZ = false, SICILNO = model.SicilNo
             };
             _makbuzDokumService.MakbuzDokumLogKaydet(mdl);
             _uow.SaveChanges();
@@ -275,8 +276,8 @@ namespace CTD.Sicil.Controllers
             var mdl = new MakbuzDokumLog
             {
                 DIGERMAKBUZ = true, EVRAKMAKBUZ = false, ISLEMIYAPAN = Accesses.Id, SUBE = u.sube,
-                KAYITEDEN = Accesses.Id, MAKBUZTAR = Convert.ToDateTime(model.MakbuzTarihi),
-                KAYITTAR = Convert.ToDateTime(model.MakbuzTarihi), SICILMAKBUZ = false, SERINO = model.SeriNo,
+                KAYITEDEN = Accesses.Id, MAKBUZTAR = DateHelper.GetDateTimeCultural(model.MakbuzTarihi),
+                KAYITTAR = DateHelper.GetDateTimeCultural(model.MakbuzTarihi), SICILMAKBUZ = false, SERINO = model.SeriNo,
                 ODA = model.Oda, MAKBUZNO = model.MakbuzNo, ADISOYADI = model.AdiSoyadi, ISLEM = 14
             };
             _makbuzDokumService.MakbuzDokumLogKaydet(mdl);
@@ -290,7 +291,7 @@ namespace CTD.Sicil.Controllers
             var makbuzdetaylog = new MakbuzDetayLog
             {
                 TAHAKKUKETTIREN = Accesses.Id, MAKBUZ = true, MAKBUZDOKUMID = model.MakbuzDokumId, KOD = model.Kod,
-                ACIKLAMA = model.Aciklama, TUTAR = model.Tutar, TAHAKKUKTAR = Convert.ToDateTime(model.TahakkukTarihi)
+                ACIKLAMA = model.Aciklama, TUTAR = model.Tutar, TAHAKKUKTAR = DateHelper.GetDateTimeCultural(model.TahakkukTarihi)
             };
             _makbuzDokumService.MakbuzDetayLogKaydet(makbuzdetaylog);
             _uow.SaveChanges();
@@ -469,7 +470,7 @@ namespace CTD.Sicil.Controllers
                 {
                     SICILMAKBUZ = false, EVRAKMAKBUZ = false, DIGERMAKBUZ = true,
                     TOPLAMTAHSILAT = Convert.ToDecimal(tutar), BIRLIKTAHSILATI = Convert.ToDecimal(tutar),
-                    IDTAHSILATI = 0, SERINO = serino, MAKBUZNO = makbuzno, MAKBUZTAR = Convert.ToDateTime(makbuztarihi),
+                    IDTAHSILATI = 0, SERINO = serino, MAKBUZNO = makbuzno, MAKBUZTAR = DateHelper.GetDateTimeCultural(makbuztarihi),
                     ACIKLAMA = bagisyapan, KAYITEDEN = Accesses.Id, ISLEMIYAPAN = Accesses.Id, SUBE = u.sube,
                     ADISOYADI = bagisyapan, KAYITTAR = DateTime.Now, ISLEM = 15
                 };
@@ -489,7 +490,7 @@ namespace CTD.Sicil.Controllers
                     var mdetay = new MakbuzDetay
                     {
                         MAKBUZDOKUMID = mki, KOD = "BY", ACIKLAMA = "BAĞIŞ VE YARDIMLAR",
-                        TUTAR = Convert.ToDecimal(tutar), TAHAKKUKTAR = Convert.ToDateTime(makbuztarihi),
+                        TUTAR = Convert.ToDecimal(tutar), TAHAKKUKTAR = DateHelper.GetDateTimeCultural(makbuztarihi),
                         TAHAKKUKETTIREN = Accesses.Id, MAKBUZ = true
                     };
                     _makbuzDokumService.BagisMakbuzDetayEkle(mdetay);
@@ -558,7 +559,7 @@ namespace CTD.Sicil.Controllers
                 {
                     SICILMAKBUZ = false, EVRAKMAKBUZ = false, DIGERMAKBUZ = true,
                     TOPLAMTAHSILAT = Convert.ToDecimal(tutar), BIRLIKTAHSILATI = Convert.ToDecimal(tutar),
-                    IDTAHSILATI = 0, SERINO = serino, MAKBUZNO = makbuzno, MAKBUZTAR = Convert.ToDateTime(makbuztarihi),
+                    IDTAHSILATI = 0, SERINO = serino, MAKBUZNO = makbuzno, MAKBUZTAR = DateHelper.GetDateTimeCultural(makbuztarihi),
                     ACIKLAMA = aciklama, KAYITEDEN = Accesses.Id, ISLEMIYAPAN = Accesses.Id, SUBE = u.sube,
                     ADISOYADI = kiraci, KAYITTAR = DateTime.Now, ISLEM = 1016
                 };
@@ -578,7 +579,7 @@ namespace CTD.Sicil.Controllers
                     var mdetay = new MakbuzDetay
                     {
                         MAKBUZDOKUMID = mki, KOD = "BY", ACIKLAMA = "KİRA GELİRLERİ", TUTAR = Convert.ToDecimal(tutar),
-                        TAHAKKUKTAR = Convert.ToDateTime(makbuztarihi), TAHAKKUKETTIREN = Accesses.Id, MAKBUZ = true
+                        TAHAKKUKTAR = DateHelper.GetDateTimeCultural(makbuztarihi), TAHAKKUKETTIREN = Accesses.Id, MAKBUZ = true
                     };
                     _makbuzDokumService.KiraMakbuzDetayEkle(mdetay);
                     var s = _uow.SaveChanges();
@@ -612,7 +613,7 @@ namespace CTD.Sicil.Controllers
             if (serino != null && makbuzno != 0 && makbuztarihi != null)
             {
                 var dt = new DateTime();
-                dt = Convert.ToDateTime(makbuztarihi);
+                dt = DateHelper.GetDateTimeCultural(makbuztarihi);
                 var md = new MakbuzDokum();
                 md = _makbuzDokumService.GetirMakbuzDokum(serino, makbuzno, Accesses.Id, dt);
                 return Json(md, JsonRequestBehavior.AllowGet);
@@ -643,7 +644,7 @@ namespace CTD.Sicil.Controllers
                     m.KOD = "İPTAL";
                     m.ACIKLAMA = "İPTAL MAKBUZU";
                     m.TUTAR = 0;
-                    m.TAHAKKUKTAR = Convert.ToDateTime(makbuztarihi);
+                    m.TAHAKKUKTAR = DateHelper.GetDateTimeCultural(makbuztarihi);
                     m.TAHAKKUKETTIREN = Accesses.Id;
                     m.MAKBUZ = false;
                     _makbuzDokumService.MakbuzDetayKaydet(m);
@@ -698,7 +699,7 @@ namespace CTD.Sicil.Controllers
         {
             if (serino != null && makbuzno != 0 && makbuztarihi != null)
             {
-                var makbuztar = Convert.ToDateTime(makbuztarihi);
+                var makbuztar = DateHelper.GetDateTimeCultural(makbuztarihi);
                 var model = _makbuzDokumService.GetirSilinecekMakbuzlar(serino, makbuzno, makbuztar);
                 var ds = "<table id='tblSilinecekMakbuzlar' class='display' cellspacing='0' width='100%'>" +
                          Environment.NewLine +
@@ -763,8 +764,8 @@ namespace CTD.Sicil.Controllers
         {
             if (ilktarih != null && sontarih != null && vezne != 0)
             {
-                var it = Convert.ToDateTime(ilktarih);
-                var st = Convert.ToDateTime(sontarih);
+                var it = DateHelper.GetDateTimeCultural(ilktarih);
+                var st = DateHelper.GetDateTimeCultural(sontarih);
                 var data = _makbuzDokumService.TahsilatTuruneGoreListe(it, st, vezne);
                 return PartialView(data);
             }
@@ -780,8 +781,8 @@ namespace CTD.Sicil.Controllers
                 lr.ReportPath = path;
             else
                 return null;
-            var it = Convert.ToDateTime(ilktarih);
-            var st = Convert.ToDateTime(sontarih);
+            var it = DateHelper.GetDateTimeCultural(ilktarih);
+            var st = DateHelper.GetDateTimeCultural(sontarih);
             var kullanici = int.Parse(vezne);
             var birlikMakbuz = _makbuzDokumService.TahsilatTuruneGoreListe2(it, st, kullanici);
             var lstBirlik = new List<MakbuzDokum>();
@@ -843,8 +844,8 @@ namespace CTD.Sicil.Controllers
                 lr.ReportPath = path;
             else
                 return null;
-            var it = Convert.ToDateTime(ilktarih);
-            var st = Convert.ToDateTime(sontarih);
+            var it = DateHelper.GetDateTimeCultural(ilktarih);
+            var st = DateHelper.GetDateTimeCultural(sontarih);
             var kullanici = int.Parse(vezne);
             var Makbuz = _makbuzDokumService.TahsilatTuruneGoreListeV2(it, st, kullanici);
             var lstMakbuz = new List<MakbuzDokum>();
@@ -892,8 +893,8 @@ namespace CTD.Sicil.Controllers
         {
             if (ilktarih != null && sontarih != null)
             {
-                var it = Convert.ToDateTime(ilktarih);
-                var st = Convert.ToDateTime(sontarih);
+                var it = DateHelper.GetDateTimeCultural(ilktarih);
+                var st = DateHelper.GetDateTimeCultural(sontarih);
                 var data = _makbuzDokumService.MakbuzGelirTablosu(it, st, vezne);
                 return PartialView(data);
             }
@@ -909,8 +910,8 @@ namespace CTD.Sicil.Controllers
                 lr.ReportPath = path;
             else
                 return null;
-            var it = Convert.ToDateTime(ilktarih);
-            var st = Convert.ToDateTime(sontarih);
+            var it = DateHelper.GetDateTimeCultural(ilktarih);
+            var st = DateHelper.GetDateTimeCultural(sontarih);
             var kullanici = int.Parse(vezne);
             var kullaniciadi = _makbuzDokumService.GetirKullanici(kullanici);
             var data = _makbuzDokumService.MakbuzGelirTablosu(it, st, kullanici);
@@ -964,7 +965,7 @@ namespace CTD.Sicil.Controllers
         public ActionResult EskiMakbuzGetir2(EskiMakbuzGetirDto model)
         {
             var m = _makbuzDokumService.MakbuzKontrol(model.SeriNo, model.MakbuzNo,
-                Convert.ToDateTime(model.MakbuzTarihi));
+                DateHelper.GetDateTimeCultural(model.MakbuzTarihi?.ToString()));
             return Json(m, JsonRequestBehavior.AllowGet);
         }
 

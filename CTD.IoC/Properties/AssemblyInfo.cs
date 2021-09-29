@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CTD.IoC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Cem Tayfur Demirsal - erenege Yazılım Bilgisayar")]
+[assembly: AssemblyCompany("Kursad Acar")]
 [assembly: AssemblyProduct("CTD.IoC")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

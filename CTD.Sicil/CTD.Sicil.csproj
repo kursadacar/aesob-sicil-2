@@ -82,6 +82,9 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="RouteDebugger, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\routedebugger.2.1.5\lib\net40\RouteDebugger.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -365,6 +368,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\loading-image.gif" />
     <Content Include="Content\materialize.css" />
+    <Content Include="Content\sicil.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -476,7 +480,6 @@
     <Content Include="Models\DSReports.xss">
       <DependentUpon>DSReports.xsd</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <EmbeddedResource Include="Reports\rpKayitBilgiForm.rdlc" />
     <EmbeddedResource Include="Reports\rpIslemBilgiForm.rdlc" />
     <EmbeddedResource Include="Reports\rpMakbuz-A4.rdlc" />
@@ -685,6 +688,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\_Session\" />
   </ItemGroup>
   <ItemGroup>

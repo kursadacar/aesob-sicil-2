@@ -44,10 +44,10 @@ namespace CTD.Web.Framework.Controller
                 filterContext.HttpContext.Response.Clear();
                 filterContext.HttpContext.Response.Status = "500 Internal Server Error";
                 filterContext.Result = AjaxMessage("Hata",
-                    "Hata No :" + filterContext.Exception.HResult + "<br/> Hata Mesajı : " +
-                    (filterContext.Exception.InnerException == null
-                        ? filterContext.Exception.Message
-                        : filterContext.Exception.InnerException.Message), MessageTypes.danger);
+                    "Hata No :" + filterContext.Exception.HResult + "<br/> Hata Mesajı : " + filterContext.Exception.ToString(), MessageTypes.info);
+                    //(filterContext.Exception.InnerException == null
+                    //    ? filterContext.Exception.Message
+                    //    : filterContext.Exception.InnerException.Message), MessageTypes.danger);
                 filterContext.ExceptionHandled = true;
             }
         }

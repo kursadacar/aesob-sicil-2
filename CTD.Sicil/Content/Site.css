@@ -306,14 +306,15 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .mini-navbar li.active .nav-second-level { left: 65px; }
 
 .navbar-default .special_link a {
-    background: #1ab394;
+    background-color: #d4553e !important;
+    transition-duration: 0.22s;
     color: white;
 }
 
-.navbar-default .special_link a:hover {
-    background: #17987e !important;
-    color: white;
-}
+    .navbar-default .special_link a:hover {
+        background-color: #b02b13 !important;
+        color: white;
+    }
 
 .navbar-default .special_link a span.label {
     background: #fff;
@@ -3946,11 +3947,11 @@ img.circle-border {
 .breadcrumb > .active { color: inherit; }
 
 code {
-    background-color: #F9F2F4;
+    background-color: #f54375;
     border-radius: 4px;
-    color: #ca4440;
+    color: #ffffff;
     font-size: 90%;
-    padding: 2px 4px;
+    padding: 3px 4px;
     white-space: nowrap;
 }
 
@@ -8702,19 +8703,19 @@ body.md-skin {
     font-size: 18px;
 }
 
-.input-group input[type="text"],
-.input-group .form-control {
-    border: none;
-    box-shadow: none;
-    padding-left: 0;
-}
+    .input-group input[type="text"],
+    .input-group .form-control {
+        border: 1px solid rgb(0 0 0 / 0.26) !important;
+        border-radius: 5px !important;
+        padding: 3px !important;
+    }
 
-.input-group .form-control:focus {
-    -moz-box-shadow: none !important;
-    -ms-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-}
+    .input-group .form-control:focus {
+        -moz-box-shadow: 0px 0px 6px 0px rgb(0 0 0 / 0.35) inset !important;
+        -ms-box-shadow: 0px 0px 6px 0px rgb(0 0 0 / 0.35) inset !important;
+        -webkit-box-shadow: 0px 0px 6px 0px rgb(0 0 0 / 0.35) inset !important;
+        box-shadow: 0px 0px 6px 0px rgb(0 0 0 / 0.35) inset !important;
+    }
 
 .input-group.input-group-sm .input-group-addon i { font-size: 14px; }
 
@@ -8837,8 +8838,14 @@ body.md-skin {
 .form-control[readonly],
 fieldset[disabled] .form-control { background-color: transparent; }
 
-/* Login Page ================================== */
+.form-control {
+    background-color: #fafafa !important;
+    border: 1px solid rgb(0 0 0 / 0.26) !important;
+    border-radius: 5px !important;
+    padding: 3px !important;
+}
 
+/* Login Page ================================== */
 .login-page {
     background-color: #00BCD4;
     margin: 5% auto;

@@ -39,6 +39,7 @@ namespace CTD.Sicil.Controllers
                 //_kullaniciService.SifreGuncelle(user);
                 //_uow.SaveChanges();
                 //return AjaxMessage("Şifre Değiştirildi", $"Pass:{user.pass} -- Pass2:{user.pass2}", MessageTypes.info);
+                //return AjaxMessage("Şifreniz", EnDeCode.Encrypt(model.Password, StaticParams.SifrelemeParametresi), MessageTypes.info);
                 var person = _kullaniciService.KullaniciGetir(model.UserName, model.Password);
                 if (person == null) return AjaxMessage("Uyarı", "Yanlış kullanıcı adı veya şifre", MessageTypes.danger);
 

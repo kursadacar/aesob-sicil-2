@@ -40,9 +40,7 @@
                         <div class="form-group">
                             <label>BAŞLANGIÇ TARİHİ</label>
                             <div class="input-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control" id="txtTarihIlk" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")'/>
-                                </div>
+                                <input type="text" class="form-control" id="txtTarihIlk" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")' />
                             </div>
                         </div>
                     </div>
@@ -50,9 +48,7 @@
                         <div class="form-group">
                             <label>BİTİŞ TARİHİ</label>
                             <div class="input-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control" id="txtTarihSon" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")'/>
-                                </div>
+                                <input type="text" class="form-control" id="txtTarihSon" maxlength="10" onkeyup="tarih(this)" value='@DateTime.Now.ToString("dd.MM.yyyy")' />
                             </div>
                         </div>
                     </div>
@@ -99,6 +95,7 @@
             $.ajax({
                 url: "@Url.Action("_YeniKayitYapilanUyeler", "Raporlar")",
                 data: { ilktarih: ilktarih, sontarih: sontarih, vezne: vezne },
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success: function(data) {
                     $("#dvYeniKayitlar").html(data);
                     $("#btnGroup").show();

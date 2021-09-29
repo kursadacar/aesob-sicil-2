@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using CTD.Core.Constants;
 using CTD.Core.Entities;
@@ -20,8 +21,15 @@ namespace CTD.Service.Services
         {
             var result = _kullaniciRepository.GetAll().SingleOrDefault(p => p.login == userName);
 
-            if (EnDeCode.Decrypt(result.pass2, StaticParams.SifrelemeParametresi) == password)
-                return result;
+            try
+            {
+                if (result != null && EnDeCode.Decrypt(result.pass2, StaticParams.SifrelemeParametresi) == password)
+                    return result;
+            }
+            catch
+            {
+                return null;
+            }
 
             return null;
         }

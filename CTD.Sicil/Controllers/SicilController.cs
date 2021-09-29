@@ -4,6 +4,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using CTD.Core.Entities;
+using CTD.Core.Helpers;
 using CTD.Data.UnitofWork;
 using CTD.Dto.SingleDto;
 using CTD.Service.Interfaces;
@@ -362,7 +363,7 @@ namespace CTD.Sicil.Controllers
                 SONVIZEISTAR = mevcut.SONVIZEISTAR, VIZESURESIBITTAR = mevcut.VIZESURESIBITTAR,
                 MESLEKTERKTAR = mevcut.MESLEKTERKTAR, MESLEKTERKNEDENI = mevcut.MESLEKTERKNEDENI,
                 ISLEMIYAPAN = kullanici,
-                ISLEMTARIHI = Convert.ToDateTime(DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year),
+                ISLEMTARIHI = DateHelper.GetDateTimeCultural(DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year),
                 MERKEZ = mevcut.MERKEZ
             };
             _sicilService.KaydetSicilMeslekDegisiklik_log(yeni);
@@ -372,6 +373,7 @@ namespace CTD.Sicil.Controllers
         public JsonResult NaceBilgileriGetir(string nacekodu)
         {
             var result = _sicilService.NaceBilgileriGetir(nacekodu);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

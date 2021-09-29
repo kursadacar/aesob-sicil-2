@@ -121,6 +121,7 @@
                     type: "POST",
                     data: { ilcem: ilce, mahallem: mahalle, caddem: cadde },
                     datatype: "Json",
+                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                     success: function(e) {
                         $("#dvUyeler").html("");
                         $("#dvUyeler").html(e.ds);

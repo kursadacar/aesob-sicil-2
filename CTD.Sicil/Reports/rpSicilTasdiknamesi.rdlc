@@ -574,7 +574,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=FormatDateTime(Parameters!prDogumTarihi.Value, DateFormat.ShortDate)</Value>
+                <Value>=Parameters!prDogumTarihi.Value</Value>
                 <Style>
                   <FontFamily>Times New Roman</FontFamily>
                   <FontSize>12pt</FontSize>
@@ -656,7 +656,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Veriliş Tarihi : " &amp; FormatDateTime(Globals!ExecutionTime, DateFormat.ShortDate)</Value>
+                <Value>="Veriliş Tarihi : " &amp; DateTime.Now.ToString("dd/MM/yyyy")</Value>
                 <Style>
                   <FontFamily>Times New Roman</FontFamily>
                   <FontWeight>Bold</FontWeight>
@@ -1005,7 +1005,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value>=FormatDateTime(Parameters!prKayitTarihi.Value, DateFormat.ShortDate)</Value>
+                <Value>=Parameters!prKayitTarihi.Value</Value>
                 <Style>
                   <FontFamily>Times New Roman</FontFamily>
                   <FontWeight>Bold</FontWeight>
@@ -1178,7 +1178,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value>=Microsoft.VisualBasic.Strings.FormatDateTime(Parameters!prKayitTarihi.Value, Microsoft.VisualBasic.DateFormat.ShortDate)</Value>
+                <Value>=Parameters!prKayitTarihi.Value</Value>
                 <Style>
                   <FontFamily>Times New Roman</FontFamily>
                   <FontSize>12pt</FontSize>

@@ -603,12 +603,12 @@ namespace CTD.Sicil.Controllers
             var prBabaAdi = new ReportParameter("prBabaAdi", sicil.BABAADI);
             var prAnneAdi = new ReportParameter("prAnneAdi", sicil.ANAADI);
             var prDogumYeri = new ReportParameter("prDogumYeri", sicil.DOGYERILCE);
-            var prDogumTarihi = new ReportParameter("prDogumTarihi", sicil.DOGTAR.ToString());
+            var prDogumTarihi = new ReportParameter("prDogumTarihi", sicil.DOGTAR.ToStringTR());
             var prUnvan = new ReportParameter("prUnvan", sicilmeslek.ISYERIUNVANI);
             var prAdres = new ReportParameter("prAdres", sicilmeslek.ISADRES2);
             var prOda = new ReportParameter("prOda", odaadi);
-            var prKayitTarihi = new ReportParameter("prKayitTarihi", sicilmeslek.KAYITTAR.ToString());
-            var prTerkTarihi = new ReportParameter("prTerkTarihi", sicilmeslek.MESLEKTERKTAR.ToString());
+            var prKayitTarihi = new ReportParameter("prKayitTarihi", sicilmeslek.KAYITTAR.ToStringTR());
+            var prTerkTarihi = new ReportParameter("prTerkTarihi", sicilmeslek.MESLEKTERKTAR.ToStringTR());
             var prNaceKodu = new ReportParameter("prNaceKodu", nace.NACE);
             var prNaceTanimi = new ReportParameter("prNaceTanimi", nace.TANIMI);
             lr.SetParameters(new[]
@@ -690,7 +690,7 @@ namespace CTD.Sicil.Controllers
                 p3 = new ReportParameter("sicilno", s.SICILNO.ToString());
                 p4 = new ReportParameter("babaadi", s.BABAADI);
                 p5 = new ReportParameter("dogumyeri", s.DOGYERILCE);
-                p6 = new ReportParameter("dogumtarihi", s.DOGTAR.ToString());
+                p6 = new ReportParameter("dogumtarihi", s.DOGTAR.ToStringTR());
                 p7 = new ReportParameter("kullanici", Accesses.Adi);
                 if (Accesses.Hak == "admin")
                 {
@@ -876,7 +876,7 @@ namespace CTD.Sicil.Controllers
             cell.PaddingLeft = 5f;
             cell.PaddingRight = 5f;
             table.AddCell(cell);
-            cell = new PdfPCell(new Phrase(sicilmeslek.KayitTar.ToString(), proximanovaFont10));
+            cell = new PdfPCell(new Phrase(sicilmeslek.KayitTar.ToStringTR(), proximanovaFont10));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.PaddingBottom = 5f;
             cell.PaddingLeft = 5f;
@@ -975,9 +975,9 @@ namespace CTD.Sicil.Controllers
         }
 
         [HttpPost]
-        public JsonResult DetayliArama(string adsoyad, string babaadi, string meslekodasi, string meslek)
+        public JsonResult DetayliArama(string adsoyad, string anneadi, string babaadi, string meslekodasi, string meslek)
         {
-            var arama = _sicilService.DetayliArama(adsoyad, babaadi, meslekodasi, meslek);
+            var arama = _sicilService.DetayliArama(adsoyad, anneadi, babaadi, meslekodasi, meslek);
             var ds = "<table id='tblDetayliArama' class='display' cellspacing='0' width='100%'>" + Environment.NewLine +
                      "<thead><tr><th>SİCİL NO</th><th>ADI SOYADI</th><th>TC KİMLİK NO</th><th>BABA ADI</th><th>ANNE ADI</th><th>DOĞUM TARİHİ</th></tr></thead><tbody>";
             foreach (var item in arama)

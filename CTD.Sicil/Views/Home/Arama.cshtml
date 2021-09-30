@@ -36,6 +36,12 @@
                     </div>
                 </div>
                 <div class="col-md-2">
+                    <label>ANNE ADI</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" data-attribute="txtAnneAdi" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;" />
+                    </div>
+                </div>
+                <div class="col-md-2">
                     <label>BABA ADI</label>
                     <div class="input-group">
                         <input type="text" class="form-control" data-attribute="txtBabaAdi" onkeyup="BuyukHarf(this)" style="background-color: #f9f9f9;" />
@@ -179,13 +185,15 @@
         $("#btnDetayliAra").click(function() {
             var veriler = {
                 adsoyad: $("[data-attribute='txtAdSoyad']").val(),
+                anneadi: $("[data-attribute='txtAnneAdi']").val(),
                 babaadi: $("[data-attribute='txtBabaAdi']").val(),
                 meslekodasi: $("[data-attribute='ddlMeslekOdasi']").val(),
                 meslek: $("[data-attribute='ddlMeslek']").val()
             };
             $.ErcanAyhan.Server.PostAsync(veriler,
                 "/Sicil/DetayliArama",
-                function(z) {
+                function (z) {
+                    console.log(z);
                     $("#dvAramaSonuc1").html("");
                     $("#dvAramaSonuc1").html(z.ds);
                     $("#tblDetayliArama").dataTable({

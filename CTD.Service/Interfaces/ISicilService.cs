@@ -55,7 +55,7 @@ namespace CTD.Service.Interfaces
         SicilMeslekDegisiklik_Log GetirSicilMeslekDegisiklik_Log(int sicilid, int sicilmeslekid);
         int GetirSicilMeslekDegisiklik_LogSayisi(int sicilid);
         List<SicilMeslek> SicilMeslekMevcutDurum(int sicilid);
-        List<SicilAramaDto> DetayliArama(string adsoyad, string babaadi, string meslekodasi, string meslek);
+        List<SicilAramaDto> DetayliArama(string adsoyad, string anneadi, string babaadi, string meslekodasi, string meslek);
         void InsertTahsilatIslemleri(TahsilatIslemleriDto model);
         List<string> VizesiGelenler();
         List<IGrouping<int, RaporlarAdreseGoreUyelerListDto>> GetirIlceyeGoreUyeler(int id);

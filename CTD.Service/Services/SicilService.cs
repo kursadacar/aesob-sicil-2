@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Text;
-using CTD.Core.Entities;
+﻿using CTD.Core.Entities;
 using CTD.Core.Helpers;
 using CTD.Data.UnitofWork;
 using CTD.Dto.ListedDto;
@@ -14,6 +8,12 @@ using CTD.Service.Abstracts;
 using CTD.Service.Interfaces;
 using CTD.Utilities.Manager;
 using HtmlAgilityPack;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Text;
 
 namespace CTD.Service.Services
 {
@@ -380,7 +380,7 @@ namespace CTD.Service.Services
                         sadto.AdSoyad = m.ADSOYAD;
                         sadto.BabaAdi = m.BABAADI;
                         sadto.AnneAdi = m.ANAADI;
-                        sadto.DogumTarihi = m.DOGTAR.ToString();
+                        sadto.DogumTarihi = m.DOGTAR.ToStringTR();
                         sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                         sadto.Durum = "tekkayit";
                         liste.Add(sadto);
@@ -421,7 +421,7 @@ namespace CTD.Service.Services
                         sadto.AdSoyad = m.ADSOYAD;
                         sadto.BabaAdi = m.BABAADI;
                         sadto.AnneAdi = m.ANAADI;
-                        sadto.DogumTarihi = m.DOGTAR.ToString();
+                        sadto.DogumTarihi = m.DOGTAR.ToStringTR();
                         sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                         sadto.Durum = "tekkayit";
                         liste.Add(sadto);
@@ -463,7 +463,7 @@ namespace CTD.Service.Services
                     sadto.AdSoyad = m.ADSOYAD;
                     sadto.BabaAdi = m.BABAADI;
                     sadto.AnneAdi = m.ANAADI;
-                    sadto.DogumTarihi = m.DOGTAR.ToString();
+                    sadto.DogumTarihi = m.DOGTAR.ToStringTR();
                     sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                     sadto.Durum = "tekkayit";
                     liste.Add(sadto);
@@ -709,8 +709,14 @@ namespace CTD.Service.Services
                 {
                     sgk.AdSoyad = sicil.ADSOYAD;
                     sgk.BabaAdi = sicil.BABAADI;
-                    if (sicil.DOGTAR != null) sgk.DogumTarihi = (DateTime) sicil.DOGTAR;
-                    if (kayit != null) sgk.Kayittarihi = kayit;
+                    if (sicil.DOGTAR != null)
+                    {
+                        sgk.DogumTarihi = (DateTime) sicil.DOGTAR;
+                    }
+                    if (kayit != null)
+                    {
+                        sgk.Kayittarihi = kayit;
+                    }
                     sgk.TcKimlikNo = " (TCKN: " + sicil.TCKIMLIKNO + ")";
                     sgk.Durum = durum;
                     sgk.SicilNo = id;
@@ -842,17 +848,22 @@ namespace CTD.Service.Services
             return liste;
         }
 
-        public List<SicilAramaDto> DetayliArama(string adsoyad, string babaadi, string meslekodasi, string meslek)
+        public List<SicilAramaDto> DetayliArama(string adsoyad, string anneadi, string babaadi, string meslekodasi, string meslek)
         {
             if (meslekodasi == "" && meslek == "")
             {
                 var liste = (from s in _sicilRepository.GetAll()
-                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi)
+                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) && s.ANAADI.Contains(anneadi)
                     select new SicilAramaDto
                     {
                         AdSoyad = s.ADSOYAD, TcKimlikNo = s.TCKIMLIKNO, BabaAdi = s.BABAADI, AnneAdi = s.ANAADI,
                         DogumTarihi = s.DOGTAR.ToString(), SicilNo = s.SICILNO
                     }).ToList();
+
+                foreach(var item in liste)
+                {
+                    item.DogumTarihi = DateTime.Parse(item.DogumTarihi).ToStringTR();
+                }
                 return liste;
             }
 
@@ -861,7 +872,7 @@ namespace CTD.Service.Services
                 var meslekid = int.Parse(meslek);
                 var liste = (from s in _sicilRepository.GetAll()
                     join sm in _sicilMeslekRepository.GetAll() on s.Id equals sm.SICILID
-                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) && sm.MESLEK == meslekid
+                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) && s.ANAADI.Contains(anneadi) && sm.MESLEK == meslekid
                     select new SicilAramaDto
                     {
                         AdSoyad = s.ADSOYAD, TcKimlikNo = s.TCKIMLIKNO, BabaAdi = s.BABAADI, AnneAdi = s.ANAADI,
@@ -875,7 +886,7 @@ namespace CTD.Service.Services
                 var meslekodasiid = int.Parse(meslekodasi);
                 var liste = (from s in _sicilRepository.GetAll()
                     join sm in _sicilMeslekRepository.GetAll() on s.Id equals sm.SICILID
-                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) && sm.MESLEKODASI == meslekodasiid
+                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) && s.ANAADI.Contains(anneadi) && sm.MESLEKODASI == meslekodasiid
                     select new SicilAramaDto
                     {
                         AdSoyad = s.ADSOYAD, TcKimlikNo = s.TCKIMLIKNO, BabaAdi = s.BABAADI, AnneAdi = s.ANAADI,
@@ -890,13 +901,21 @@ namespace CTD.Service.Services
                 var meslekid = int.Parse(meslek);
                 var liste = (from s in _sicilRepository.GetAll()
                     join sm in _sicilMeslekRepository.GetAll() on s.Id equals sm.SICILID
-                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) &&
+                    where s.ADSOYAD.Contains(adsoyad) && s.BABAADI.Contains(babaadi) && s.ANAADI.Contains(anneadi) &&
                           sm.MESLEKODASI == meslekodasiid && sm.MESLEK == meslekid
                     select new SicilAramaDto
                     {
                         AdSoyad = s.ADSOYAD, TcKimlikNo = s.TCKIMLIKNO, BabaAdi = s.BABAADI, AnneAdi = s.ANAADI,
                         DogumTarihi = s.DOGTAR.ToString(), SicilNo = s.SICILNO
                     }).Distinct().ToList();
+
+                foreach(var item in liste)
+                {
+                    if(DateTime.TryParse(item.DogumTarihi, out var date))
+                    {
+                        item.DogumTarihi = ((DateTime?)date).ToStringTR();
+                    }
+                }
                 return liste;
             }
 

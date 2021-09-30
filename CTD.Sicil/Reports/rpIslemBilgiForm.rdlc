@@ -1212,7 +1212,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Microsoft.VisualBasic.Strings.FormatDateTime(Fields!KayitTarihi.Value, Microsoft.VisualBasic.DateFormat.ShortDate)</Value>
+                                  <Value>=Fields!KayitTarihi.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1226,7 +1226,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Microsoft.VisualBasic.Strings.FormatDateTime(Fields!VizeTarihi.Value, Microsoft.VisualBasic.DateFormat.ShortDate)</Value>
+                                  <Value>=Fields!VizeTarihi.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1347,7 +1347,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Microsoft.VisualBasic.Strings.FormatDateTime(Fields!IslemTarihi.Value, Microsoft.VisualBasic.DateFormat.ShortDate)</Value>
+                                  <Value>=Fields!IslemTarihi.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1696,7 +1696,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=FormatDateTime(Globals!ExecutionTime, DateFormat.ShortDate)</Value>
+                  <Value>=DateTime.Now.ToString("dd/MM/yyyy")</Value>
                   <Style>
                     <FontFamily>Tahoma</FontFamily>
                     <FontSize>9pt</FontSize>

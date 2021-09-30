@@ -113,16 +113,15 @@ namespace CTD.Service.Services
                     if (sonsicilmeslek == null)
                         return tm;
 
-                    tm.KullaniciId = sonsicilmeslek.KAYITEDEN;
+                    //tm.KullaniciId = sonsicilmeslek.KAYITEDEN;
                     tm.MeslekOdasiId = sonsicilmeslek.MESLEKODASI;
                 }
-                else
+
+                var users = _kullaniciRepository.GetAll().Where(x => x.hak != "admin" && x.hak != "mudur");
+                tm.Kullanicilar = new List<ComboBoxIdTextDto>();
+                foreach (var user in users)
                 {
-                    var u = _kullaniciRepository.GetAll().FirstOrDefault(p => p.Id == userid);
-                    if (u != null)
-                    {
-                        tm.Kullanicilar = u.sube != "MERKEZ" ? GetirKullanici(userid) : GetirKullanicilar();
-                    }
+                    tm.Kullanicilar.Add(new ComboBoxIdTextDto() { id = user.Id.ToString(), text = user.adi });
                 }
 
                 return tm;

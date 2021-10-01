@@ -22,61 +22,62 @@ namespace CTD.Core.Helpers
         public static DateTime GetDateTimeCultural(string dateString)
         {
             DateTime result = DateTime.Now;
+
             try
             {
-                result = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal);
+                result = DateTime.ParseExact(dateString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
             catch
             {
                 try
                 {
-                    result = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+                    result = DateTime.ParseExact(dateString, "MM.dd.yyyy", CultureInfo.InvariantCulture);
                 }
                 catch
                 {
                     try
                     {
-                        result = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
+                        result = DateTime.ParseExact(dateString, "MM\\dd\\yyyy", CultureInfo.InvariantCulture);
                     }
                     catch
                     {
                         try
                         {
-                            result = DateTime.ParseExact(dateString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                            result = DateTime.ParseExact(dateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
                         }
                         catch
                         {
                             try
                             {
-                                result = DateTime.ParseExact(dateString, "MM.dd.yyyy", CultureInfo.InvariantCulture);
+                                result = DateTime.ParseExact(dateString, "dd\\MM\\yyyy", CultureInfo.InvariantCulture);
                             }
                             catch
                             {
                                 try
                                 {
-                                    result = DateTime.ParseExact(dateString, "MM\\dd\\yyyy", CultureInfo.InvariantCulture);
+                                    result = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                                 }
                                 catch
                                 {
                                     try
                                     {
-                                        result = DateTime.ParseExact(dateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                        result = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal);
                                     }
                                     catch
                                     {
                                         try
                                         {
-                                            result = DateTime.ParseExact(dateString, "dd\\MM\\yyyy", CultureInfo.InvariantCulture);
+                                            result = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
                                         }
                                         catch
                                         {
                                             try
                                             {
-                                                result = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                                result = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
                                             }
                                             catch
                                             {
-                                                return DateTime.Now;
+
                                             }
                                         }
                                     }

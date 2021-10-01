@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Web.Mvc;
 using CTD.Core.Entities;
@@ -615,7 +616,14 @@ namespace CTD.Sicil.Controllers
                 var dt = new DateTime();
                 dt = DateHelper.GetDateTimeCultural(makbuztarihi);
                 var md = new MakbuzDokum();
-                md = _makbuzDokumService.GetirMakbuzDokum(serino, makbuzno, Accesses.Id, dt);
+                md = _makbuzDokumService.GetirMakbuzDokum(serino, makbuzno, Accesses.Id, dt, out string exception);
+                if(md == null)
+                {
+                    if(exception != null)
+                    {
+                        return Content("ex#" + exception);
+                    }
+                }
                 return Json(md, JsonRequestBehavior.AllowGet);
             }
 
@@ -965,7 +973,12 @@ namespace CTD.Sicil.Controllers
         public ActionResult EskiMakbuzGetir2(EskiMakbuzGetirDto model)
         {
             var m = _makbuzDokumService.MakbuzKontrol(model.SeriNo, model.MakbuzNo,
-                DateHelper.GetDateTimeCultural(model.MakbuzTarihi?.ToString()));
+                DateHelper.GetDateTimeCultural(model.MakbuzTarihi), out string exception);
+
+            if(exception != null)
+            {
+                return Json(exception, JsonRequestBehavior.AllowGet);
+            }
             return Json(m, JsonRequestBehavior.AllowGet);
         }
 

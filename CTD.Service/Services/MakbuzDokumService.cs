@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using CTD.Core.Entities;
+using CTD.Core.Helpers;
 using CTD.Data.GenericRawSql;
 using CTD.Data.GenericRepository;
 using CTD.Data.UnitofWork;
@@ -322,11 +323,27 @@ namespace CTD.Service.Services
             _makbuzDetayRepository.Insert(model);
         }
 
-        public MakbuzDokum GetirMakbuzDokum(string serino, int makbuzno, int kullanici, DateTime makbuztarihi)
+        public MakbuzDokum GetirMakbuzDokum(string serino, int makbuzno, int kullanici, DateTime makbuztarihi, out string exception)
         {
+            exception = null;
+
             var mk = _makbuzDokumRepository.GetAll().SingleOrDefault(c =>
-                c.SERINO == serino && c.MAKBUZNO == makbuzno && c.KAYITEDEN == kullanici &&
+                c.SERINO == serino && c.MAKBUZNO == makbuzno &&
                 c.MAKBUZTAR == makbuztarihi);
+
+            //if(mk != null)
+            //{
+            //    if(mk.KAYITEDEN != kullanici)
+            //    {
+            //        exception = "wrong-user|" + _kullaniciRepository.GetAll().FirstOrDefault(x => x.Id == mk.KAYITEDEN).adi;
+            //        return null;
+            //    }
+            //}
+            //else
+            //{
+            //    exception = "not-found";
+            //}
+
             return mk;
         }
 
@@ -514,15 +531,17 @@ namespace CTD.Service.Services
             return _kullaniciRepository.GetAll().FirstOrDefault(k => k.Id == id).adi;
         }
 
-        public EskiMakbuzGetirDto MakbuzKontrol(string SeriNo, int MakbuzNo, DateTime MakbuzTarihi)
+        public EskiMakbuzGetirDto MakbuzKontrol(string SeriNo, int MakbuzNo, DateTime MakbuzTarihi, out string exception)
         {
+            exception = null;
+
             var makbuz = _makbuzDokumRepository.GetAll().FirstOrDefault(m =>
                 m.SERINO == SeriNo && m.MAKBUZNO == MakbuzNo && m.MAKBUZTAR == MakbuzTarihi);
             if (makbuz != null)
             {
                 var eski = new EskiMakbuzGetirDto
                 {
-                    ID = makbuz.Id, SeriNo = SeriNo, MakbuzNo = MakbuzNo, MakbuzTarihi = MakbuzTarihi,
+                    ID = makbuz.Id, SeriNo = SeriNo, MakbuzNo = MakbuzNo, MakbuzTarihi = MakbuzTarihi.ToStringTR(),
                     MakbuzDokum = makbuz,
                     MakbuzDetaylari = _makbuzDetayRepository.GetAll()
                         .Where(makbuzdetay => makbuzdetay.MAKBUZDOKUMID == makbuz.Id).ToList(),
@@ -530,6 +549,10 @@ namespace CTD.Service.Services
                     Islemler = GetirTahsilatTurleriComboBox()
                 };
                 return eski;
+            }
+            else
+            {
+                exception = "not-found";
             }
 
             return null;

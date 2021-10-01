@@ -131,7 +131,18 @@
                     data: { serino: serino, makbuzno: makbuzno, makbuztarihi: makbuztarihi },
                     datatype: "json",
                     headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                    success: function(e) {
+                    success: function (e) {
+                        //if (e.startsWith("ex#")) {
+                        //    let parts = e.split("#");
+                        //    let exception = parts[1];
+                        //    if (exception.startsWith("wrong-user")) {
+                        //        let userName = exception.split("|")[1];
+                        //        swal("Hata", "Bu makbuz " + userName + " tarafından kaydedilmiş. İptal yetkisi bu kullanıcıya aittir.", "error");
+                        //    }
+                        //    else if (exception == "not-found") {
+                        //        swal("Hata", "Bu kriterlere uygun bir makbuz bulunamadı", "error");
+                        //    }
+                        //}
                         if (e.IPTAL == true) {
                             swal("İptal Edilmiş!", "Bu makbuz zaten iptal edilmiş.", "warning");
                         } else {

@@ -37,7 +37,7 @@ namespace CTD.Service.Interfaces
         void KiraMakbuzDokumEkle(MakbuzDokum model);
         void BagisMakbuzDetayEkle(MakbuzDetay model);
         void KiraMakbuzDetayEkle(MakbuzDetay model);
-        MakbuzDokum GetirMakbuzDokum(string serino, int makbuzno, int kullanici, DateTime makbuztarihi);
+        MakbuzDokum GetirMakbuzDokum(string serino, int makbuzno, int kullanici, DateTime makbuztarihi, out string exception);
         MakbuzDokum GetirMakbuzDokum(int? id);
         MakbuzDetay GetirMakbuzDetayi(int id);
         void MakbuzDetaySil(MakbuzDetay model);
@@ -54,7 +54,7 @@ namespace CTD.Service.Interfaces
         int MakbuzGelirTablosuMakbuzSayisi(DateTime ilktarih, DateTime sontarih, int vezne);
         decimal? ToplamBirlikTahsilati(DateTime ilktarih, DateTime sontarih, int vezne);
         string GetirKullanici(int id);
-        EskiMakbuzGetirDto MakbuzKontrol(string SeriNo, int MakbuzNo, DateTime MakbuzTarihi);
+        EskiMakbuzGetirDto MakbuzKontrol(string SeriNo, int MakbuzNo, DateTime MakbuzTarihi, out string exception);
         List<SicilVerileriDto> SicilVerileri();
         List<TahsilatTurleri> GetirTahsilatTurleri();
         List<ComboBoxIdTextDto> GetirTahsilatTurleriComboBox();

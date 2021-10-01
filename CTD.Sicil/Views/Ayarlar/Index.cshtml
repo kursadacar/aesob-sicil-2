@@ -187,7 +187,15 @@
                                     $("#mevcutsifre").val("");
                                     $("#yenisifre").val("");
                                     $("#yenisifretekrar").val("");
-                                    swal("Şifreniz değiştirildi.", "Şifre değiştirme işlemi başarı ile gerçekleştirildi. Lütfen programdan çıkış yapıp, yeni şifreniz ile tekrar giriş yapınız.", "success");
+                                    swal({
+                                        title: "Şifreniz değiştirildi.",
+                                        text: "Şifre değiştirme işlemi başarı ile gerçekleştirildi. Lütfen yeni şifreniz ile tekrar giriş yapınız.",
+                                        type: "success",
+                                        closeOnConfirm: false
+                                        },
+                                        function (isConfirm) {
+                                            window.location.href = '@Url.Action("Logout", "Login")';
+                                    });
 
                                 } else {
                                     swal("Hata Oluştu!", "Şifreniz değiştirilemedi. İşlem sırasında bir hata oluştu.", "error");

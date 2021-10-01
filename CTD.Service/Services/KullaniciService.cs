@@ -41,7 +41,15 @@ namespace CTD.Service.Services
 
         public Kullanici KullaniciGetir(int id, string pass)
         {
-            return _kullaniciRepository.GetAll().FirstOrDefault(k => k.Id == id && k.pass == pass);
+            var user = _kullaniciRepository.GetAll().FirstOrDefault(k => k.Id == id);
+            if(EnDeCode.Decrypt(user.pass2, StaticParams.SifrelemeParametresi) == pass)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Kullanici> IslemYapanKullanicilar()

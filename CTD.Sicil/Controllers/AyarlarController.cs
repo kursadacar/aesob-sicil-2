@@ -32,7 +32,7 @@ namespace CTD.Sicil.Controllers
             if (u != null)
             {
                 var d = EnDeCode.Decrypt(u.pass2, StaticParams.SifrelemeParametresi);
-                if (u != null && u.pass == d) sonuc = 1;
+                if (u != null && d == pass) sonuc = 1;
             }
 
             return Json(sonuc, JsonRequestBehavior.AllowGet);
@@ -46,7 +46,6 @@ namespace CTD.Sicil.Controllers
             if (u != null)
             {
                 var s = EnDeCode.Encrypt(newpass, StaticParams.SifrelemeParametresi);
-                u.pass = newpass;
                 u.pass2 = s;
                 _kullaniciService.SifreGuncelle(u);
                 _uow.SaveChanges();

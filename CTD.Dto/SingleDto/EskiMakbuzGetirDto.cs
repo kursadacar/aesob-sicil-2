@@ -10,7 +10,7 @@ namespace CTD.Dto.SingleDto
         public int? ID { get; set; }
         [Required] public string SeriNo { get; set; }
         [Required] public int MakbuzNo { get; set; }
-        [Required] public DateTime? MakbuzTarihi { get; set; }
+        [Required] public string MakbuzTarihi { get; set; }
         public MakbuzDokum MakbuzDokum { get; set; }
         public List<MakbuzDetay> MakbuzDetaylari { get; set; }
         public List<ComboBoxIdTextDto> MeslekOdalari { get; set; }

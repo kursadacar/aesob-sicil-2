@@ -125,7 +125,23 @@
         $("[data-attribute='dvSicilMakbuz']").hide();
 
         function funcEskiMakbuzBilgileri(e) {
-            if (e.MakbuzDokum.ISLEM == 1 || e.MakbuzDokum.ISLEM == 2 || e.MakbuzDokum.ISLEM == 3 || e.MakbuzDokum.ISLEM == 4 || e.MakbuzDokum.ISLEM == 5 || e.MakbuzDokum.ISLEM == 6 || e.MakbuzDokum.ISLEM == 7 || e.MakbuzDokum.ISLEM == 8 || e.MakbuzDokum.ISLEM == 9 || e.MakbuzDokum.ISLEM == 10 || e.MakbuzDokum.ISLEM == 11 || e.MakbuzDokum.ISLEM == 1017 || e.MakbuzDokum.ISLEM == 2017) {
+            console.log(e);
+            if (e == "not-found" || e == null) {
+                swal("Hata", "Bu kriterlere uygun bir makbuz bulunamadı.", "error");
+            }
+            else if (e.MakbuzDokum.ISLEM == 1 ||
+                e.MakbuzDokum.ISLEM == 2 ||
+                e.MakbuzDokum.ISLEM == 3 ||
+                e.MakbuzDokum.ISLEM == 4 ||
+                e.MakbuzDokum.ISLEM == 5 ||
+                e.MakbuzDokum.ISLEM == 6 ||
+                e.MakbuzDokum.ISLEM == 7 ||
+                e.MakbuzDokum.ISLEM == 8 ||
+                e.MakbuzDokum.ISLEM == 9 ||
+                e.MakbuzDokum.ISLEM == 10 ||
+                e.MakbuzDokum.ISLEM == 11 ||
+                e.MakbuzDokum.ISLEM == 1017 ||
+                e.MakbuzDokum.ISLEM == 2017) {
 
                 $("#hdId").val(e.ID);
                 $("#EsnSicNo").val(e.MakbuzDokum.SICILNO);

@@ -8839,7 +8839,7 @@ body.md-skin {
 fieldset[disabled] .form-control { background-color: transparent; }
 
 .form-control {
-    background-color: #fafafa !important;
+    background-color: #fff !important;
     border: 1px solid rgb(0 0 0 / 0.26) !important;
     border-radius: 5px !important;
     padding: 3px !important;

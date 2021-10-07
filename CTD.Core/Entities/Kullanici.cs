@@ -14,5 +14,6 @@ namespace CTD.Core.Entities
         public string hak { get; set; }
         public string ip { get; set; }
         public string resim { get; set; }
+        public bool Makbuz { get; set; }
     }
 }

@@ -118,7 +118,7 @@ namespace CTD.Service.Services
                     tm.MeslekOdasiId = sonsicilmeslek.MESLEKODASI;
                 }
 
-                var users = _kullaniciRepository.GetAll().Where(x => x.hak != "admin" && x.hak != "mudur");
+                var users = _kullaniciRepository.GetAll().Where(x => x.Makbuz == true);
                 tm.Kullanicilar = new List<ComboBoxIdTextDto>();
                 foreach (var user in users)
                 {

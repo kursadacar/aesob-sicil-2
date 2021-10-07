@@ -9,16 +9,6 @@ namespace CTD.Core.Helpers
 {
     public static class DateHelper
     {
-        public static string ToStringTR(this DateTime? date)
-        {
-            return date?.ToString("dd/MM/yyyy");
-        }
-
-        public static string ToStringTR(this DateTime date)
-        {
-            return date.ToString("dd/MM/yyyy");
-        }
-
         public static DateTime GetDateTimeCultural(string dateString)
         {
             DateTime result = DateTime.Now;

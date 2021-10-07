@@ -541,7 +541,7 @@ namespace CTD.Service.Services
             {
                 var eski = new EskiMakbuzGetirDto
                 {
-                    ID = makbuz.Id, SeriNo = SeriNo, MakbuzNo = MakbuzNo, MakbuzTarihi = MakbuzTarihi.ToStringTR(),
+                    ID = makbuz.Id, SeriNo = SeriNo, MakbuzNo = MakbuzNo, MakbuzTarihi = MakbuzTarihi.ToString(),
                     MakbuzDokum = makbuz,
                     MakbuzDetaylari = _makbuzDetayRepository.GetAll()
                         .Where(makbuzdetay => makbuzdetay.MAKBUZDOKUMID == makbuz.Id).ToList(),

@@ -413,7 +413,7 @@
                                                                 <input type="text" class="form-control" data-attribute="Sicil.SICILNO" value="@Model.Sicil.SICILNO" /> <input type="hidden" data-attribute="Sicil.Id" value="@Model.Sicil.Id" />
                                                             </div>
                                         </div>
-                                        <div class="col-md-2 col-xs-6" @{if (!Accesses.IsAdmin) { <text> style="display:none" </text> }}>
+                                        <div class="col-md-2 col-xs-6">
                                             <b>TC KİMLİK NO</b> <code> * </code>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control" data-attribute="Sicil.TCKIMLIKNO" value="@Model.Sicil.TCKIMLIKNO" />
@@ -443,7 +443,7 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" data-attribute="Sicil.BABAADI" value="@Model.Sicil.BABAADI" />
                                             </div>
-                                            <div @{if (!Accesses.IsAdmin) { <text> style="display:none" </text> }}>
+                                            <div>
                                                 <b>CEP TELEFONU</b>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" data-attribute="Sicil.CEPTEL" value="@Model.Sicil.CEPTEL" />

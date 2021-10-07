@@ -380,7 +380,7 @@ namespace CTD.Service.Services
                         sadto.AdSoyad = m.ADSOYAD;
                         sadto.BabaAdi = m.BABAADI;
                         sadto.AnneAdi = m.ANAADI;
-                        sadto.DogumTarihi = m.DOGTAR.ToStringTR();
+                        sadto.DogumTarihi = m.DOGTAR.ToString();
                         sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                         sadto.Durum = "tekkayit";
                         liste.Add(sadto);
@@ -421,7 +421,7 @@ namespace CTD.Service.Services
                         sadto.AdSoyad = m.ADSOYAD;
                         sadto.BabaAdi = m.BABAADI;
                         sadto.AnneAdi = m.ANAADI;
-                        sadto.DogumTarihi = m.DOGTAR.ToStringTR();
+                        sadto.DogumTarihi = m.DOGTAR.ToString();
                         sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                         sadto.Durum = "tekkayit";
                         liste.Add(sadto);
@@ -463,7 +463,7 @@ namespace CTD.Service.Services
                     sadto.AdSoyad = m.ADSOYAD;
                     sadto.BabaAdi = m.BABAADI;
                     sadto.AnneAdi = m.ANAADI;
-                    sadto.DogumTarihi = m.DOGTAR.ToStringTR();
+                    sadto.DogumTarihi = m.DOGTAR.ToString();
                     sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                     sadto.Durum = "tekkayit";
                     liste.Add(sadto);
@@ -802,6 +802,7 @@ namespace CTD.Service.Services
                     nacekodu = n.NACE, meslekkodu = m.MESLEKKODU, meslek = m.MESLEK, mahalle = mh.MAHALLE,
                     cadde = cd.CADSOKBULV, ilce = i.ILCE, islemiyapan = iy.adi
                 }).ToList();
+
             return t;
         }
 
@@ -862,7 +863,7 @@ namespace CTD.Service.Services
 
                 foreach(var item in liste)
                 {
-                    item.DogumTarihi = DateTime.Parse(item.DogumTarihi).ToStringTR();
+                    item.DogumTarihi = DateTime.Parse(item.DogumTarihi).ToString();
                 }
                 return liste;
             }
@@ -913,7 +914,7 @@ namespace CTD.Service.Services
                 {
                     if(DateTime.TryParse(item.DogumTarihi, out var date))
                     {
-                        item.DogumTarihi = ((DateTime?)date).ToStringTR();
+                        item.DogumTarihi = ((DateTime?)date).ToString();
                     }
                 }
                 return liste;

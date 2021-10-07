@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Globalization;
+using System.Threading;
+using System.Web.Mvc;
 using CTD.Core.Entities;
 using CTD.Data.GenericRepository;
 using CTD.Data.UnitofWork;
@@ -13,6 +16,11 @@ namespace CTD.IoC
     {
         public static void RegisterComponents()
         {
+            CultureInfo culture = (CultureInfo)CultureInfo.CreateSpecificCulture("tr-TR");
+            culture.DateTimeFormat.ShortDatePattern = "dd/MMM/yyyy";
+            culture.DateTimeFormat.LongTimePattern = "";
+            Thread.CurrentThread.CurrentCulture = culture;
+
             var container = new UnityContainer();
             RegisterTypes(container);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

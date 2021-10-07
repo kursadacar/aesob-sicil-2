@@ -1014,7 +1014,7 @@ namespace CTD.Sicil.Controllers
             if (MakbuzDokum.SICILMAKBUZ == true)
             {
                 prAdSoyad = new ReportParameter("prAdSoyad", MakbuzDokum.ADISOYADI);
-                prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToStringTR());
+                prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToString());
                 prMakbuzAciklama = new ReportParameter("prMakbuzAciklama", MakbuzDokum.ACIKLAMA);
                 prToplamTutar = new ReportParameter("prToplamTutar", MakbuzDokum.BIRLIKTAHSILATI.ToString());
                 prToplamTutarYazi =
@@ -1026,7 +1026,7 @@ namespace CTD.Sicil.Controllers
                 if (MakbuzDokum.ODA != null && MakbuzDokum.SICILNO == null)
                 {
                     prAdSoyad = new ReportParameter("prAdSoyad", _makbuzDokumService.GetirMeslekOdasi(MakbuzDokum.ODA));
-                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToStringTR());
+                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToString());
                     prMakbuzAciklama = new ReportParameter("prMakbuzAciklama", MakbuzDokum.ACIKLAMA);
                     prToplamTutar = new ReportParameter("prToplamTutar", MakbuzDokum.BIRLIKTAHSILATI.ToString());
                     prToplamTutarYazi =
@@ -1035,7 +1035,7 @@ namespace CTD.Sicil.Controllers
                 else if (MakbuzDokum.ODA == null && MakbuzDokum.SICILNO != null)
                 {
                     prAdSoyad = new ReportParameter("prAdSoyad", MakbuzDokum.ADISOYADI);
-                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToStringTR());
+                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToString());
                     prMakbuzAciklama = new ReportParameter("prMakbuzAciklama", MakbuzDokum.ACIKLAMA);
                     prToplamTutar = new ReportParameter("prToplamTutar", MakbuzDokum.BIRLIKTAHSILATI.ToString());
                     prToplamTutarYazi =
@@ -1044,7 +1044,7 @@ namespace CTD.Sicil.Controllers
                 else
                 {
                     prAdSoyad = new ReportParameter("prAdSoyad", MakbuzDokum.ADISOYADI);
-                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToStringTR());
+                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToString());
                     prMakbuzAciklama = new ReportParameter("prMakbuzAciklama", MakbuzDokum.ACIKLAMA);
                     prToplamTutar = new ReportParameter("prToplamTutar", MakbuzDokum.BIRLIKTAHSILATI.ToString());
                     prToplamTutarYazi =
@@ -1058,7 +1058,7 @@ namespace CTD.Sicil.Controllers
                 if (MakbuzDokum.ODA != null && MakbuzDokum.SICILNO == null)
                 {
                     prAdSoyad = new ReportParameter("prAdSoyad", _makbuzDokumService.GetirMeslekOdasi(MakbuzDokum.ODA));
-                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToStringTR());
+                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToString());
                     prMakbuzAciklama = new ReportParameter("prMakbuzAciklama", MakbuzDokum.ACIKLAMA);
                     prToplamTutar = new ReportParameter("prToplamTutar", MakbuzDokum.BIRLIKTAHSILATI.ToString());
                     prToplamTutarYazi =
@@ -1069,7 +1069,7 @@ namespace CTD.Sicil.Controllers
                 else if (MakbuzDokum.ODA == null && MakbuzDokum.SICILNO == null)
                 {
                     prAdSoyad = new ReportParameter("prAdSoyad", MakbuzDokum.ADISOYADI);
-                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToStringTR());
+                    prMakbuzTarihi = new ReportParameter("prMakbuzTarihi", MakbuzDokum.MAKBUZTAR.ToString());
                     prMakbuzAciklama = new ReportParameter("prMakbuzAciklama", MakbuzDokum.ACIKLAMA);
                     prToplamTutar = new ReportParameter("prToplamTutar", MakbuzDokum.BIRLIKTAHSILATI.ToString());
                     prToplamTutarYazi =

@@ -1908,11 +1908,11 @@
         </Field>
         <Field Name="kayittarihi">
           <DataField>kayittarihi</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>String</rd:TypeName>
         </Field>
         <Field Name="vizetarihi">
           <DataField>vizetarihi</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>String</rd:TypeName>
         </Field>
         <Field Name="mahalle">
           <DataField>mahalle</DataField>
@@ -1936,7 +1936,7 @@
         </Field>
         <Field Name="islemtarihi">
           <DataField>islemtarihi</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
@@ -2061,7 +2061,7 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="dogumtarihi">
-      <DataType>DateTime</DataType>
+      <DataType>String</DataType>
       <Nullable>true</Nullable>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

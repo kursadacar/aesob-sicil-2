@@ -18,5 +18,7 @@ namespace CTD.Core.Entities
         public bool? SURET { get; set; }
         public bool? MESLEKILAVE { get; set; }
         public bool? MAK2 { get; set; }
+        public bool? ODALIKAYIT { get; set; }
+        public bool? ODASIZKAYIT { get; set; }
     }
 }

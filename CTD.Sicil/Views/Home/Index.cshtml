@@ -53,8 +53,7 @@
                 function(key, value) {
                     if (value.Durum == "tekkayit") {
                         var sicilno = value.SicilNo;
-                        var d = new Date(tarihformati(value.DogumTarihi));
-                        var dogumtarihi = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
+                        var dogumtarihi = value.DogumTarihi;
                         swal({
                                 title: sicilno + '\n' + value.AdSoyad,
                                 text: 'Baba Adı: ' +

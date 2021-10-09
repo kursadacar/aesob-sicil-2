@@ -150,11 +150,18 @@ namespace CTD.Service.Services
 
         public List<MakbuzTahsilatKalemleriDto> GetirTahsilatKalemleri(int? islem)
         {
-            var kalemler = from tk in _tahsilatKalemleriRepository.GetAll()
-                           where tk.TAHSILATTURUID == islem
-                           select new MakbuzTahsilatKalemleriDto
-                           { Id = tk.Id, Kod = tk.KOD.ToString(), Makbuz = tk.MAKBUZ, TahsilatKalemi = tk.TAHSILATKALEMI };
-            
+            IEnumerable<MakbuzTahsilatKalemleriDto> kalemler = null;
+
+            kalemler = from tk in _tahsilatKalemleriRepository.GetAll()
+                       where tk.TAHSILATTURUID == islem
+                       select new MakbuzTahsilatKalemleriDto
+                       {
+                           Id = tk.Id,
+                           Kod = tk.KOD.ToString(),
+                           Makbuz = tk.MAKBUZ,
+                           TahsilatKalemi = tk.TAHSILATKALEMI
+                       };
+
             return kalemler.OrderByDescending(d => d.Makbuz).ToList();
         }
 
@@ -657,6 +664,7 @@ namespace CTD.Service.Services
             var mm = new MakbuzDto();
             var m = new Makbuz();
             mm.KullaniciId = userid;
+
             m = _makbuzRepository.GetAll().SingleOrDefault(c => c.KULLANICI == userid);
             mm.OnTaki = m.ONTAKI;
             mm.MakbuzNo = m.MAKBUZNO + 1;

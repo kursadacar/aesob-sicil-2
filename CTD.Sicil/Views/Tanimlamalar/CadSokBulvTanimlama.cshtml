@@ -183,5 +183,98 @@
 
             }
         });
+
+        function cadSokBulvDuzenle(mahalleid, cadsokbulvid) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/CadSokBulvGetir?mahalleid=${mahalleid}&cadSokBulvId=${cadsokbulvid}`,
+                function (result) {
+                    swal({
+                        title: "CADDE/SOKAK/BULVAR DÜZENLEME",
+                        html: true,
+                        text: `<div>
+                                <label>CADDE/SOKAK/BULVAR İsmi</label>
+                                    <input id='cadsokbulv-edit-input' style='display:block !important;' type='text' value='${result.CADSOKBULV}' />
+                               </div>`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Kaydet",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var CadSokBulv = {
+                                    mahalleid: mahalleid,
+                                    cadsokbulvid: cadsokbulvid,
+                                    yeniisim: $("#cadsokbulv-edit-input").val(),
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(CadSokBulv,
+                                    "/Tanimlamalar/CadSokBulvDuzenle",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Tanımlama başarı ile güncellendi", "success");
+                                            IlceleriGetir();
+                                            $("[data-attribute='ddlIlce']").trigger('change');
+                                            $("[data-attribute='ddlMahalle']").trigger("change");
+                                        }
+                                        else {
+                                            swal("Hata", "Güncelleme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
+
+        function cadSokBulvSil(mahalleid, cadsokbulvid) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/CadSokBulvGetir?mahalleid=${mahalleid}&cadSokBulvId=${cadsokbulvid}`,
+                function (result) {
+                    swal({
+                        title: "CADDE/SOKAK/BULVAR SİL",
+                        text: `${result.CADSOKBULV} isimli CADDE/SOKAK/BULVAR'ı silmek istediğinize emin misiniz?`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sil",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var postData = {
+                                    mahalleid: mahalleid,
+                                    cadsokbulvid: cadsokbulvid
+                                }
+                                $.ErcanAyhan.Server.PostAsync(postData,
+                                    "/Tanimlamalar/CadSokBulvSil",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Mahalle başarı ile silindi", "success");
+                                            IlceleriGetir();
+                                            $("[data-attribute='ddlIlce']").trigger('change');
+                                            $("[data-attribute='ddlMahalle']").trigger("change");
+                                        }
+                                        else {
+                                            swal("Hata", "Silme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
     </script>
 }

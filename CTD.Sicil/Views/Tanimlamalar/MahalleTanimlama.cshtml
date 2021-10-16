@@ -164,5 +164,99 @@
 
             }
         });
+
+
+        function mahalleDuzenle(ilceid, mahalleID) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/MahalleGetir?ilceid=${ilceid}&mahalleID=${mahalleID}`,
+                function (result) {
+                    swal({
+                        title: "MAHALLE DÜZENLEME",
+                        html: true,
+                        text: `<div>
+                                <label>Mahalle İsmi</label>
+                                    <input id='mahalle-edit-input' style='display:block !important;' type='text' value='${result.MAHALLE}' />
+                               </div>`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Kaydet",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var Mahalle = {
+                                    ilceid: ilceid,
+                                    mahalleID: mahalleID,
+                                    yeniIsim: $("#mahalle-edit-input").val()
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(Mahalle,
+                                    "/Tanimlamalar/MahalleDuzenle",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Tanımlama başarı ile güncellendi", "success");
+                                            IlceleriGetir();
+                                            $("#ddlIlce").trigger("change");
+                                        }
+                                        else {
+                                            swal("Hata", "Güncelleme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
+
+        function mahalleSil(ilceid, mahalleID) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/MahalleGetir?ilceid=${ilceid}&mahalleID=${mahalleID}`,
+                function (result) {
+                    swal({
+                        title: "MAHALLE SİL",
+                        text: `${result.MAHALLE} isimli mahalleyi silmek istediğinize emin misiniz?`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sil",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var Mahalle = {
+                                    ilceid: ilceid,
+                                    mahalleID: mahalleID,
+                                    yeniIsim: $("#mahalle-edit-input").val()
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(Mahalle,
+                                    "/Tanimlamalar/MahalleSil",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Mahalle başarı ile silindi", "success");
+                                            IlceleriGetir();
+                                            $("#ddlIlce").trigger("change");
+                                        }
+                                        else {
+                                            swal("Hata", "Silme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
     </script>
 }

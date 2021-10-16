@@ -72,6 +72,47 @@
                 });
         };
 
+        function terkNedeniSilQuery(nedenID) {
+            $.ErcanAyhan.Server.PostAsync("",
+                "/Tanimlamalar/GetirTerkNedeni?id=" + nedenID,
+                function (result) {
+                    swal({
+                        title: "ODA SİLME",
+                        text: `${result.ACIKLAMA} isimli terk nedenini silmek istediğinize emin misiniz?`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sil",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var oda = {
+                                    Id: nedenID,
+                                    ACIKLAMA: "",
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(oda,
+                                    "/Tanimlamalar/SilTerkNedeni",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Tanımlama başarı ile silindi", "success");
+                                            TerkNedenleriGetir();
+                                        }
+                                        else {
+                                            swal("Hata", "Silme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                });
+        }
+
         function TerkNedeniDuzenle(id) {
             $.ErcanAyhan.Server.GetAsync("",
                 "/Tanimlamalar/GetirTerkNedeni?id=" + id,

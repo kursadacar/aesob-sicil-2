@@ -46,6 +46,30 @@ namespace CTD.Service.Services
         {
             return _mahalleRepository.GetAll().Where(s => s.ILCEID == ilceid).ToList();
         }
+        
+        public bool MahalleDuzenle(Mahalle mahalle)
+        {
+            var mah = _mahalleRepository.GetAll().FirstOrDefault(s => s.Id == mahalle.Id);
+            if(mahalle != null)
+            {
+                mah.MAHALLE = mahalle.MAHALLE;
+                _mahalleRepository.Update(mah);
+                return true;
+            }
+            return false;
+        } 
+
+        public bool MahalleSil(Mahalle mahalle)
+        {
+            var mah = _mahalleRepository.GetAll().FirstOrDefault(s => s.Id == mahalle.Id);
+            if(mahalle != null)
+            {
+                mah.MAHALLE = mahalle.MAHALLE;
+                _mahalleRepository.Delete(mah);
+                return true;
+            }
+            return false;
+        }
 
         public List<CadSokBulv> MahalleyeGoreCadSoklar(int? mahalleid)
         {
@@ -67,6 +91,11 @@ namespace CTD.Service.Services
             _meslekOdasiRepository.Update(model);
         }
 
+        public void MeslekOdasiSil(MeslekOdasi model)
+        {
+            _meslekOdasiRepository.Delete(model);
+        }
+
         public List<MeslekTerkNedeni> GetirTerkNedenleri()
         {
             return _meslekTerkNedeniRepository.GetAll().ToList();
@@ -75,6 +104,11 @@ namespace CTD.Service.Services
         public MeslekTerkNedeni GetirTerkNedeni(int id)
         {
             return _meslekTerkNedeniRepository.GetAll().FirstOrDefault(c => c.Id == id);
+        }
+
+        public void TerkNedeniSil(MeslekTerkNedeni model)
+        {
+            _meslekTerkNedeniRepository.Delete(model);
         }
 
         public void TerkNedenikaydet(MeslekTerkNedeni model)
@@ -109,6 +143,32 @@ namespace CTD.Service.Services
             _cadsokbulvRepository.Insert(model);
         }
 
+        public bool CadSokBulvDuzenle(CadSokBulv model)
+        {
+            try
+            {
+                _cadsokbulvRepository.Update(model);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool CadSokBulvSil(CadSokBulv model)
+        {
+            try
+            {
+                _cadsokbulvRepository.Delete(model);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public List<Meslekler> TumMeslekler()
         {
             return _mesleklerRepository.GetAll().OrderByDescending(s => s.Id).ToList();
@@ -124,9 +184,27 @@ namespace CTD.Service.Services
             return _mesleklerRepository.Find(meslekid);
         }
 
+        public void MeslekSil(Meslekler meslek)
+        {
+            _mesleklerRepository.Delete(meslek);
+        }
+        public void MeslekDuzenle(Meslekler meslek)
+        {
+            _mesleklerRepository.Update(meslek);
+        }
+
         public Nace GetirNace(int naceid)
         {
             return _naceRepository.Find(naceid);
+        }
+
+        public void NaceSil(Nace nace)
+        {
+            _naceRepository.Delete(nace);
+        }
+        public void NaceDuzenle(Nace nace)
+        {
+            _naceRepository.Update(nace);
         }
 
         public void KaydetMeslek(Meslekler model)

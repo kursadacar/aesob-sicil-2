@@ -69,7 +69,7 @@
                     </a>
                 </li>
             }
-            @if (Accesses.Hak == "mudur" || Accesses.Hak == "admin") //TODO: Recheck
+            @if (Accesses.Hak == "mudur" || Accesses.Hak == "admin" || Accesses.Hak != null) //TODO: Recheck
             {
                 <li class="@Html.IsSelected("Tanımlamalar")">
                     <a href="#">
@@ -91,9 +91,14 @@
                         <li class="@Html.IsSelected(action: "MeslekveNaceTanimlama")">
                             <a href="@Url.Action("MeslekveNaceTanimlama", "Tanimlamalar")">Meslek ve NACE Tanımlama</a>
                         </li>
-                        <li class="@Html.IsSelected(action: "IPTanimlama")">
-                            <a href="@Url.Action("IPTanimlama", "Tanimlamalar")">IP Ayarlama</a>
-                        </li>
+                        @{
+                            if (Accesses.IsAdmin)
+                            {
+                                <li class="@Html.IsSelected(action: "IPTanimlama")">
+                                    <a href="@Url.Action("IPTanimlama", "Tanimlamalar")">IP Ayarlama</a>
+                                </li>
+                            }
+                        }
                     </ul>
                 </li>
             }

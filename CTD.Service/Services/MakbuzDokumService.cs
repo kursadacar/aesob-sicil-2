@@ -60,34 +60,55 @@ namespace CTD.Service.Services
 
         public List<HomeGunlukIslemAkisi> GunlukIslemAkisi(string hak, int kullanici)
         {
-            if (hak == "mudur" || hak == "admin") //TODO: Recheck
-            {
-                var list = (from c in _makbuzDokumRepository.GetAll()
-                    join tt in _tahsilatTurleriRepository.GetAll() on c.ISLEM equals tt.Id
-                    join k in _kullaniciRepository.GetAll() on c.ISLEMIYAPAN equals k.Id
-                    where c.MAKBUZTAR == DbFunctions.TruncateTime(DateTime.Now)
-                    select new HomeGunlukIslemAkisi
-                    {
-                        Id = c.Id, AdSoyad = c.ADISOYADI, SicilNo = c.SICILNO.ToString(), Aciklama = c.ACIKLAMA,
-                        Islem = c.ISLEM, IslemiYapan = k.adi, IslemTuru = tt.TAHSILATTURU, SicilMakbuz = c.SICILMAKBUZ,
-                        EvrakMakbuz = c.EVRAKMAKBUZ, DigerMakbuz = c.DIGERMAKBUZ, Oda = c.ODA, Iptal = c.IPTAL
-                    }).OrderByDescending(s => s.Id).ToList();
-                return list;
-            }
-            else
-            {
-                var list = (from c in _makbuzDokumRepository.GetAll()
-                    join tt in _tahsilatTurleriRepository.GetAll() on c.ISLEM equals tt.Id
-                    join k in _kullaniciRepository.GetAll() on c.ISLEMIYAPAN equals k.Id
-                    where c.MAKBUZTAR == DbFunctions.TruncateTime(DateTime.Now) && c.ISLEMIYAPAN == kullanici
-                    select new HomeGunlukIslemAkisi
-                    {
-                        Id = c.Id, AdSoyad = c.ADISOYADI, SicilNo = c.SICILNO.ToString(), Aciklama = c.ACIKLAMA,
-                        Islem = c.ISLEM, IslemiYapan = k.adi, IslemTuru = tt.TAHSILATTURU, SicilMakbuz = c.SICILMAKBUZ,
-                        EvrakMakbuz = c.EVRAKMAKBUZ, DigerMakbuz = c.DIGERMAKBUZ, Oda = c.ODA
-                    }).OrderByDescending(s => s.Id).ToList();
-                return list;
-            }
+            var list = (from c in _makbuzDokumRepository.GetAll()
+                        join tt in _tahsilatTurleriRepository.GetAll() on c.ISLEM equals tt.Id
+                        join k in _kullaniciRepository.GetAll() on c.ISLEMIYAPAN equals k.Id
+                        where c.MAKBUZTAR == DbFunctions.TruncateTime(DateTime.Now)
+                        select new HomeGunlukIslemAkisi
+                        {
+                            Id = c.Id,
+                            AdSoyad = c.ADISOYADI,
+                            SicilNo = c.SICILNO.ToString(),
+                            Aciklama = c.ACIKLAMA,
+                            Islem = c.ISLEM,
+                            IslemiYapan = k.adi,
+                            IslemTuru = tt.TAHSILATTURU,
+                            SicilMakbuz = c.SICILMAKBUZ,
+                            EvrakMakbuz = c.EVRAKMAKBUZ,
+                            DigerMakbuz = c.DIGERMAKBUZ,
+                            Oda = c.ODA,
+                            Iptal = c.IPTAL
+                        }).OrderByDescending(s => s.Id).ToList();
+            return list;
+
+            //if (hak == "mudur" || hak == "admin") //TODO: Recheck
+            //{
+            //    var list = (from c in _makbuzDokumRepository.GetAll()
+            //        join tt in _tahsilatTurleriRepository.GetAll() on c.ISLEM equals tt.Id
+            //        join k in _kullaniciRepository.GetAll() on c.ISLEMIYAPAN equals k.Id
+            //        where c.MAKBUZTAR == DbFunctions.TruncateTime(DateTime.Now)
+            //        select new HomeGunlukIslemAkisi
+            //        {
+            //            Id = c.Id, AdSoyad = c.ADISOYADI, SicilNo = c.SICILNO.ToString(), Aciklama = c.ACIKLAMA,
+            //            Islem = c.ISLEM, IslemiYapan = k.adi, IslemTuru = tt.TAHSILATTURU, SicilMakbuz = c.SICILMAKBUZ,
+            //            EvrakMakbuz = c.EVRAKMAKBUZ, DigerMakbuz = c.DIGERMAKBUZ, Oda = c.ODA, Iptal = c.IPTAL
+            //        }).OrderByDescending(s => s.Id).ToList();
+            //    return list;
+            //}
+            //else
+            //{
+            //    var list = (from c in _makbuzDokumRepository.GetAll()
+            //        join tt in _tahsilatTurleriRepository.GetAll() on c.ISLEM equals tt.Id
+            //        join k in _kullaniciRepository.GetAll() on c.ISLEMIYAPAN equals k.Id
+            //        where c.MAKBUZTAR == DbFunctions.TruncateTime(DateTime.Now) && c.ISLEMIYAPAN == kullanici
+            //        select new HomeGunlukIslemAkisi
+            //        {
+            //            Id = c.Id, AdSoyad = c.ADISOYADI, SicilNo = c.SICILNO.ToString(), Aciklama = c.ACIKLAMA,
+            //            Islem = c.ISLEM, IslemiYapan = k.adi, IslemTuru = tt.TAHSILATTURU, SicilMakbuz = c.SICILMAKBUZ,
+            //            EvrakMakbuz = c.EVRAKMAKBUZ, DigerMakbuz = c.DIGERMAKBUZ, Oda = c.ODA
+            //        }).OrderByDescending(s => s.Id).ToList();
+            //    return list;
+            //}
         }
 
         public MakbuzTahsilatModelDto MakbuzDokum(int? sicilno, int? islem, int? sinif, int? userid)
@@ -373,7 +394,7 @@ namespace CTD.Service.Services
         public List<ComboBoxIdTextDto> GetirVezneler(int id)
         {
             var yetki = _kullaniciRepository.GetAll().FirstOrDefault(k => k.Id == id)?.hak;
-            if (yetki == "admin" || yetki == "muhasebe") //TODO: Recheck this
+            if (yetki == "admin" || yetki == "mudur" || yetki == "muhasebe") //TODO: Recheck this
             {
                 var result =
                     (from c in _kullaniciRepository.GetAll()
@@ -384,9 +405,9 @@ namespace CTD.Service.Services
                 return result;
             }
 
-            if (yetki == "sube" || yetki == "mudur")
+            if (yetki == "sube")
             {
-                var result = (from c in _kullaniciRepository.GetAll() where c.YETKILI && c.Id == id select c).ToList()
+                var result = (from c in _kullaniciRepository.GetAll() where c.YETKILI && (c.hak == "sube" || c.hak == "mudur" || c.hak != "admin") select c).ToList()
                     .Select(p => new ComboBoxIdTextDto {id = p.Id.ToString(), text = p.adi}).ToList();
                 return result;
             }

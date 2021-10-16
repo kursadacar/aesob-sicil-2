@@ -222,5 +222,185 @@
                     });
             }
         });
+
+        function meslekDuzenle(meslekid) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/GetirMeslek?meslekid=${meslekid}`,
+                function (result) {
+                    swal({
+                        title: "MESLEK DÜZENLEME",
+                        html: true,
+                        text: `<div>
+                                    <label>MESLEK KODU</label>
+                                    <input id='meslek-kodu-input' style='display:block !important;' type='text' value='${result.MESLEKKODU}' />
+                                    <label>MESLEK TANIMI</label>
+                                    <input id='meslek-tanimi-input' style='display:block !important;' type='text' value='${result.MESLEK}' />
+                               </div>`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Kaydet",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var Nace = {
+                                    meslekid: meslekid,
+                                    meslekkodu: $("#meslek-kodu-input").val(),
+                                    meslek: $("#meslek-tanimi-input").val(),
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(Nace,
+                                    "/Tanimlamalar/MeslekDuzenle",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Tanımlama başarı ile güncellendi", "success");
+                                            MeslekleriGetir();
+                                        }
+                                        else {
+                                            swal("Hata", "Güncelleme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
+
+        function meslekSil(meslekid) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/GetirMeslek?meslekid=${meslekid}`,
+                function (result) {
+                    swal({
+                        title: "Nace SİL",
+                        text: `${result.MESLEKKODU} kodlu Meslek'i silmek istediğinize emin misiniz?`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sil",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var postData = {
+                                    meslekid: meslekid,
+                                }
+                                $.ErcanAyhan.Server.PostAsync(postData,
+                                    "/Tanimlamalar/MeslekSil",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Meslek başarı ile silindi", "success");
+                                            MeslekleriGetir();
+                                        }
+                                        else {
+                                            swal("Hata", "Silme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
+
+        function naceDuzenle(naceid) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/NaceGetir?naceid=${naceid}`,
+                function (result) {
+                    swal({
+                        title: "NACE DÜZENLEME",
+                        html: true,
+                        text: `<div>
+                                    <label>NACE KODU</label>
+                                    <input id='nace-input' style='display:block !important;' type='text' value='${result.NACE}' />
+                                    <label>NACE Tanımı</label>
+                                    <input id='nace-tanim-input' style='display:block !important;' type='text' value='${result.TANIMI}' />
+                               </div>`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Kaydet",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var Nace = {
+                                    naceid: naceid,
+                                    yenitanim: $("#nace-tanim-input").val(),
+                                    yeninace: $("#nace-input").val(),
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(Nace,
+                                    "/Tanimlamalar/NaceDuzenle",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Tanımlama başarı ile güncellendi", "success");
+                                            NaceleriGetir($("#hdmeslekid").val());
+                                        }
+                                        else {
+                                            swal("Hata", "Güncelleme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
+
+        function naceSil(naceid) {
+            $.ErcanAyhan.Server.PostAsync(
+                "",
+                `/Tanimlamalar/NaceGetir?naceid=${naceid}`,
+                function (result) {
+                    swal({
+                        title: "Nace SİL",
+                        text: `${result.NACE} kodlu NACE'yi silmek istediğinize emin misiniz?`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sil",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var postData = {
+                                    naceid: naceid,
+                                }
+                                $.ErcanAyhan.Server.PostAsync(postData,
+                                    "/Tanimlamalar/NaceSil",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "NACE başarı ile silindi", "success");
+                                            NaceleriGetir($("#hdmeslekid").val());
+                                        }
+                                        else {
+                                            swal("Hata", "Silme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                }
+            );
+        }
     </script>
 }

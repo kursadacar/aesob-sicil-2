@@ -47,7 +47,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="odaid"/> <button type="button" id="btnOdaIptal" class="btn btn-danger" data-dismiss="modal">İptal</button> <input type="button" id="btnOdaKaydet" class="btn btn-primary" value="Kaydet"/>
+                <input type="hidden" id="odaid"/> <button type="button" id="btnOdaIptal" class="btn btn-danger" data-dismiss="modal">İptal</button>
+                <input type="button" id="btnOdaKaydet" class="btn btn-primary" value="Kaydet"/>
             </div>
         </div>
     </div>
@@ -68,7 +69,6 @@
         </div>
     </div>
 </div>
-
 
 @section scripts{
     <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
@@ -147,6 +147,50 @@
                     OdalariGetir();
                 });
         });
+
+        function odaSilQuery(odaID) {
+            $.ErcanAyhan.Server.PostAsync("",
+                "/Tanimlamalar/MeslekOdasiDuzenle?id=" + odaID,
+                function (result) {
+                    swal({
+                        title: "ODA SİLME",
+                        text: `${result.KISAAD} isimli odayı silmek istediğinize emin misiniz?`,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sil",
+                        cancelButtonText: "İptal",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var oda = {
+                                    Id: odaID,
+                                    KISAAD: "",
+                                    ACIKLAMA: "",
+                                    SINIF: "",
+                                    DURUM: ""
+                                };
+
+                                $.ErcanAyhan.Server.PostAsync(oda,
+                                    "/Tanimlamalar/MeslekOdasiSil",
+                                    function (result) {
+                                        if (result == "basarili") {
+                                            swal("Başarılı!", "Tanımlama başarı ile silindi", "success");
+                                            OdalariGetir();
+                                        }
+                                        else {
+                                            swal("Hata", "Silme işlemini yaparken bir hata oluştu", "error");
+                                        }
+                                    });
+                            } else {
+                                swal("İptal", "İşlem isteğiniz üzerine iptal edildi", "error");
+                            }
+                        }
+                    );
+                });
+        }
 
     </script>
 }

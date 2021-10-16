@@ -797,11 +797,18 @@ namespace CTD.Service.Services
                 where sm.MESLEKTERKTAR == null && sm.SICILID == sicilid
                 select new SonSicilMeslekListesi
                 {
-                    id = sm.Id, isyeriunvani = sm.ISYERIUNVANI, sinifi = sm.SINIF, kayittarihi = sm.KAYITTAR,
-                    vizetarihi = sm.VIZESURESIBITTAR, adres = sm.ISADRES, islemtarihi = sm.DEGTAR, odasi = mo.KISAAD,
+                    id = sm.Id, isyeriunvani = sm.ISYERIUNVANI, sinifi = sm.SINIF, kayittarihiDT = sm.KAYITTAR,
+                    vizetarihiDT = sm.VIZESURESIBITTAR, adres = sm.ISADRES, islemTarihiDT = sm.DEGTAR, odasi = mo.KISAAD,
                     nacekodu = n.NACE, meslekkodu = m.MESLEKKODU, meslek = m.MESLEK, mahalle = mh.MAHALLE,
                     cadde = cd.CADSOKBULV, ilce = i.ILCE, islemiyapan = iy.adi
                 }).ToList();
+
+            foreach(var item in t)
+            {
+                item.islemtarihi = item.islemTarihiDT?.ToString("dd.MM.yyyy");
+                item.kayittarihi = item.kayittarihiDT?.ToString("dd.MM.yyyy");
+                item.vizetarihi = item.vizetarihiDT?.ToString("dd.MM.yyyy");
+            }
 
             return t;
         }
@@ -817,10 +824,17 @@ namespace CTD.Service.Services
                 select new SonSicilMeslekDegisiklik_LogListesi
                 {
                     Id = sm.Id, SicilMeslekId = sm.SICILMESLEKID, IsyeriUnvani = sm.ISYERIUNVANI, Sinifi = sm.SINIF,
-                    KayitTarihi = sm.KAYITTAR, VizeTarihi = sm.VIZESURESIBITTAR, Adres = sm.ISADRES,
-                    IslemTarihi = sm.ISLEMTARIHI, Odasi = mo.KISAAD, NaceKodu = n.NACE, MeslekKodu = m.MESLEKKODU,
+                    KayitTarihiDT = sm.KAYITTAR, VizeTarihiDT = sm.VIZESURESIBITTAR, Adres = sm.ISADRES,
+                    IslemTarihiDT = sm.ISLEMTARIHI, Odasi = mo.KISAAD, NaceKodu = n.NACE, MeslekKodu = m.MESLEKKODU,
                     Meslek = m.MESLEK, Mahalle = "", Cadde = "", Ilce = "", IslemiYapan = iy.adi
                 }).ToList();
+
+            foreach(var item in t)
+            {
+                item.KayitTarihi = item.KayitTarihiDT?.ToString("dd.MM.yyyy");
+                item.VizeTarihi = item.VizeTarihiDT?.ToString("dd.MM.yyyy");
+                item.IslemTarihi = item.IslemTarihiDT?.ToString("dd.MM.yyyy");
+            }
             return t;
         }
 

@@ -12,6 +12,7 @@ using iTextSharp.text.pdf;
 
 namespace CTD.Sicil.Controllers
 {
+    [Authorize]
     public class RaporlarController : PublicController
     {
         private readonly IKullaniciService _kullaniciService;
@@ -99,7 +100,7 @@ namespace CTD.Sicil.Controllers
                             htmlicerik += "<div class='col-md-3 col-lg-2 col-sm-4 col-xs-6'>";
                             htmlicerik += "<div class='card' onclick=\"return SicilVeriListe(" + islem + ", " +
                                           personel.Id + ")\">";
-                            if (tt.Id == 1)
+                            if (tt.Id == 2018)
                                 htmlicerik += "<div class='header bg-success' style='padding:5px 0 5px 10px;'><h3>" +
                                               tt.TAHSILATTURU.ToLower() + "</h3></div>";
                             else if (tt.Id == 2)
@@ -142,7 +143,7 @@ namespace CTD.Sicil.Controllers
                         {
                             htmlicerik += "<div class='col-md-3 col-lg-2 col-sm-4 col-xs-6'>";
                             htmlicerik += "<div class='card' onclick=\"return SicilVeriListe(" + islem + ")\">";
-                            if (tt.Id == 1)
+                            if (tt.Id == 2018)
                                 htmlicerik += "<div class='header bg-success' style='padding:5px 0 5px 10px;'><h3>" +
                                               tt.TAHSILATTURU.ToLower() + "</h3></div>";
                             else if (tt.Id == 2)

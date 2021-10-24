@@ -15,6 +15,7 @@ using Microsoft.Reporting.WebForms;
 
 namespace CTD.Sicil.Controllers
 {
+    [Authorize]
     public class SicilController : AdminController
     {
         private readonly IKullaniciService _kullaniciService;
@@ -603,12 +604,12 @@ namespace CTD.Sicil.Controllers
             var prBabaAdi = new ReportParameter("prBabaAdi", sicil.BABAADI);
             var prAnneAdi = new ReportParameter("prAnneAdi", sicil.ANAADI);
             var prDogumYeri = new ReportParameter("prDogumYeri", sicil.DOGYERILCE);
-            var prDogumTarihi = new ReportParameter("prDogumTarihi", sicil.DOGTAR.ToString());
+            var prDogumTarihi = new ReportParameter("prDogumTarihi", sicil.DOGTAR?.ToString("dd.MM.yyyy"));
             var prUnvan = new ReportParameter("prUnvan", sicilmeslek.ISYERIUNVANI);
             var prAdres = new ReportParameter("prAdres", sicilmeslek.ISADRES2);
             var prOda = new ReportParameter("prOda", odaadi);
-            var prKayitTarihi = new ReportParameter("prKayitTarihi", sicilmeslek.KAYITTAR.ToString());
-            var prTerkTarihi = new ReportParameter("prTerkTarihi", sicilmeslek.MESLEKTERKTAR.ToString());
+            var prKayitTarihi = new ReportParameter("prKayitTarihi", sicilmeslek.KAYITTAR?.ToString("dd.MM.yyyy"));
+            var prTerkTarihi = new ReportParameter("prTerkTarihi", sicilmeslek.MESLEKTERKTAR?.ToString("dd.MM.yyyy"));
             var prNaceKodu = new ReportParameter("prNaceKodu", nace.NACE);
             var prNaceTanimi = new ReportParameter("prNaceTanimi", nace.TANIMI);
             lr.SetParameters(new[]
@@ -690,7 +691,7 @@ namespace CTD.Sicil.Controllers
                 p3 = new ReportParameter("sicilno", s.SICILNO.ToString());
                 p4 = new ReportParameter("babaadi", s.BABAADI);
                 p5 = new ReportParameter("dogumyeri", s.DOGYERILCE);
-                p6 = new ReportParameter("dogumtarihi", s.DOGTAR.ToString());
+                p6 = new ReportParameter("dogumtarihi", s.DOGTAR?.ToString("dd.MM.yyyy"));
                 p7 = new ReportParameter("kullanici", Accesses.Adi);
                 if (Accesses.Hak == "admin")
                 {
@@ -876,8 +877,8 @@ namespace CTD.Sicil.Controllers
             cell.PaddingLeft = 5f;
             cell.PaddingRight = 5f;
             table.AddCell(cell);
-            var debugDate = sicilmeslek.KayitTar.ToString();
-            cell = new PdfPCell(new Phrase(sicilmeslek.KayitTar.ToString(), proximanovaFont10));
+            var debugDate = sicilmeslek.KayitTar?.ToString("dd.MM.yyyy");
+            cell = new PdfPCell(new Phrase(sicilmeslek.KayitTar?.ToString("dd.MM.yyyy"), proximanovaFont10));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.PaddingBottom = 5f;
             cell.PaddingLeft = 5f;

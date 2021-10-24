@@ -23,7 +23,7 @@ namespace CTD.Sicil
         protected void Application_BeginRequest(Object sender, EventArgs e)
         {
             CultureInfo newCulture = CultureInfo.CreateSpecificCulture("tr-TR");
-            newCulture.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            newCulture.DateTimeFormat.ShortDatePattern = "dd.MM.yyyy";
             newCulture.DateTimeFormat.LongTimePattern = "";
             newCulture.DateTimeFormat.DateSeparator = ".";
             Thread.CurrentThread.CurrentCulture = newCulture;

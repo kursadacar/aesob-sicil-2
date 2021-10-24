@@ -6,6 +6,7 @@ using CTD.Web.Framework.Controller;
 
 namespace CTD.Sicil.Controllers
 {
+    [Authorize]
     public class HomeController : AdminController
     {
         private readonly IKullaniciService _kullaniciService;

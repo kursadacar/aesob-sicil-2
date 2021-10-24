@@ -8,6 +8,7 @@ using CTD.Web.Framework.Controller;
 
 namespace CTD.Sicil.Controllers
 {
+    [Authorize]
     public class TanimlamalarController : PublicController
     {
         private readonly IKullaniciService _kullaniciService;

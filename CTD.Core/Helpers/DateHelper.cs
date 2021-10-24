@@ -21,31 +21,31 @@ namespace CTD.Core.Helpers
             {
                 try
                 {
-                    result = DateTime.ParseExact(dateString, "MM.dd.yyyy", CultureInfo.InvariantCulture);
+                    result = DateTime.ParseExact(dateString, "dd\\MM\\yyyy", CultureInfo.InvariantCulture);
                 }
                 catch
                 {
                     try
                     {
-                        result = DateTime.ParseExact(dateString, "MM\\dd\\yyyy", CultureInfo.InvariantCulture);
+                        result = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     }
                     catch
                     {
                         try
                         {
-                            result = DateTime.ParseExact(dateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            result = DateTime.ParseExact(dateString, "MM.dd.yyyy", CultureInfo.InvariantCulture);
                         }
                         catch
                         {
                             try
                             {
-                                result = DateTime.ParseExact(dateString, "dd\\MM\\yyyy", CultureInfo.InvariantCulture);
+                                result = DateTime.ParseExact(dateString, "MM\\dd\\yyyy", CultureInfo.InvariantCulture);
                             }
                             catch
                             {
                                 try
                                 {
-                                    result = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                    result = DateTime.ParseExact(dateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
                                 }
                                 catch
                                 {

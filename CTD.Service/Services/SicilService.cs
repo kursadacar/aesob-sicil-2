@@ -380,7 +380,7 @@ namespace CTD.Service.Services
                         sadto.AdSoyad = m.ADSOYAD;
                         sadto.BabaAdi = m.BABAADI;
                         sadto.AnneAdi = m.ANAADI;
-                        sadto.DogumTarihi = m.DOGTAR.ToString();
+                        sadto.DogumTarihi = m.DOGTAR?.ToString("dd.MM.yyyy");
                         sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                         sadto.Durum = "tekkayit";
                         liste.Add(sadto);
@@ -398,7 +398,7 @@ namespace CTD.Service.Services
                             sadto.BabaAdi = item.BABAADI;
                             sadto.AnneAdi = item.ANAADI;
                             sadto.TcKimlikNo = item.TCKIMLIKNO;
-                            var it = DateHelper.GetDateTimeCultural(item.DOGTAR.ToString());
+                            var it = DateHelper.GetDateTimeCultural(item.DOGTAR?.ToString("dd.MM.yyyy"));
                             sadto.DogumTarihi = string.Format("{0:d}", it);
                             sadto.SicilNo = int.Parse(item.SICILNO.ToString());
                             sadto.Durum = "tckimliknoyagoreliste";
@@ -421,7 +421,7 @@ namespace CTD.Service.Services
                         sadto.AdSoyad = m.ADSOYAD;
                         sadto.BabaAdi = m.BABAADI;
                         sadto.AnneAdi = m.ANAADI;
-                        sadto.DogumTarihi = m.DOGTAR.ToString();
+                        sadto.DogumTarihi = m.DOGTAR?.ToString("dd.MM.yyyy");
                         sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                         sadto.Durum = "tekkayit";
                         liste.Add(sadto);
@@ -439,7 +439,7 @@ namespace CTD.Service.Services
                             sadto.BabaAdi = item.BABAADI;
                             sadto.AnneAdi = item.ANAADI;
                             sadto.TcKimlikNo = item.TCKIMLIKNO;
-                            var it = DateHelper.GetDateTimeCultural(item.DOGTAR.ToString());
+                            var it = DateHelper.GetDateTimeCultural(item.DOGTAR?.ToString("dd.MM.yyyy"));
                             sadto.DogumTarihi = string.Format("{0:d}", it);
                             sadto.SicilNo = int.Parse(item.SICILNO.ToString());
                             sadto.Durum = "tckimliknoyagoreliste";
@@ -463,7 +463,7 @@ namespace CTD.Service.Services
                     sadto.AdSoyad = m.ADSOYAD;
                     sadto.BabaAdi = m.BABAADI;
                     sadto.AnneAdi = m.ANAADI;
-                    sadto.DogumTarihi = m.DOGTAR.ToString();
+                    sadto.DogumTarihi = m.DOGTAR?.ToString("dd.MM.yyyy");
                     sadto.SicilNo = int.Parse(m.SICILNO.ToString());
                     sadto.Durum = "tekkayit";
                     liste.Add(sadto);
@@ -850,7 +850,7 @@ namespace CTD.Service.Services
 
         public int GetirSicilMeslekDegisiklik_LogSayisi(int sicilid)
         {
-            var dt = DateHelper.GetDateTimeCultural(string.Format("{0:dd/MM/yyyy}", DateTime.Now));
+            var dt = DateHelper.GetDateTimeCultural(string.Format("{0:dd.MM.yyyy}", DateTime.Now));
             var sayi = _sicilMeslekDegisiklik_LogRepository.GetAll()
                 .Where(c => c.SICILID == sicilid && c.ISLEMTARIHI == dt).Count();
             return sayi;
@@ -928,7 +928,7 @@ namespace CTD.Service.Services
                 {
                     if(DateTime.TryParse(item.DogumTarihi, out var date))
                     {
-                        item.DogumTarihi = ((DateTime?)date).ToString();
+                        item.DogumTarihi = ((DateTime?)date)?.ToString("dd.MM.yyyy");
                     }
                 }
                 return liste;
@@ -950,7 +950,7 @@ namespace CTD.Service.Services
 
         public SicilMeslekDegisiklik_Log GetirSicilMeslekDegisiklik_Log(int sicilid, int sicilmeslekid)
         {
-            var dt = DateHelper.GetDateTimeCultural(string.Format("{0:dd/MM/yyyy}", DateTime.Now));
+            var dt = DateHelper.GetDateTimeCultural(string.Format("{0:dd.MM.yyyy}", DateTime.Now));
             return _sicilMeslekDegisiklik_LogRepository.GetAll().OrderByDescending(s => s.Id).FirstOrDefault(c =>
                 c.SICILID == sicilid && c.SICILMESLEKID == sicilmeslekid && c.ISLEMTARIHI == dt);
         }

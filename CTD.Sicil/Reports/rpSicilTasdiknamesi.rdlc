@@ -656,7 +656,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Veriliş Tarihi : " &amp; DateTime.Now.ToString("dd/MM/yyyy")</Value>
+                <Value>="Veriliş Tarihi : " &amp; DateTime.Now.ToString("dd.MM.yyyy")</Value>
                 <Style>
                   <FontFamily>Times New Roman</FontFamily>
                   <FontWeight>Bold</FontWeight>
@@ -1382,7 +1382,7 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="prDogumTarihi">
-      <DataType>DateTime</DataType>
+      <DataType>String</DataType>
       <Nullable>true</Nullable>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

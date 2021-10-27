@@ -137,12 +137,12 @@ namespace CTD.Sicil.Controllers
             return Json(_sicilService.GetirIlceler(), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetirIlceyeGoreMahalle(int id)
+        public ActionResult GetirIlceyeGoreMahalle(int? id)
         {
             return Json(_sicilService.GetirIlceyeGoreMahalle(id), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetirMahalleyeGoreCadSokBulv(int id)
+        public ActionResult GetirMahalleyeGoreCadSokBulv(int? id)
         {
             return Json(_sicilService.GetirMahalleyeGoreCadSokBulv(id), JsonRequestBehavior.AllowGet);
         }

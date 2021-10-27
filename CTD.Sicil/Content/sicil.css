@@ -30,6 +30,18 @@
     justify-content: end;
 }
 
+.inline-button{
+    cursor:pointer;
+    padding:4px;
+    background-color:#fff;
+    color:#237dfa;
+    border-radius:4px;
+    transition-duration: 0.22s;
+}
+.inline-button:hover{
+    transform:scale(1.05);
+}
+
 .flex-wrap{
     flex-wrap: wrap;
 }

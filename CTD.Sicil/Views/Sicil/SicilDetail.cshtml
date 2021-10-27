@@ -30,23 +30,23 @@
                         <legend>ADRES BİLGİLERİ</legend>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>İŞ ADRESİ İLÇE</label> <input class="form-control" data-attribute="ISADRESILCE" onchange="funcIlceChange(this)" /> <input type="hidden" data-attribute="ID" /> <input type="hidden" data-attribute="SICILID" />
+                                <label>İŞ ADRESİ İLÇE</label> <input class="form-control" data-attribute="ISADRESILCE" onchange="funcIlceChange(this); updateAddress();" /> <input type="hidden" data-attribute="ID" /> <input type="hidden" data-attribute="SICILID" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>İŞ ADRESİ MAHALLE</label> <input class="form-control" data-attribute="ISADRESMAHALLE" onchange="funcMahalleChange(this)" />
+                                <label>İŞ ADRESİ MAHALLE</label> <input class="form-control" data-attribute="ISADRESMAHALLE" onchange="funcMahalleChange(this); updateAddress();" />
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>BULVAR/CADDE/SOKAK</label> <input class="form-control" data-attribute="ISADRESCADSOKBULV" />
+                                <label>BULVAR/CADDE/SOKAK</label> <input class="form-control" data-attribute="ISADRESCADSOKBULV" onchange="updateAddress();" />
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <label>APARTMAN/BİNA/NO</label> <input type="text" class="form-control" data-attribute="ISADRES" onkeyup="BuyukHarf(this);" style="background-color: #f8fafb;" />
+                                <label>APARTMAN/BİNA/NO</label> <input type="text" class="form-control" data-attribute="ISADRES" onkeyup="BuyukHarf(this); updateAddress();" style="background-color: #f8fafb;" />
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -635,7 +635,6 @@
     <script src="/Scripts/select2/select2.min.js"></script>
 
     <script>
-
         $("#dvYapilanIslemler").hide();
         if ($("#durum").val() == 1) {
             $("#anabaslik").addClass("bg-green");
@@ -905,6 +904,18 @@
                     });
                 });
             $("[data-attribute='IsAdresCadSokBulv']").select2('open');
+        }
+
+        function updateAddress() {
+            let ilce = $("[data-attribute='ISADRESILCE']").select2('data').text;
+            let mahalle = $("[data-attribute='ISADRESMAHALLE']").select2('data').text;
+            let cadSokBulv = $("[data-attribute='ISADRESCADSOKBULV']").select2('data').text;
+            let adres = $("[data-attribute='ISADRES']").val();
+
+            let tumAdres = mahalle + " " + cadSokBulv + " " + adres + " - " + ilce + " / ANTALYA";
+
+            $("[data-attribute='ISADRES2']").val(tumAdres);
+            $("#lblAdresTum").text(tumAdres);
         }
 
         function funcIlceChange3() {

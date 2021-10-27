@@ -46,6 +46,7 @@ namespace CTD.Service.Interfaces
         List<MakbuzDokumSilDto> GetirSilinecekMakbuzlar(string serino, int makbuzno, DateTime makbuztarihi);
         void MakbuzDokumSil(int makbuzid);
         List<ComboBoxIdTextDto> GetirVezneler(int id);
+        Tuple<string, int> SeriNoGetir(int kullaniciId);
         List<MakbuzDokum> TahsilatTuruneGoreListe(DateTime ilktarih, DateTime sontarih, int kayiteden);
         List<TahsilatTuruneGoreListeDto> TahsilatTuruneGoreListe2(DateTime ilktarih, DateTime sontarih, int kayiteden);
         List<TahsilatTuruneGoreListeDto> TahsilatTuruneGoreIDListe(DateTime ilktarih, DateTime sontarih, int kayiteden);

@@ -27,8 +27,8 @@ namespace CTD.Service.Interfaces
         Mahalle GetirMahalle(int? id);
         CadSokBulv GetirCadSokBulv(int? id);
         Nace GetirMeslekKodu(string id);
-        List<ComboBoxIdTextDto> GetirIlceyeGoreMahalle(int? id);
-        List<ComboBoxIdTextDto> GetirMahalleyeGoreCadSokBulv(int? id);
+        List<ComboBoxIdTextDto> GetirIlceyeGoreMahalle(int? ilceId);
+        List<ComboBoxIdTextDto> GetirMahalleyeGoreCadSokBulv(int? mahalleId);
         List<SicilAramaDto> GetirUyeler(string arama);
         SicilDetailDto SicilDetail(int sicilno);
         void SicilGuncelle(Sicil entity);

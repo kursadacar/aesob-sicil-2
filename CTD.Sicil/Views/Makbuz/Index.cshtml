@@ -211,15 +211,16 @@
                         data: {
                             sicilno: sicilno,
                             sinif: sinif,
-                            islem: islem
+                            islem: islem,
+                            userId: @Accesses.Id
                         },
                         datatype: "json",
                         success: function (tm) {
                             $("#lblAdSoyad").text(tm.AdSoyad + " (" + sicilno + ")");
                             $("#hdAdSoyad").val(tm.AdSoyad);
                             $("#hdAdSoyad2").val(tm.AdSoyad);
-                            $("[data-attribute='txtSeriNo']").val(tm.Makbuz.OnTaki);
-                            $("[data-attribute='txtMakbuzNo']").val(tm.Makbuz.MakbuzNo);
+                            let seriNoSelector = $("[data-attribute='txtSeriNo']").val(tm.Makbuz.OnTaki);
+                            let makbuzNoSelector = $("[data-attribute='txtMakbuzNo']").val(tm.Makbuz.MakbuzNo);
                             $("[data-attribute='txtMakbuzTarihi']").val(bugun());
                             $("[data-attribute='txtAciklama']").val(islemtext + " (" + siniftext + ")");
 
@@ -234,7 +235,8 @@
                                 type: "GET",
                                 data: tm.Kullanicilar
                             });
-                            $("[data-attribute='Kullanicilar']").select2("val", tm.KullaniciId);
+                            let usersSelector = $("[data-attribute='Kullanicilar']").select2("val", tm.KullaniciId);
+
                             $.ajax({
                                 url: "/Makbuz/_MakbuzDokum",
                                 datatype: "Json",

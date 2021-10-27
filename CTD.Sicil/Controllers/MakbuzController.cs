@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using CTD.Core.Entities;
 using CTD.Core.Helpers;
@@ -31,9 +32,9 @@ namespace CTD.Sicil.Controllers
             return View();
         }
 
-        public ActionResult MakbuzDokum(int? sicilno, int? islem, int? sinif)
+        public ActionResult MakbuzDokum(int? sicilno, int? islem, int? sinif, int? userId)
         {
-            var result = _makbuzDokumService.MakbuzDokum(sicilno, islem, sinif, Accesses.Id);
+            var result = _makbuzDokumService.MakbuzDokum(sicilno, islem, sinif, userId);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -977,11 +978,30 @@ namespace CTD.Sicil.Controllers
             var m = _makbuzDokumService.MakbuzKontrol(model.SeriNo, model.MakbuzNo,
                 DateHelper.GetDateTimeCultural(model.MakbuzTarihi), out string exception);
 
+            var islem = m?.Islemler.FirstOrDefault(x => x.id == "1");
+
+            if(islem != null)
+            {
+                islem.id = "2018";
+            }
+
             if(exception != null)
             {
                 return Json(exception, JsonRequestBehavior.AllowGet);
             }
             return Json(m, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SeriNoGetir(int kullaniciId)
+        {
+            var result = _makbuzDokumService.SeriNoGetir(kullaniciId);
+            if(result.Item1 == "error")
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+            var results = new { OnTaki = result.Item1, MakbuzNo = result.Item2 };
+
+            return Json(results, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult MakbuzYazdir(int id)

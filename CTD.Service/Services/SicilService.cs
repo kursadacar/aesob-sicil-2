@@ -345,17 +345,17 @@ namespace CTD.Service.Services
             return _mesleklerRepository.GetAll().FirstOrDefault(o => o.Id == id).MESLEK;
         }
 
-        public List<ComboBoxIdTextDto> GetirIlceyeGoreMahalle(int? id)
+        public List<ComboBoxIdTextDto> GetirIlceyeGoreMahalle(int? ilceId)
         {
-            var result = (from a in _mahalleRepository.GetAll() where a.ILCEID == id orderby a.MAHALLE select a)
+            var result = (from a in _mahalleRepository.GetAll() where a.ILCEID == ilceId orderby a.MAHALLE select a)
                 .ToList().Select(p => new ComboBoxIdTextDto {id = p.Id.ToString(), text = p.MAHALLE}).ToList();
             return result;
         }
 
-        public List<ComboBoxIdTextDto> GetirMahalleyeGoreCadSokBulv(int? id)
+        public List<ComboBoxIdTextDto> GetirMahalleyeGoreCadSokBulv(int? mahalleId)
         {
             var result =
-                (from a in _cadSokBulvRepository.GetAll() where a.MAHALLEID == id orderby a.CADSOKBULV select a)
+                (from a in _cadSokBulvRepository.GetAll() where a.MAHALLEID == mahalleId orderby a.CADSOKBULV select a)
                 .ToList().Select(p => new ComboBoxIdTextDto {id = p.Id.ToString(), text = p.CADSOKBULV}).ToList();
             return result;
         }

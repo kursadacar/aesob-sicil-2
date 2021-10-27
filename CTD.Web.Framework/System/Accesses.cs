@@ -14,6 +14,7 @@ namespace System.Web.Mvc
 
         public static bool IsAdmin => Hak == "admin";
 
+        public static bool HasAuthorization => Hak == "admin" || Hak == "mudur";
         public static string Adi
         {
             get

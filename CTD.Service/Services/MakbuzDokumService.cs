@@ -693,6 +693,16 @@ namespace CTD.Service.Services
             return mm;
         }
 
+        public Tuple<string,int> SeriNoGetir(int kullaniciId)
+        {
+            var makbuz = _makbuzRepository.GetAll().FirstOrDefault(x => x.KULLANICI == kullaniciId);
+            if(makbuz != null)
+            {
+                return new Tuple<string, int>(makbuz.ONTAKI, makbuz.MAKBUZNO);
+            }
+            return new Tuple<string, int>("error", -1);
+        }
+
         private List<ComboBoxIdTextDto> GetirSicilMeslek(int? sicilno)
         {
             if (sicilno != null)

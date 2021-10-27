@@ -98,13 +98,15 @@ namespace CTD.Sicil.Controllers
                 {
                     ds += "<tr href='http://www.google.com'><td>" + item.KISAAD + "</td><td>" + item.ACIKLAMA +
                           "</td><td>Aktif</td><td>" +
+                          (Accesses.HasAuthorization ? 
                           "<div>" +
                               "<a href='#' id='" + item.Id + "' data-toggle='modal' data-target='#modalEdit' onclick='return MeslekOdasiDuzenle(" +
                               item.Id + ");' title='Düzenle' data-id='" + item.Id +
                               "'><i class='fa fa-edit'></i>" +
-                          "</a>" +
+                              "</a>" +
                           $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return odaSilQuery({item.Id});' title='Sil'><i class='fa fa-trash'></a>" +
-                          "</div></td></tr>";
+                          "</div>" : "") +
+                          "</td></tr>";
                 }
                 else
                 {
@@ -159,9 +161,11 @@ namespace CTD.Sicil.Controllers
             foreach (var item in model)
                 ds += "<tr href='http://myspace.com'><td>" + item.Id + "</td><td>" + item.ACIKLAMA +
                       "</td><td>" +
+                      (Accesses.HasAuthorization ? 
                       $"<a href='#' id='{item.Id}' onclick='return TerkNedeniDuzenle({item.Id});' title='Düzenle' data-id='{item.Id}'><i class='fa fa-edit'></i></a>" +
                       "</td><td>" +
-                      $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return terkNedeniSilQuery({item.Id});' title='Sil'><i class='fa fa-trash'></a>" +
+                      $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return terkNedeniSilQuery({item.Id});' title='Sil'><i class='fa fa-trash'></a>"
+                      : "") +
                       $"</td></tr>";
             ds += "</tbody></table>";
             return Json(new {ds}, JsonRequestBehavior.AllowGet);
@@ -218,6 +222,7 @@ namespace CTD.Sicil.Controllers
             foreach (var item in mahalleler)
                 ds += "<tr href='http://myspace.com'><td>" + item.Id + "</td><td>" + item.MAHALLE + "</td>" +
                     "<td>" +
+                        (Accesses.HasAuthorization ?
                         "<div>" +
                             $"<a href='#' onclick='return mahalleDuzenle({ilceid},{item.Id});' title='Sil'>" +
                                 "<i class='fa fa-edit'></i>" +
@@ -225,7 +230,7 @@ namespace CTD.Sicil.Controllers
                             $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return mahalleSil({ilceid},{item.Id});' title='Sil'>" +
                                 "<i class='fa fa-trash'></i>" +
                             $"</a>" +
-                        "</div>" +
+                        "</div>" : "") +
                     "</td>" +
                     "</tr>";
             ds += "</tbody></table>";
@@ -285,6 +290,7 @@ namespace CTD.Sicil.Controllers
             foreach (var item in sokaklar)
                 ds += "<tr href='http://myspace.com'><td>" + item.Id + "</td><td>" + item.CADSOKBULV + "</td>" +
                         "<td>" +
+                            (Accesses.HasAuthorization ? 
                             "<div>" +
                                 $"<a href='#' onclick='return cadSokBulvDuzenle({mahalleid},{item.Id});' title='Sil'>" +
                                     "<i class='fa fa-edit'></i>" +
@@ -292,7 +298,7 @@ namespace CTD.Sicil.Controllers
                                 $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return cadSokBulvSil({mahalleid},{item.Id});' title='Sil'>" +
                                     "<i class='fa fa-trash'></i>" +
                                 $"</a>" +
-                            "</div>" +
+                            "</div>" : "") +
                         "</td>" +
                     "</tr>";
             ds += "</tbody></table>";
@@ -347,6 +353,7 @@ namespace CTD.Sicil.Controllers
                 ds += "<tr href='http://myspace.com'><td>" + item.Id + "</td><td>" + item.MESLEKKODU + "</td><td>" +
                       item.MESLEK + "</td>" +
                         "<td>" +
+                            (Accesses.HasAuthorization ?
                             "<div>" +
                                 $"<a href='#' onclick='return meslekDuzenle({item.Id});' title='Sil'>" +
                                     "<i class='fa fa-edit'></i>" +
@@ -354,7 +361,7 @@ namespace CTD.Sicil.Controllers
                                 $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return meslekSil({item.Id});' title='Sil'>" +
                                     "<i class='fa fa-trash'></i>" +
                                 $"</a>" +
-                            "</div>" +
+                            "</div>" : "") +
                         "</td>" +
                       "</tr>";
             ds += "</tbody></table>";
@@ -414,6 +421,7 @@ namespace CTD.Sicil.Controllers
             foreach (var item in naceler)
                 ds += "<tr><td>" + item.Id + "</td><td>" + item.NACE + "</td><td>" + item.TANIMI + "</td>" +
                         "<td>" +
+                            (Accesses.HasAuthorization ?
                             "<div style='min-width:110px;'>" +
                                 $"<a href='#' onclick='return naceDuzenle({item.Id});' title='Sil'>" +
                                     "<i class='fa fa-edit'></i>" +
@@ -421,7 +429,7 @@ namespace CTD.Sicil.Controllers
                                 $"<a href='#' style='margin-left:8px; color:tomato;' onclick='return naceSil({item.Id});' title='Sil'>" +
                                     "<i class='fa fa-trash'></i>" +
                                 $"</a>" +
-                            "</div>" +
+                            "</div>" : "") +
                         "</td>" +
                     "</tr>";
             ds += "</tbody></table>";

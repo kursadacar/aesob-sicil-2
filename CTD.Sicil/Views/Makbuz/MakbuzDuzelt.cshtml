@@ -125,12 +125,10 @@
         $("[data-attribute='dvSicilMakbuz']").hide();
 
         function funcEskiMakbuzBilgileri(e) {
-            console.log(e);
             if (e == "not-found" || e == null) {
                 swal("Hata", "Bu kriterlere uygun bir makbuz bulunamadı.", "error");
             }
-            else if (e.MakbuzDokum.ISLEM == 2018 ||
-                e.MakbuzDokum.ISLEM == 2 ||
+            else if (e.MakbuzDokum.ISLEM == 2 ||
                 e.MakbuzDokum.ISLEM == 3 ||
                 e.MakbuzDokum.ISLEM == 4 ||
                 e.MakbuzDokum.ISLEM == 5 ||
@@ -141,7 +139,8 @@
                 e.MakbuzDokum.ISLEM == 10 ||
                 e.MakbuzDokum.ISLEM == 11 ||
                 e.MakbuzDokum.ISLEM == 1017 ||
-                e.MakbuzDokum.ISLEM == 2017) {
+                e.MakbuzDokum.ISLEM == 2017 ||
+                e.MakbuzDokum.ISLEM == 2018) {
 
                 $("#hdId").val(e.ID);
                 $("#EsnSicNo").val(e.MakbuzDokum.SICILNO);
@@ -183,6 +182,16 @@
                 $("[data-attribute='sinifim']").select2("val", parseInt(yazi));
 
                 $("[data-attribute='dvSicilMakbuz']").show();
+            }
+            else {
+                let islemIsim = "";
+                for (let i = 0; i < e.Islemler.length; i++) {
+                    if (e.Islemler[i].id == e.MakbuzDokum.ISLEM) {
+                        islemIsim = e.Islemler[i].text;
+                        break;
+                    }
+                }
+                swal("Hata", "Makbuz düzeltme için uygun değil (İşlem Tipi: " + islemIsim + ")", "error");
             }
 
         }
